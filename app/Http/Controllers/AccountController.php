@@ -77,7 +77,7 @@ class AccountController extends Controller
             return response()->json(["error" => false, "message" => Lang::get('account.loginOk')]);
         }
         else
-            return response()->json(["error" => true, "message" => 'Invalid username or password !']);
+            return response()->json(["error" => true, "message" => Lang::get('account.loginFail')]);
     }
 
 
