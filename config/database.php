@@ -46,6 +46,19 @@ return [
 
     'connections' => [
 
+        'website' => [
+            'driver'    => 'mysql',
+            'host'      => env('WEBSITE_HOST', 'localhost'),
+            'database'  => env('WEBSITE_DATABASE', 'website'),
+            'username'  => env('WEBSITE_USERNAME', 'root'),
+            'password'  => env('WEBSITE_PASSWORD', ''),
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+            'strict'    => false,
+        ],
+    
+        /*
         'sqlite' => [
             'driver'   => 'sqlite',
             'database' => storage_path('database.sqlite'),
@@ -84,7 +97,7 @@ return [
             'charset'  => 'utf8',
             'prefix'   => '',
         ],
-
+        */
     ],
 
     /*
