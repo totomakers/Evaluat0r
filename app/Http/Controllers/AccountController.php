@@ -86,6 +86,7 @@ class AccountController extends Controller
      */
     public function getLogout()
     {
-
+        Auth::logout();
+        return response()->json(["error" => false, "message" => Lang::get('account.logoutOk')]);
     }
 }

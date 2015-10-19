@@ -1,5 +1,6 @@
-<html>
+<html lang="en">
     <head>
+        <meta charset="utf-8">
         <link rel="stylesheet" type="text/css" href="{!! URL::asset('bower/bootstrap/dist/css/bootstrap.min.css'); !!}"/>
         <link rel="stylesheet" type="text/css" href="{!! URL::asset('bower/animate.css/animate.min.css'); !!}"/>
         <link rel="stylesheet" type="text/css" href="{!! URL::asset('bower/font-awesome/css/font-awesome.min.css'); !!}"/>

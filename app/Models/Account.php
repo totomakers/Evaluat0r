@@ -9,6 +9,8 @@ use Illuminate\Auth\Authenticatable as Authenticatable;
 class Account extends Model implements AuthenticatableContract
 {
     use Authenticatable;
+    
+    public $timestamps = false;
 
     // Basic configuration
     // $connection is the database name in config/database.php

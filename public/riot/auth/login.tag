@@ -40,9 +40,6 @@
         login(e) {
             //call api
             credentials = {'username' : $("#email").val(), 'password' : $("#password").val()};
-            
-            console.log(credentials);
-            
             $.ajax({type: "POST", url:'/api/accounts/login', data: credentials, success: self.successLogin}).fail(self.failLogin);
         }
         
