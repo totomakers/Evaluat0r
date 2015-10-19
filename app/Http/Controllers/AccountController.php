@@ -17,6 +17,11 @@ class AccountController extends Controller
     {
     }
 
+    public function vueLogin()
+    {
+         return view('account.login');
+    }
+    
     /**
      * getAll() return all Account in database
      * @return jsonArray return a json array with all accounts
@@ -69,7 +74,7 @@ class AccountController extends Controller
 
         if(Auth::attempt(['username' => $username, 'password' => $password]))
         {
-            return response()->json(["error" => false, "message" => "OK"]);
+            return response()->json(["error" => false, "message" => Lang::get('account.loginOk')]);
         }
         else
             return response()->json(["error" => true, "message" => 'Invalid username or password !']);

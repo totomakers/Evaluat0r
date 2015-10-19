@@ -17,6 +17,8 @@ Route::get('/', function () {
 });
 */
 
+Route::get('/', ['as' => 'appli::home', 'uses' => 'AccountController@vueLogin']);
+
 Route::group(['as' => 'api', 'prefix' => 'api'], function () 
 {
     //|-------------------
@@ -24,7 +26,7 @@ Route::group(['as' => 'api', 'prefix' => 'api'], function ()
     //|-------------------
     Route::group(['as' => '::accounts', 'prefix' => 'accounts'], function () 
     {
-        Route::get('', ['as' => '::getAll', 'uses'=>'AccountController@getAll']);
+        Route::get('/', ['as' => '::getAll', 'uses'=>'AccountController@getAll']);
         Route::get('/{id}', ['as' => '::get', 'uses'=>'AccountController@getById'])->where('id', '[0-9]+');
         
         Route::get('/login', function(){});
