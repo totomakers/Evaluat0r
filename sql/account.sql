@@ -1,3 +1,9 @@
+/*
+SQLyog Community v12.12 (64 bit)
+MySQL - 5.6.26 : Database - evaluat0r
+*********************************************************************
+*/
+
 /*!40101 SET NAMES utf8 */;
 
 /*!40101 SET SQL_MODE=''*/;
@@ -12,9 +18,12 @@ DROP TABLE IF EXISTS `account`;
 
 CREATE TABLE `account` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Identifiant de l''utilisateur',
+  `email` text NOT NULL COMMENT 'Email de l''utilisateur',
+  `sha1_pass` text NOT NULL COMMENT 'Mot de passe utilisateur',
   `lastname` text NOT NULL COMMENT 'Nom de l''utilisateur',
   `firstname` text NOT NULL COMMENT 'Prenom de l''utilisateur',
   `rank` int(11) NOT NULL DEFAULT '0' COMMENT 'Rang de l''utilisateur',
+  `remember_token` text NOT NULL COMMENT 'Token du remember me',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
