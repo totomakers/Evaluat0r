@@ -11,6 +11,24 @@
 |
 */
 
+/*
 Route::get('/', function () {
     return view('welcome');
+});
+*/
+
+Route::group(['as' => 'api', 'prefix' => 'api'], function () 
+{
+    //|-------------------
+    //| Auth routes
+    //|-------------------
+    Route::group(['as' => '::accounts', 'prefix' => 'accounts'], function () 
+    {
+        Route::get('', ['as' => '::getAll', 'uses'=>'AccountController@getAll']);
+        Route::get('/{id}', ['as' => '::get', 'uses'=>'AccountController@getById'])->where('id', '[0-9]+');
+        
+        Route::get('/login', function(){});
+        Route::post('/login', ['as' => '::login', 'uses'=>'AccountController@postLogin']);
+    });
+   
 });

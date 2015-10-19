@@ -39,7 +39,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC+1',
+    'timezone' => 'Europe/Paris',
 
     /*
     |--------------------------------------------------------------------------
@@ -141,9 +141,13 @@ return [
          * Application Service Providers...
          */
         App\Providers\AppServiceProvider::class,
-        App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        
+        /*
+         * Evaluat0r
+         */
+        App\Providers\AuthProvider::class,
 
     ],
 

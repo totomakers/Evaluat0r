@@ -46,10 +46,10 @@ return [
 
     'connections' => [
 
-        'website' => [
+        'evaluat0r' => [
             'driver'    => 'mysql',
             'host'      => env('WEBSITE_HOST', 'localhost'),
-            'database'  => env('WEBSITE_DATABASE', 'website'),
+            'database'  => env('WEBSITE_DATABASE', 'evaluat0r'),
             'username'  => env('WEBSITE_USERNAME', 'root'),
             'password'  => env('WEBSITE_PASSWORD', ''),
             'charset'   => 'utf8',
