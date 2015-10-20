@@ -6,11 +6,13 @@
         <link rel="stylesheet" type="text/css" href="{!! URL::asset('bower/font-awesome/css/font-awesome.min.css'); !!}"/>
         <link rel="stylesheet" type="text/css" href="{!! URL::asset('custom/css/lumen.min.css'); !!}"/>
         <link rel="stylesheet" type="text/css" href="{!! URL::asset('custom/css/style.css'); !!}"/>
+        @yield('css')
         <title>Evaluat0r - @yield('page_title')</title>
     </head>
+     @yield('menu')
     <body>
         <div class="container">
-            @yield('content')
+           @yield('content')
         </div>
     </body>
     @yield('riot_tag')

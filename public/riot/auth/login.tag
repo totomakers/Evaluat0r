@@ -10,7 +10,7 @@
                 <div class="panel panel-default">
                   <div class="panel-body">
                     <div class="text-center">
-                        <img src="custom/picture/user.png" alt="" class="profil-picture img-circle">
+                        <img src="custom/picture/user.png" alt="" class="login-picture img-circle">
                     </div>
                     <hr>
                     <div class="alert alert-danger animated fadeIn" show={error}>{ message }</div>
@@ -47,9 +47,9 @@
         successLogin(data) {
             self.message = data.message;
             self.error = data.error;  
-            self.update();
-            
+           
             if(self.error == false) document.location.href = '/app'; //redirect when login ok
+            else self.update();
         }
         
         //login fail - api unvailable

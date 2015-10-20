@@ -19,10 +19,7 @@ Route::get('/', function () {
 
 Route::get('/', ['as' => 'appli::login', 'uses' => 'AccountController@vueLogin']);
 
-Route::get('/app', ['as' => 'appli::home', 'middleware' => 'auth.rank:0', function()
-{
-     return 'Hello World';
-}]);
+Route::get('/app', ['as' => 'appli::home', 'middleware' => 'auth.rank:0', 'uses'=>'AppController@home']);
 
 Route::group(['as' => 'api', 'prefix' => 'api'], function () 
 {

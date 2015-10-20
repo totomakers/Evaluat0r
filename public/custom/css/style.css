@@ -1,5 +1,17 @@
-.profil-picture
+.login-picture
 {
     width:128px;
     height: auto;
+}
+.profil-picture
+{
+    width:64px;
+    height: auto;
+    margin-top : 10%;
+    margin-bottom : 10%;
+}
+
+.fa 
+{
+color: #158CBA
 }
