@@ -34,7 +34,7 @@ function router(collections, id, action)
         
         default: 
             pageTitle += 'Accueil';
-            riot.mount(selector, 'home');
+            riot.mount(selector, 'home', api);
         break;
     }
     

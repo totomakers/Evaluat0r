@@ -22,10 +22,9 @@
 
 @section('js_script')
 <script type="text/javascript" src="{!! URL::asset('custom/js/sidebar.js'); !!}"></script>
-<script type="text/javascript" src="{!! URL::asset('riot/app/auth.js'); !!}"></script>
+<script type="text/javascript" src="{!! URL::asset('riot/app/api.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('riot/app/router.js'); !!}"></script>
 <script>
-    riot.mount('app_nav', auth);
-    riot.mount('app');
+    riot.mount('app_nav', api);
 </script>
 @endsection

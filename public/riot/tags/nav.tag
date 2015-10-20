@@ -22,7 +22,7 @@
                     <li show={user.rank==2}><a href="#themes">Thèmes<i class="pull-right fa fa-cube fa-lg"></i></a></li>
                     <li show={user.rank==2}><a href="#modeles">Modèles<i class="pull-right fa fa-cubes fa-lg"></i></a></li>
                     <li show={user.rank==0}><a href="#eval">Evaluation<i class="pull-right fa fa-pencil fa-lg"></i></a></li>
-                    <li><a href="#" onclick={auth.logout}>Déconnexion<i class="pull-right fa fa-sign-out fa-lg"></i></a></li>
+                    <li><a href="#" onclick={api.logout}>Déconnexion<i class="pull-right fa fa-sign-out fa-lg"></i></a></li>
                 </ul>
             </div>
         </div>
