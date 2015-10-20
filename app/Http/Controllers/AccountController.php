@@ -62,6 +62,25 @@ class AccountController extends Controller
             return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
         }
     }
+    
+    /**
+     * getProfil return the current connected user
+     * @return jsonArray return a json array with wanted account
+     */
+    public function getProfil()
+    {
+        try
+        {
+            $account = Auth::user();
+            
+            //return current account
+            return response()->json(["error" => false, "message" => "", "data" => $account]);
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
+        }
+    }
 
     /**
      * postLogin check if username and password is correct

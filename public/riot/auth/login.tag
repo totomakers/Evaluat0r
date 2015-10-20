@@ -18,11 +18,11 @@
                     <form onsubmit={ login }>
                         <div class="form-group">
                             <label for="email">Adresse mail</label>
-                            <input type="text" class="form-control" id="email" placeholder="mail@fai.com" required focus>
+                            <input name="email" type="text" class="form-control" id="email" placeholder="mail@fai.com" required focus>
                         </div>
                         <div class="form-group">
                             <label for="password">Mot de passe</label>
-                            <input type="password" class="form-control" id="password" placeholder="" required>
+                            <input name="password" type="password" class="form-control" id="password" placeholder="" required>
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-success">Connexion</button>
@@ -39,7 +39,7 @@
     
         login(e) {
             //call api
-            credentials = {'username' : $("#email").val(), 'password' : $("#password").val()};
+            credentials = {'username' : this.email.value, 'password' : this.password.value};
             $.ajax({type: "POST", url:'/api/accounts/login', data: credentials, success: self.successLogin}).fail(self.failLogin);
         }
         

@@ -30,6 +30,7 @@ Route::group(['as' => 'api', 'prefix' => 'api'], function ()
     {
         Route::get('/', ['as' => '::getAll', 'middleware' => 'auth.rank:0', 'uses'=>'AccountController@getAll']);
         Route::get('/{id}', ['as' => '::get', 'uses'=>'AccountController@getById'])->where('id', '[0-9]+');
+        Route::get('/profil', ['as' => '::profil', 'middleware' => 'auth.rank:0', 'uses'=>'AccountController@getProfil']);
         
         Route::get('/login', function(){});
         Route::post('/login', ['as' => '::login', 'uses'=>'AccountController@postLogin']);
