@@ -20,6 +20,11 @@ api.logout = function()
     $.ajax({ url: api.apiBaseUrl+'accounts/logout', success: api.onLogout});
 }
 
+api.themes = function()
+{
+    $.ajax({ url: api.apiBaseUrl+'themes', success: api.onThemes});
+}
+
 
 //-----------------
 //EVENTS ----------
@@ -37,5 +42,10 @@ api.triggerProfile = function(json)
 api.onLogout = function(json)
 {
     document.location.href = '/';
+}
+
+api.onThemes = function(json)
+{
+    api.trigger('themes_loaded', json);
 }
 

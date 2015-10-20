@@ -10,7 +10,7 @@
             opts.profile();
         });
         
-        //login ok
+        //profile ok 
         opts.on('profile', function(json) {
             self.user = json.data;
             self.update();

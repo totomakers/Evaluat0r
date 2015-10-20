@@ -18,6 +18,7 @@
     @yield('riot_tag')
     <script type="text/javascript" src="{!! URL::asset('bower/jquery/dist/jquery.min.js'); !!}"></script>
     <script type="text/javascript" src="{!! URL::asset('bower/bootstrap/dist/js/bootstrap.min.js'); !!}"></script>
+    <script type="text/javascript" src="{!! URL::asset('bower/bootstrap/js/tooltip.js'); !!}"></script>
     <script type="text/javascript" src="{!! URL::asset('custom/js/riot_compiler.js'); !!}"></script>
     <script>
         //-------------------------------

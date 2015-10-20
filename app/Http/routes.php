@@ -37,5 +37,13 @@ Route::group(['as' => 'api', 'prefix' => 'api'], function ()
         
         Route::get('/logout', ['as' => '::logout', 'uses'=>'AccountController@getLogout']);
     });
+    
+    //|-------------------
+    //| Theme routes
+    //|-------------------
+    Route::group(['as' => '::themes', 'prefix' => 'themes'], function () 
+    {
+        Route::get('/', ['as' => '::getAll', 'middleware' => 'auth.rank:2', 'uses'=>'ThemeController@getAll']);
+    });
    
 });
