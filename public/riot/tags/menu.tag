@@ -19,8 +19,8 @@
                     <li><a href="#">Accueil<i class="pull-right fa fa-home fa-lg"></i></a></li>
                     <li show={user.rank<=1}><a href="#">Résultat<i class="pull-right fa fa-bar-chart fa-lg"></i></a></li>
                     <li show={user.rank==1}><a href="#">Démarrer un QCM<i class="pull-right fa fa-plus fa-lg"></i></span></a></li>
-                    <li show={user.rank==3}><a href="#">Thèmes<i class="pull-right fa fa-cube fa-lg"></i></a></li>
-                    <li show={user.rank==3}><a href="#">Modèles<i class="pull-right fa fa-cubes fa-lg"></i></a></li>
+                    <li show={user.rank==2}><a href="#">Thèmes<i class="pull-right fa fa-cube fa-lg"></i></a></li>
+                    <li show={user.rank==2}><a href="#">Modèles<i class="pull-right fa fa-cubes fa-lg"></i></a></li>
                     <li show={user.rank==0}><a href="#">Test<i class="pull-right fa fa-pencil fa-lg"></i></a></li>
                     <li><a href="#">Déconnexion<i class="pull-right fa fa-sign-out fa-lg"></i></a></li>
                 </ul>
