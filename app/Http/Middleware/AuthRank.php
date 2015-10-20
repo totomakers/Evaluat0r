@@ -11,13 +11,17 @@ class AuthRank {
         $response = $next($request);
         
         $user = Auth::user();
+        (!$user) ? $langKey = 'account.shouldBeLogged' : $langKey = 'account.rankTooLow';
+        
         if(!$user || $user->rank < $rank)
         {
-            ($user) ? $langKey = 'account.shouldBeLogged' : $langKey = 'account.rankTooLow';
-            return redirect()->route('appli::home')->with(['error' => true, 'message' => Lang::get($langKey)]);
+            if(is_a($response, "Illuminate\Http\JsonResponse"))
+                return response()->json(["error" => true, "message" => Lang::get($langKey), "data" => []]);
+            else
+                return redirect()->route('appli::login')->with(['error' => true, 'message' => Lang::get($langKey)]);
         }
         
-        return $response;
+        return $response; //continue
     }
 }
 

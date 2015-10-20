@@ -43,18 +43,19 @@
             $.ajax({type: "POST", url:'/api/accounts/login', data: credentials, success: self.successLogin}).fail(self.failLogin);
         }
         
-        //Login ok
+        //login ok
         successLogin(data) {
             self.message = data.message;
-            self.error = data.error;
-            
+            self.error = data.error;  
             self.update();
+            
+            if(self.error == false) document.location.href = '/app'; //redirect when login ok
         }
         
-        //Login fail
+        //login fail - api unvailable
         failLogin(data) {
              self.error = true;
-             self.message = "Impossible de contacter le serveur";
+             self.message = self.unvailable_server;
         }
     </script>
 </login>

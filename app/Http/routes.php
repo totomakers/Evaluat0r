@@ -17,9 +17,9 @@ Route::get('/', function () {
 });
 */
 
-Route::get('/', ['as' => 'appli::home', 'uses' => 'AccountController@vueLogin']);
+Route::get('/', ['as' => 'appli::login', 'uses' => 'AccountController@vueLogin']);
 
-Route::get('/app', ['as' => 'appli::app', 'middleware' => 'auth.rank:0', function()
+Route::get('/app', ['as' => 'appli::home', 'middleware' => 'auth.rank:0', function()
 {
      return 'Hello World';
 }]);
@@ -31,7 +31,7 @@ Route::group(['as' => 'api', 'prefix' => 'api'], function ()
     //|-------------------
     Route::group(['as' => '::accounts', 'prefix' => 'accounts'], function () 
     {
-        Route::get('/', ['as' => '::getAll', 'uses'=>'AccountController@getAll']);
+        Route::get('/', ['as' => '::getAll', 'middleware' => 'auth.rank:0', 'uses'=>'AccountController@getAll']);
         Route::get('/{id}', ['as' => '::get', 'uses'=>'AccountController@getById'])->where('id', '[0-9]+');
         
         Route::get('/login', function(){});
