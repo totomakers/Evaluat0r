@@ -15,6 +15,12 @@ auth.profile = function()
     $.ajax({ url: auth.apiBaseUrl+'accounts/profil', success: auth.triggerProfile});
 }
 
+auth.logout = function()
+{
+    $.ajax({ url: auth.apiBaseUrl+'accounts/logout', success: auth.onLogout});
+}
+
+
 //-----------------
 //EVENTS ----------
 //-----------------
@@ -26,5 +32,10 @@ auth.triggerLogin = function(json)
 auth.triggerProfile = function(json)
 {
     auth.trigger('profile', json);
+}
+
+auth.onLogout = function(json)
+{
+    document.location.href = '/';
 }
 
