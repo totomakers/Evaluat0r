@@ -1,6 +1,6 @@
 <themes>
     <div class="animated fadeIn">
-        <h1>Themes</h1>
+        <h1>Themes <small> - {themes.length} disponible(s)</small></h1>
         <hr>
       
     </div>
