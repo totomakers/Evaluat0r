@@ -14,28 +14,15 @@
 @endsection
 
 @section('riot_tag')
-<script src="riot/app/menu.tag" type="riot/tag"></script>
-<script src="riot/app/app.tag" type="riot/tag"></script>
+<script src="riot/tags/menu.tag" type="riot/tag"></script>
+<script src="riot/tags/app.tag" type="riot/tag"></script>
 @endsection
 
 @section('js_script')
 <script type="text/javascript" src="{!! URL::asset('custom/js/sidebar.js'); !!}"></script>
+<script type="text/javascript" src="{!! URL::asset('riot/app/auth.js'); !!}"></script>
 <script>
-
-//-------------------------------
-//Handle message from policies --
-var unvailable_server = "{!! Lang::get('server.unvailable') !!}";
-
-
-var message = "{!! Session::get('message') !!}";
-@if(Session::has('error'))
-    var error = {!! Session::get('error') !!};
-@else
-    var error;
-@endif
-//-------------------------------
-
-riot.mount('appnav');
-riot.mount('app');
+    riot.mount('appnav', auth);
+    riot.mount('app');
 </script>
 @endsection

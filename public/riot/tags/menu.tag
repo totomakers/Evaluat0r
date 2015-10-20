@@ -32,20 +32,14 @@
         var self = this;
         
         this.on('mount',function(){
-            $.ajax({ url:'/api/accounts/profil', success: self.onUser}).fail(self.serverFail);
+            opts.profile();
         });
         
-        //user ok
-        onUser(data) {
-            user = data.data;
-            this.update();
-        }
-        
-        //login fail - api unvailable
-        serverFail(data) {
-             self.error = true;
-             self.message = self.unvailable_server;
-        }
+        //when profile is loaded
+        opts.on('profile', function(json) {
+            self.user = json.data;
+            self.update();
+        });
     </script>
 </appnav>
 

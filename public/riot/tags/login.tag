@@ -37,26 +37,21 @@
     <script>
         var self = this;
     
+        //call api
         login(e) {
-            //call api
             credentials = {'username' : this.email.value, 'password' : this.password.value};
-            $.ajax({type: "POST", url:'/api/accounts/login', data: credentials, success: self.successLogin}).fail(self.failLogin);
+            opts.login(credentials);
         }
         
         //login ok
-        successLogin(data) {
-            self.message = data.message;
-            self.error = data.error;  
+        opts.on('login', function(json) {
+            self.message = json.message;
+            self.error = json.error;  
            
             if(self.error == false) document.location.href = '/app'; //redirect when login ok
             else self.update();
-        }
-        
-        //login fail - api unvailable
-        failLogin(data) {
-             self.error = true;
-             self.message = self.unvailable_server;
-        }
+        });  
+      
     </script>
 </login>
 

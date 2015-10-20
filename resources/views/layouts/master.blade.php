@@ -19,5 +19,18 @@
     <script type="text/javascript" src="{!! URL::asset('bower/jquery/dist/jquery.min.js'); !!}"></script>
     <script type="text/javascript" src="{!! URL::asset('bower/bootstrap/dist/js/bootstrap.min.js'); !!}"></script>
     <script type="text/javascript" src="{!! URL::asset('custom/js/riot_compiler.js'); !!}"></script>
+    <script>
+        //-------------------------------
+        //Handle message from policies --
+        var unvailable_server = "{!! Lang::get('server.unvailable') !!}";
+
+        var message = "{!! Session::get('message') !!}";
+        @if(Session::has('error'))
+            var error = {!! Session::get('error') !!};
+        @else
+            var error;
+        @endif
+        //-------------------------------
+    </script>
     @yield('js_script')
 </html>
