@@ -5,10 +5,13 @@
                 <h1>Themes <small> - {themes.length} disponible(s)</small></h1>
                 <hr>
             </div>
-        <div>
-       <div class="row">
-       </div>
-       <div class="row">
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="alert" class="alert alert-danger animated fadeIn" hidden></div>
+            </div>
+        </div>
+        <div class="row">
             <div class="col-lg-12">
                 <div class="table">
                     <table class="table table-striped table-hover">
@@ -31,7 +34,7 @@
                                 <td class="text-right">
                                     <a href=""><i data-toggle="tooltip" data-placement="top" title="Editer" class="fa fa-pencil fa-lg"/></a>
                                     &nbsp;&nbsp;
-                                    <a href=""><i data-toggle="tooltip" data-placement="top" title="Supprimer" class="fa fa-red fa-trash fa-lg"/></a>
+                                    <a href="" onclick={theme_delete}><i data-toggle="tooltip" data-placement="top" title="Supprimer" class="fa fa-red fa-trash fa-lg"/></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -45,16 +48,17 @@
         var self = this;
         loader.show();
 
-        //on mount
+        //When tag is mounted
         this.on('mount',function() {
             opts.themes.getAll(); 
         });
 
-        //themes load
+        //When we have all themes
         opts.themes.on('themes_getAll', function(json) 
         {
             loader.hide();
             self.themes = json.data;
+            self.themes.sort(opts.themes.sortByName);
             self.update();
 
             //apply tooltip
@@ -62,17 +66,22 @@
             tooltips.tooltip();  
         });  
         
-        //themes add
+        //Click on button add
         themes_add(e) {
             var name = $('#themes_add_name');
             var description = $('#themes_add_description');
         
-            addForm(false);
+            addForm(false, false);
             var value = { "name" : name.val(), "description" : description.val() }
             opts.themes.add(value);
         }
         
-        var addForm = function(enable)
+        theme_delete(e) {
+            opts.themes.delete(e.item.id);
+        }
+
+        //Enable/Disable add form
+        var addForm = function(enable, clear)
         {
             //button
             var name = $('#themes_add_name');
@@ -82,21 +91,22 @@
 
             if(enable == true)
             {
-                console.log('activé');
                 name.removeAttr('disabled');
                 description.removeAttr('disabled');
                 button.removeAttr('disabled');
 
-                description.val("");
-                name.val("");
-              
+                if(clear)
+                {
+                    description.val("");
+                    name.val("");
+                }
+                
                 button_icon.addClass('fa-plus');
                 button_icon.removeClass('fa-spinner');
                 button_icon.removeClass('fa-spin');
             }
             else
             {
-                console.log('déactiver');
                 name.attr('disabled', 'disabled');
                 description.attr('disabled', 'disabled');
                 button.attr('disabled', 'disabled');
@@ -106,15 +116,67 @@
             }
         }
         
-        //when theme add success
+        //Theme added
         opts.themes.on('themes_add_success', function(json) {
+            var alert = $('#alert');
+            alert.hide();
+            alert.empty();
+            alert.removeClass("alert-danger");
+            alert.addClass("alert-success");
+            alert.append(json.message);
+            alert.show();
+   
+            addForm(true, true);
+            self.themes.push(json.data);
+            self.themes.sort(opts.themes.sortByName);
             self.update();
-            addForm(true);
+            
+            //apply tooltip
+            var tooltips = $('[data-toggle="tooltip"]');
+            tooltips.tooltip();  
         });
         
-        //when theme add fail
+        //Theme not add
         opts.themes.on('themes_add_fail', function(json) {
-            addForm(true);
+            var alert = $('#alert');
+            alert.hide();
+            alert.empty();
+            alert.removeClass("alert-success");
+            alert.addClass("alert-danger"); 
+            json.message.forEach(function(value){
+                alert.append(value+"</br>");
+            });
+            alert.show();
+            
+            addForm(true, false);
+        });
+        
+        opts.themes.on('theme_delete', function(json) {
+            var alert = $('#alert');
+            alert.hide();
+            alert.empty();
+            
+            if(json.error)
+            {
+                alert.removeClass("alert-success");
+                alert.addClass("alert-danger"); 
+            }
+            else
+            {
+                alert.removeClass("alert-danger");
+                alert.addClass("alert-success");
+            }
+            
+            alert.append(json.message);
+            alert.show();
+            
+            var index = self.themes.map(function(e) { return e.id; }).indexOf(json.data.id);
+            self.themes.splice(index, 1);
+            self.update();
+            
+            //apply tooltip
+            var tooltips = $('[data-toggle="tooltip"]');
+            tooltips.tooltip();  
         });
        
     </script>

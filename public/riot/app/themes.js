@@ -10,9 +10,14 @@ themes.getAll = function()
     $.ajax({ url: api.apiBaseUrl+'themes', success: themes.onGetAll});
 }
 
-themes.add = function()
+themes.add = function(params)
 {
-    themes.onAdd({'error':false});
+    $.ajax({type: "POST", url: api.apiBaseUrl+'themes/add', data: params, success: themes.onAdd});
+}
+
+themes.delete = function(id)
+{
+    $.ajax({type: "DELETE", url: api.apiBaseUrl+'themes/delete/'+id, success: themes.onDelete});
 }
 
 //-----------------
@@ -31,4 +36,16 @@ themes.onAdd = function(json)
     {
         themes.trigger('themes_add_success', json);
     }
+}
+
+themes.onDelete = function(json)
+{
+    themes.trigger('theme_delete', json);
+}
+
+themes.sortByName =  function(a, b) 
+{
+  var aName = a.name.toLowerCase();
+  var bName = b.name.toLowerCase(); 
+  return ((aName < bName) ? -1 : ((aName > bName) ? 1 : 0));
 }

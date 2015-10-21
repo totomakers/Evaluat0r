@@ -72,9 +72,7 @@ class AccountController extends Controller
         try
         {
             $account = Auth::user();
-            
-            //return current account
-            return response()->json(["error" => false, "message" => "", "data" => $account]);
+            return response()->json(["error" => false, "message" => "", "data" => $account]); //return current account
         }
         catch(\Exception $e)
         {

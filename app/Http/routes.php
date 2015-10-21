@@ -31,10 +31,8 @@ Route::group(['as' => 'api', 'prefix' => 'api'], function ()
         Route::get('/', ['as' => '::getAll', 'middleware' => 'auth.rank:0', 'uses'=>'AccountController@getAll']);
         Route::get('/{id}', ['as' => '::get', 'uses'=>'AccountController@getById'])->where('id', '[0-9]+');
         Route::get('/profil', ['as' => '::profil', 'middleware' => 'auth.rank:0', 'uses'=>'AccountController@getProfil']);
-        
-        Route::get('/login', function(){});
+
         Route::post('/login', ['as' => '::login', 'uses'=>'AccountController@postLogin']);
-        
         Route::get('/logout', ['as' => '::logout', 'uses'=>'AccountController@getLogout']);
     });
     
@@ -44,6 +42,9 @@ Route::group(['as' => 'api', 'prefix' => 'api'], function ()
     Route::group(['as' => '::themes', 'prefix' => 'themes'], function () 
     {
         Route::get('/', ['as' => '::getAll', 'middleware' => 'auth.rank:2', 'uses'=>'ThemeController@getAll']);
+        
+        Route::post('/add', ['as' => '::postAdd', 'middleware' => 'auth.rank:2', 'uses'=>'ThemeController@postAdd']);
+        Route::delete('/delete/{id}', ['as' => '::deleteDelete', 'middleware' => 'auth.rank:2', 'uses'=>'ThemeController@deleteDelete'])->where('id', '[0-9]+');
     });
    
 });
