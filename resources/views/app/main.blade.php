@@ -6,7 +6,7 @@
 @endsection
 
 @section('nav')
-<app_nav></app_nav>
+ <nav class="animated slideInLeft navbar navbar-inverse sidebar" role="navigation" active></nav>
 @endsection
 
 @section('content')
@@ -33,6 +33,6 @@
 <script type="text/javascript" src="{!! URL::asset('riot/app/api.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('riot/app/router.js'); !!}"></script>
 <script>
-    riot.mount('app_nav', api);
+   riot.mount($('nav'), 'app_nav', api);
 </script>
 @endsection

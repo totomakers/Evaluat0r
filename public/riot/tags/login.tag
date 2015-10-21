@@ -36,7 +36,7 @@
     
     <script>
         var self = this;
-    
+
         //call api
         login(e) {
             credentials = {'username' : this.email.value, 'password' : this.password.value};

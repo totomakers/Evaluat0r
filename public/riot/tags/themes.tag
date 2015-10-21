@@ -1,12 +1,16 @@
 <themes hidden>
     <div class="animated fadeIn">
-        <div>
-            <h1>Themes <small> - {themes.length} disponible(s)</small></h1>
-            <hr>
-        </div>
         <div class="row">
-            <div class="col-12">
-                <div class="table-responsive">
+            <div class="col-lg-12">
+                <h1>Themes <small> - {themes.length} disponible(s)</small></h1>
+                <hr>
+            </div>
+        <div>
+       <div class="row">
+       </div>
+       <div class="row">
+            <div class="col-lg-12">
+                <div class="table">
                     <table class="table table-striped table-hover">
                         <thead>
                             <tr>

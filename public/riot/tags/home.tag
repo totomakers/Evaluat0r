@@ -3,6 +3,7 @@
         <h1 show={user}>Bonjour, {user.lastname} {user.firstname}</h1>
     </div>
     <script>
+        loader.show();
         var self = this;
     
         //call api
@@ -14,6 +15,7 @@
         opts.on('profile', function(json) {
             self.user = json.data;
             self.update();
+            loader.hide();
         });  
     </script>
 </home>
