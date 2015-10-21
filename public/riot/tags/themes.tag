@@ -45,7 +45,6 @@
         opts.on('themes_loaded', function(json) 
         {
             loader.hide();
-            
             self.themes = json.data;
             self.update();
 
