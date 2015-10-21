@@ -11,9 +11,14 @@
     margin-bottom : 10%;
 }
 
-.fa 
+.fa-blue
 {
     color: #158CBA;
+}
+
+.fa-red
+{
+    color: #FF291C;
 }
 
 .center-block

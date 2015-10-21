@@ -13,7 +13,7 @@ function router(collections, id, action)
         case 'themes':
             pageTitle += 'Thèmes';
         
-            if(!id) riot.mount(selector, 'themes', api);
+            if(!id) riot.mount(selector, 'themes', {'api': api, 'themes' : themes});
             else
             {
                 switch(action)

@@ -31,6 +31,7 @@
 <script type="text/javascript" src="{!! URL::asset('custom/js/sidebar.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('custom/js/global.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('riot/app/api.js'); !!}"></script>
+<script type="text/javascript" src="{!! URL::asset('riot/app/themes.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('riot/app/router.js'); !!}"></script>
 <script>
    riot.mount($('nav'), 'app_nav', api);
