@@ -10,6 +10,11 @@ themes.getAll = function(page)
     $.ajax({ url: themes.apiBaseUrl+'themes?page='+page, success: themes.onGetAll});
 }
 
+themes.refreshAll = function(page)
+{
+    $.ajax({ url: themes.apiBaseUrl+'themes?page='+page, success: themes.onRefreshAll});
+}
+
 themes.add = function(params)
 {
     $.ajax({type: "POST", url: api.apiBaseUrl+'themes/add', data: params, success: themes.onAdd});
@@ -26,6 +31,11 @@ themes.delete = function(id)
 themes.onGetAll = function(json)
 {
     themes.trigger('themes_getAll', json);
+}
+
+themes.onRefreshAll = function(json)
+{
+    themes.trigger('themes_refreshAll', json);
 }
 
 themes.onAdd = function(json)

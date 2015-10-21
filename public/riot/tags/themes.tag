@@ -42,7 +42,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class=col-lg-12 text-center">
+                <div class=col-lg-12 text-center" id="themes_pagination_box">
                     <ul id="themes_pagination" class="pagination-sm"/></ul>
                 </div>
             </div>
@@ -58,51 +58,39 @@
             opts.themes.getAll(opts.page.id); 
         });
 
-        //When we have all themes
-        opts.themes.on('themes_getAll', function(json) 
+        //--------------------
+        //UTILS -
+        //--------------------
+        
+        //navigation pagination
+        var pageClick = function(event, page)
         {
-            loader.hide();
-            self.themes = json.data.data;
-            console.log(json.data);
-            self.themes.count = json.data.total;
-            if(self.themes) self.themes.sort(opts.themes.sortByName);
-            self.update();
-    
-            //apply tooltip
-            var tooltips = $('[data-toggle="tooltip"]');
-            tooltips.tooltip();  
+            var themesData= $('#themes_data');
+            themesData.addClass("animated slideOutRight");
             
-            //apply pagination
+            opts.themes.getAll(page);
+        }
+        
+        var refreshPagination = function(json)
+        {
+             //apply pagination
+            $('#themes_pagination').remove();
+            $('#themes_pagination_box').html("<ul id='themes_pagination' class='pagination-sm'/></ul>");
             $('#themes_pagination').twbsPagination({
                 totalPages: json.data.last_page,
                 visiblePages: 8,
                 startPage: json.data.current_page,
                 onPageClick: pageClick,
             });
-            
-                var themesData= $('#themes_data');
-                themesData.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
-                {
-                    themesData.removeClass("animated slideOutRight");
-                    themesData.addClass("animated slideInLeft");
-                });
-        });  
-        
-        //Click on button add
-        themes_add(e) {
-            var name = $('#themes_add_name');
-            var description = $('#themes_add_description');
-        
-            addForm(false, false);
-            var value = { "name" : name.val(), "description" : description.val() }
-            opts.themes.add(value);
         }
         
-        theme_delete(e) {
-            opts.themes.delete(e.item.id);
+        var refreshTooltip = function()
+        {
+           var tooltips = $('[data-toggle="tooltip"]');
+           tooltips.tooltip();  
         }
-
-        //Enable/Disable add form
+        
+         //Enable/Disable add form
         var addForm = function(enable, clear)
         {
             //button
@@ -138,7 +126,67 @@
             }
         }
         
-        //Theme added
+        //---------------
+        //SIGNAL --------
+        //---------------
+        
+        //Click on button add
+        themes_add(e) {
+            var name = $('#themes_add_name');
+            var description = $('#themes_add_description');
+        
+            addForm(false, false);
+            var value = { "name" : name.val(), "description" : description.val() }
+            opts.themes.add(value);
+        }
+        
+        theme_delete(e) {
+            opts.themes.delete(e.item.id);
+        }
+        
+        
+        //---------------
+        //EVENT ---------
+        //---------------
+        
+        //First load
+        opts.themes.on('themes_getAll', function(json) 
+        {
+            loader.hide();
+            
+            //---------
+            self.themes = json.data.data;
+            self.themes.count = json.data.total;
+            self.themes.sort(opts.themes.sortByName);
+            self.update();
+            
+            //page nav animation
+            var themesData= $('#themes_data');
+            themesData.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
+            {
+                themesData.removeClass("animated slideOutRight");
+                themesData.addClass("animated slideInLeft");
+            });
+           
+            refreshPagination(json);
+            refreshTooltip();
+        });  
+        
+        //Refresh
+        opts.themes.on('themes_refreshAll', function(json) 
+        {
+            console.log('themes refresh');
+            self.themes = json.data.data;
+            self.themes.count = json.data.total;
+            self.themes.sort(opts.themes.sortByName);
+            self.update();
+
+            refreshTooltip();
+            refreshPagination(json);
+        });
+        
+        
+        //Ajout de theme reussi
         opts.themes.on('themes_add_success', function(json) {
             var alert = $('#alert');
             alert.hide();
@@ -149,16 +197,14 @@
             alert.show();
    
             addForm(true, true);
-            self.themes.push(json.data);
-            self.themes.sort(opts.themes.sortByName);
-            self.update();
+            opts.themes.refreshAll(opts.page.id);
             
             //apply tooltip
             var tooltips = $('[data-toggle="tooltip"]');
             tooltips.tooltip();  
         });
         
-        //Theme not add
+        //Ajout de theme échoué
         opts.themes.on('themes_add_fail', function(json) {
             var alert = $('#alert');
             alert.hide();
@@ -173,6 +219,7 @@
             addForm(true, false);
         });
         
+        //Suppression theme
         opts.themes.on('theme_delete', function(json) {
             var alert = $('#alert');
             alert.hide();
@@ -192,23 +239,13 @@
             alert.append(json.message);
             alert.show();
             
-            var index = self.themes.map(function(e) { return e.id; }).indexOf(json.data.id);
-            self.themes.splice(index, 1);
-            self.update();
+            opts.themes.refreshAll(opts.page.id);
             
             //apply tooltip
             var tooltips = $('[data-toggle="tooltip"]');
             tooltips.tooltip();  
         });
         
-        //navigation pagination
-        var pageClick = function(event, page)
-        {
-            var themesData= $('#themes_data');
-            themesData.addClass("animated slideOutRight");
-            
-            opts.themes.getAll(page);
-        }
        
     </script>
 </themes>
