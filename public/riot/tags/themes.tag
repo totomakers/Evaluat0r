@@ -58,7 +58,7 @@
         {
             loader.hide();
             self.themes = json.data;
-            self.themes.sort(opts.themes.sortByName);
+            if(self.themes) self.themes.sort(opts.themes.sortByName);
             self.update();
 
             //apply tooltip
