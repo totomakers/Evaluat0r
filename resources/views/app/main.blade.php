@@ -10,6 +10,9 @@
 @endsection
 
 @section('content')
+<div class="center-block" id="app_loader">
+    <span class="loader"><span class="loader-inner"></span></span>
+</div>
 @endsection
 
 @section('riot_tag')
@@ -22,6 +25,7 @@
 
 @section('js_script')
 <script type="text/javascript" src="{!! URL::asset('custom/js/sidebar.js'); !!}"></script>
+<script type="text/javascript" src="{!! URL::asset('custom/js/global.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('riot/app/api.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('riot/app/router.js'); !!}"></script>
 <script>

@@ -11,8 +11,10 @@
     </head>
      @yield('nav')
     <body>
-        <div class="container" id="app_content">
+        <div class="container" >
            @yield('content')
+           <div id="app_content">
+           </div>
         </div>
     </body>
     @yield('riot_tag')
