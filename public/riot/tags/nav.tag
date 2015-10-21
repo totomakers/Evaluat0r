@@ -8,7 +8,7 @@
                 <span class="icon-bar"></span>
             </button>
            <div class="text-center">
-               <img src="custom/picture/user.png" alt="" class="profil-picture img-circle">
+               <img src="custom/picture/logo.png" alt="" class="logo-picture">
            </div>
 
         </div>

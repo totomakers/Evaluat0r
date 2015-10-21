@@ -1,16 +1,11 @@
 <login>
-    <div class="center-block">
-        <div class="row text-center">
-            <div class="col-lg-12">
-                <h1>Connexion</h1>
-            </div>
-        </div>
+    <div>
         <div class="row animated fadeIn">
             <div class="col-lg-4 col-lg-offset-4">
                 <div class="panel panel-default">
                   <div class="panel-body">
                     <div class="text-center">
-                        <img src="custom/picture/user.png" alt="" class="login-picture img-circle">
+                        <img src="custom/picture/logo.png" alt="" class="login-picture">
                     </div>
                     <hr>
                     <div class="alert alert-danger animated fadeIn" show={error}>{ message }</div>
