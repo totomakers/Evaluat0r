@@ -5,9 +5,9 @@ themes.apiBaseUrl = '/api/';
 //----------------
 //API ------------
 //----------------
-themes.getAll = function()
+themes.getAll = function(page)
 {
-    $.ajax({ url: api.apiBaseUrl+'themes', success: themes.onGetAll});
+    $.ajax({ url: themes.apiBaseUrl+'themes?page='+page, success: themes.onGetAll});
 }
 
 themes.add = function(params)

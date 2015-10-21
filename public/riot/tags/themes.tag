@@ -2,7 +2,7 @@
     <div class="animated fadeIn">
         <div class="row">
             <div class="col-lg-12">
-                <h1>Themes <small> - {themes.length} disponible(s)</small></h1>
+                <h1>Themes <small> - {themes.count} disponible(s)</small></h1>
                 <hr>
             </div>
         </div>
@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="table">
-                    <table class="table table-striped table-hover">
+                    <table id="themes_data" class="table table-striped table-hover">
                         <thead>
                             <tr>
                                 <th>Nom</th>
@@ -41,6 +41,11 @@
                     </table>
                 </div>
             </div>
+            <div class="row">
+                <div class=col-lg-12 text-center">
+                    <ul id="themes_pagination" class="pagination-sm"/></ul>
+                </div>
+            </div>
         </div>
     </div>
     
@@ -50,20 +55,37 @@
 
         //When tag is mounted
         this.on('mount',function() {
-            opts.themes.getAll(); 
+            opts.themes.getAll(opts.page.id); 
         });
 
         //When we have all themes
         opts.themes.on('themes_getAll', function(json) 
         {
             loader.hide();
-            self.themes = json.data;
+            self.themes = json.data.data;
+            console.log(json.data);
+            self.themes.count = json.data.total;
             if(self.themes) self.themes.sort(opts.themes.sortByName);
             self.update();
-
+    
             //apply tooltip
             var tooltips = $('[data-toggle="tooltip"]');
             tooltips.tooltip();  
+            
+            //apply pagination
+            $('#themes_pagination').twbsPagination({
+                totalPages: json.data.last_page,
+                visiblePages: 8,
+                startPage: json.data.current_page,
+                onPageClick: pageClick,
+            });
+            
+                var themesData= $('#themes_data');
+                themesData.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
+                {
+                    themesData.removeClass("animated slideOutRight");
+                    themesData.addClass("animated slideInLeft");
+                });
         });  
         
         //Click on button add
@@ -178,6 +200,15 @@
             var tooltips = $('[data-toggle="tooltip"]');
             tooltips.tooltip();  
         });
+        
+        //navigation pagination
+        var pageClick = function(event, page)
+        {
+            var themesData= $('#themes_data');
+            themesData.addClass("animated slideOutRight");
+            
+            opts.themes.getAll(page);
+        }
        
     </script>
 </themes>

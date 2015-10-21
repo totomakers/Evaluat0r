@@ -21,12 +21,23 @@ class ThemeController extends Controller
      * getAll() return all Theme in database
      * @return jsonArray return a json array with all accounts
      */
-    public function getAll()
+    public function getAll(Request $request)
     {
+        $themes = Theme::orderBy('name');
         try
+        
         {
+            if($request->has('page'))
+            {
+                 $page = $request->input('page');
+                 $results = $themes->paginate(8);
+                 
+                 return response()->json(["error"=> false, "message" =>"", "data" => $results->toArray()]);
+            }
+            
             $themes = Theme::all();
             return response()->json(["error"=> false, "message" =>"", "data" => $themes]);
+
         }
         catch(\Exception $e)
         {

@@ -3,6 +3,7 @@
   "dependencies": {
     "bootstrap": "~3.3.5",
     "font-awesome": "fontawesome#~4.4.0",
-    "animate.css": "~3.4.0"
+    "animate.css": "~3.4.0",
+    "twbs-pagination": "~1.2.5"
   }
 }

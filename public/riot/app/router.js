@@ -2,7 +2,7 @@
 //ROUTER -------
 //--------------
 
-function router(collections, id, action)
+function router(collections, action, id)
 {
     var selector = document.getElementById('app_content');
     var pageTitle = '';
@@ -12,18 +12,19 @@ function router(collections, id, action)
     {
         case 'themes':
             pageTitle += 'Thèmes';
-        
-            if(!id) riot.mount(selector, 'themes', {'api': api, 'themes' : themes});
-            else
-            {
-                switch(action)
-                {
-                    case 'edit': break;
-                    case 'delete': break;
-                    case 'add': break;
-                }
-            }
             
+            switch(action)
+            {
+                case 'edit': break;
+                case 'delete': break;
+                case 'add': break;
+                
+                default:
+                case 'all':
+                     if(!id) id = 1;
+                     riot.mount(selector, 'themes', {'api': api, 'themes' : themes, 'page' : { id : id} });
+                    break;
+            }
             break;
             
         case 'modeles':

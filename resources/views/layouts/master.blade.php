@@ -22,6 +22,8 @@
     <script type="text/javascript" src="{!! URL::asset('bower/bootstrap/dist/js/bootstrap.min.js'); !!}"></script>
     <script type="text/javascript" src="{!! URL::asset('bower/bootstrap/js/tooltip.js'); !!}"></script>
     <script type="text/javascript" src="{!! URL::asset('custom/js/riot_compiler.js'); !!}"></script>
+    <script type="text/javascript" src="{!! URL::asset('bower/twbs-pagination/jquery.twbsPagination.min.js'); !!}"></script>
+    
     <script>
         //-------------------------------
         //Handle message from policies --
