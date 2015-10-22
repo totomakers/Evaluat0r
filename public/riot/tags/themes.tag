@@ -42,8 +42,8 @@
                 </div>
             </div>
             <div class="row">
-                <div class=col-lg-12 text-center" id="themes_pagination_box">
-                    <ul id="themes_pagination" class="pagination-sm"/></ul>
+                <div class="col-lg-12 text-center" id="themes_pagination_box">
+                    <span id="themes_pagination" class="pagination-sm"/></span>
                 </div>
             </div>
         </div>
@@ -66,7 +66,7 @@
         {
              //apply pagination
             $('#themes_pagination').remove();
-            $('#themes_pagination_box').html("<ul id='themes_pagination' class='pagination-sm'/></ul>");
+            $('#themes_pagination_box').html("<span id='themes_pagination' class='pagination-sm'/></span>");
             $('#themes_pagination').twbsPagination({
                 totalPages: json.data.last_page,
                 visiblePages: 8,
@@ -134,14 +134,14 @@
         theme_delete(e) {
             opts.themes.delete(e.item.id);
         }
-		    
+            
         //navigation pagination
         var pageClick = function(event, page)
         {
             var themesData= $('#themes_data');
             themesData.addClass("animated slideOutRight");
-			opts.page.id = page;
-			
+            opts.page.id = page;
+            
             opts.themes.getAll(page);
         }
         
@@ -158,7 +158,7 @@
             //---------
             self.themes = json.data.data;
             self.themes.count = json.data.total;
-			if(Array.isArray(self.themes) == false) self.themes = [ self.themes ];
+            if(Array.isArray(self.themes) == false) self.themes = [ self.themes ];
             self.themes.sort(opts.themes.sortByName);
             self.update();
             
@@ -177,7 +177,7 @@
         //Refresh
         opts.themes.on('themes_refreshAll', function(json) 
         {
-			opts.page.id = json.data.current_page;
+            opts.page.id = json.data.current_page;
             self.themes = json.data.data;
             self.themes.count = json.data.total;
             self.themes.sort(opts.themes.sortByName);
