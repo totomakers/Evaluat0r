@@ -55,7 +55,7 @@
 
         //When tag is mounted
         this.on('mount',function() {
-            opts.themes.getAll(opts.page.id); 
+            opts.themes.getAll(opts.page.id);            
         });
 
         //--------------------

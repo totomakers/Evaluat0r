@@ -1,8 +1,9 @@
 <questions>
     <div class="animated fadeIn">
+       
         <div class="row">
-            <div class="col-lg-12">
-                <h1>Themes C#<small> - Description</small></h1>
+            <div class="col-lg-12 animated fadeIn" id="theme_title" hidden>
+                <h1> <a data-toggle="tooltip" data-placement="bottom" title="Retour" href="javascript:history.back()"><i class="fa fa-chevron-left"></i></a> Theme {theme.name} <small> - {theme.description} </small></h1>
                 <hr>
             </div>
         </div>
@@ -62,12 +63,14 @@
     <script>
         var self = this;
         self.answers = [];
+        self.theme = [];
         
         loader.show();
         loader.hide();
 
         this.on('mount',function() 
         {
+            opts.themes.get(opts.page.id);
             refreshTooltip();
             
             $("#question").markdown({
@@ -76,6 +79,14 @@
                 resize:'vertical',
                 hiddenButtons:'Image',
             })
+        });
+        
+        opts.themes.on('themes_get', function(json) 
+        {
+            self.theme = json.data;
+            self.update();
+            
+            $('#theme_title').show();
         });
         
         //----------------
@@ -101,7 +112,7 @@
         //----------------
         //EVENTS ---------
         //----------------
-        
+
         answers_clear(e) {
             $('#questions_form')[0].reset();
             self.answers = [];

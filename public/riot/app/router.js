@@ -17,7 +17,7 @@ function router(collections, action, id)
             {
                 case 'edit':
                     if(!id) riot.route('themes/all/1'); 
-                    else riot.mount(selector, 'questions', {'api': api}); //'questions' : questions
+                    else riot.mount(selector, 'questions', {'api': api, 'themes': themes, 'page': {id:id} }); //'questions' : questions
                     break;
                 case 'delete': break;
                 case 'add': break;

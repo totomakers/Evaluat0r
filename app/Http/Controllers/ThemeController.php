@@ -60,6 +60,37 @@ class ThemeController extends Controller
     }
     
      /**
+     * @api {get} /themes/{id} Request Themes information
+     * @apiName getAll
+     * @apiGroup Themes
+     *
+     * @apiParam {Number} id Theme unique ID
+     *
+     * @apiSuccess {Boolean} error an error occur
+     * @apiSuccess {String} message description of action
+     * @apiSuccess {Array} data Data of the theme
+     */
+    public function getbyId($id)
+    {
+        try
+        {
+            $theme = Theme::find($id);
+            
+            //if we can't get theme
+            if($theme === NULL)
+                return response()->json(["error" => true, "message" => Lang::get('theme.notFoundById', ["id" => $id]), "data" => []]);
+            
+            //return wanted theme
+            return response()->json(["error" => false, "message" => "", "data" => $theme]);
+
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
+        }
+    }
+    
+     /**
      * @api {delete} /themes/{id} delete a specific theme
      * @apiName delete
      * @apiGroup Themes

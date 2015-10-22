@@ -25,12 +25,22 @@ themes.delete = function(id)
     $.ajax({type: "DELETE", url: api.apiBaseUrl+'themes/delete/'+id, success: themes.onDelete});
 }
 
+themes.get = function(id)
+{
+    $.ajax({ url: themes.apiBaseUrl+'themes/'+id, success: themes.onGet});
+}
+
 //-----------------
 //EVENTS ----------
 //-----------------
 themes.onGetAll = function(json)
 {
     themes.trigger('themes_getAll', json);
+}
+
+themes.onGet = function(json)
+{
+    themes.trigger('themes_get', json);
 }
 
 themes.onRefreshAll = function(json)
