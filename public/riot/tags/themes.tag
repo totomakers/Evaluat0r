@@ -62,7 +62,7 @@
         //UTILS -
         //--------------------
         
-        var refreshPagination = function(json)
+        self.refreshPagination = function(json)
         {
              //apply pagination
             $('#themes_pagination').remove();
@@ -76,7 +76,7 @@
         }
 
          //Enable/Disable add form
-        var addForm = function(enable, clear)
+        self.addForm = function(enable, clear)
         {
             //button
             var name = $('#themes_add_name');
@@ -120,7 +120,7 @@
             var name = $('#themes_add_name');
             var description = $('#themes_add_description');
         
-            addForm(false, false);
+            self.addForm(false, false);
             var value = { "name" : name.val(), "description" : description.val() }
             opts.themes.add(value);
         }
@@ -168,8 +168,8 @@
                 themesData.addClass("animated slideInLeft");
             });
            
-            refreshPagination(json);
             refreshTooltip();
+            self.refreshPagination(json);
         });  
         
         //Refresh
@@ -182,7 +182,7 @@
             self.update();
            
             refreshTooltip();
-            refreshPagination(json);
+            self.refreshPagination(json);
         });
         
         
@@ -196,7 +196,7 @@
             alert.append(json.message);
             alert.show();
    
-            addForm(true, true);
+            self.addForm(true, true);
             opts.themes.refreshAll(opts.page.id);
         });
         
@@ -212,7 +212,7 @@
             });
             alert.show();
             
-            addForm(true, false);
+            self.addForm(true, false);
         });
         
         //Suppression theme

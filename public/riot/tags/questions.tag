@@ -49,7 +49,7 @@
                     </table>
                 </div>
                     <div class="text-right">
-                        <button type="reset" class="btn btn-danger" onclick={answersClear}>Effacer</button>
+                        <button type="reset" class="btn btn-danger" onclick={answers_clear}>Effacer</button>
                         <button type="submit" class="btn btn-success">Ajouter</button>
                     </div>
                 </div>
@@ -61,12 +61,28 @@
    
     <script>
         var self = this;
+        self.answers = [];
+        
         loader.show();
         loader.hide();
 
-        self.answers = [];
+        this.on('mount',function() 
+        {
+            refreshTooltip();
+            
+            $("#question").markdown({
+                fullscreen:{enable:false},
+                iconlibrary:'fa',
+                resize:'vertical',
+                hiddenButtons:'Image',
+            })
+        });
         
-        var checkAnswerInput = function(){
+        //----------------
+        //UTILS ----------
+        //----------------
+        
+        self.checkAnswerInput = function(){
             var input = $('#answer_add_wording');
             
             if(!input.val())
@@ -81,26 +97,20 @@
             }
         };
         
-        answersClear(e) {
+        
+        //----------------
+        //EVENTS ---------
+        //----------------
+        
+        answers_clear(e) {
             $('#questions_form')[0].reset();
             self.answers = [];
             self.update();
         };
         
-        this.on('mount',function() 
-        {
-            refreshTooltip();
-            
-            $("#question").markdown({
-                fullscreen:{enable:false},
-                iconlibrary:'fa',
-                resize:'vertical',
-                hiddenButtons:'Image',
-            })
-        });
            
         answer_add(e){
-            if(checkAnswerInput())
+            if(self.checkAnswerInput())
             {
                 var wording = $('#answer_add_wording');
                 var good = $('#answer_add_good');
@@ -119,7 +129,7 @@
         }
         
         answer_input(e){
-            checkAnswerInput();
+            self.checkAnswerInput();
         }
         
         answer_delete(e){
