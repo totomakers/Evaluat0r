@@ -25,13 +25,18 @@ class ThemeController extends Controller
     {
         $themes = Theme::orderBy('name');
         try
-        
         {
             if($request->has('page'))
             {
                  $page = $request->input('page');
                  $results = $themes->paginate(8);
-                 
+				 
+				 if($results->lastPage() < $page)
+				 {
+					$request->replace(array('page' => $results->lastPage())); //change the page
+					$results = $themes->paginate(8);
+			     }				 
+
                  return response()->json(["error"=> false, "message" =>"", "data" => $results->toArray()]);
             }
             
