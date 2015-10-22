@@ -160,4 +160,34 @@ class ThemeController extends Controller
             return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
         }
     }
+    
+     /**
+     * @api {get} /themes/{id}/questions All questions of the current theme
+     * @apiName getQuestionsByTheme
+     * @apiGroup Themes
+     *
+     * @apiParam {Number} id Theme id
+     *
+     * @apiSuccess {Boolean} error an error occur
+     * @apiSuccess {String} message description of action
+     * @apiSuccess {Array} data All questions of theme
+     */
+    public function getQuestionsByTheme($id)
+    {
+        try
+        {
+             $theme = Theme::find($id);
+            
+            if(!$theme)
+                return response()->json(["error" => true, "message" => Lang::get('theme.notFound'), "data" => []]);
+            else
+            {
+                return response()->json(["error" => true, "message" => "", "data" => $theme->questions()->get()]);
+            }
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
+        }
+    }
 }

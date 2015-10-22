@@ -18,6 +18,6 @@ class Question extends Model
       
     public function theme()
     {
-         return $this->belongsTo('App\Theme', 'theme_id');
+         return $this->belongsTo('App\Models\Theme', 'theme_id');
     }
 }

@@ -32,7 +32,7 @@
                                 <td>{name}</td>
                                 <td>{description}</td>
                                 <td class="text-right">
-                                    <a href=""><i data-toggle="tooltip" data-placement="top" title="Editer" class="fa fa-pencil fa-lg"/></a>
+                                    <a href="" onclick={theme_edit}><i data-toggle="tooltip" data-placement="top" title="Editer" class="fa fa-pencil fa-lg"/></a>
                                     &nbsp;&nbsp;
                                     <a href="" onclick={theme_delete}><i data-toggle="tooltip" data-placement="top" title="Supprimer" class="fa fa-red fa-trash fa-lg"/></a>
                                 </td>
@@ -129,6 +129,10 @@
             addForm(false, false);
             var value = { "name" : name.val(), "description" : description.val() }
             opts.themes.add(value);
+        }
+        
+        theme_edit(e) {
+            riot.route('themes/edit/'+(e.item.id));
         }
         
         theme_delete(e) {

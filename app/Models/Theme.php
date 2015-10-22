@@ -15,4 +15,9 @@ class Theme extends Model
     protected $connection = 'evaluat0r';
     protected $table = 'theme';
     //protected $primaryKey = 'id';
+    
+    public function questions()
+    {
+         return $this->hasMany('App\Models\Question');
+    }
 }

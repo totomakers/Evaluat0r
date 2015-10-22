@@ -25,6 +25,7 @@
 <script src="riot/tags/home.tag" type="riot/tag"></script>
 <script src="riot/tags/themes.tag" type="riot/tag"></script>
 <script src="riot/tags/modeles.tag" type="riot/tag"></script>
+<script src="riot/tags/questions.tag" type="riot/tag"></script>
 @endsection
 
 @section('js_script')
