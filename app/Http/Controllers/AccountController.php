@@ -21,11 +21,20 @@ class AccountController extends Controller
     {
          return view('account.login');
     }
+     
+     //----------------------------
+     //API ------------------------
+     //----------------------------
     
-    /**
-     * getAll() return all Account in database
-     * @return jsonArray return a json array with all accounts
-     */
+     /**
+      * @api {get} /accounts Request Accounts information
+      * @apiName      getAll
+      * @apiGroup Accounts
+      *
+      * @apiSuccess {Boolean} error an error occur
+      * @apiSuccess {String} message description of action
+     * @apiSuccess {Array} data all accounts
+      */
     public function getAll()
     {
         try
@@ -39,11 +48,17 @@ class AccountController extends Controller
         }
     }
     
-    /**
-     * getById return a specific account by id
-     * @param  integer $id wanted id
-     * @return jsonArray return a json array with wanted account
-     */
+     /**
+      * @api {get} /accounts/{id} Request Account information
+      * @apiName      getById
+      * @apiGroup Accounts
+      *
+      * @apiParam {Number} id Accounts unique ID
+      *
+      * @apiSuccess {Boolean} error an error occur
+      * @apiSuccess {String} message description of action
+     * @apiSuccess {Array} data current account information
+      */
     public function getById($id)
     {
         try
@@ -63,10 +78,15 @@ class AccountController extends Controller
         }
     }
     
-    /**
-     * getProfil return the current connected user
-     * @return jsonArray return a json array with wanted account
-     */
+     /**
+      * @api {get} /accounts/profile Request Account information
+      * @apiName      getCurrentAccount
+      * @apiGroup Accounts
+      *
+      * @apiSuccess {Boolean} error an error occur
+      * @apiSuccess {String} message description of action
+     * @apiSuccess {Array} data Current account information
+      */
     public function getProfil()
     {
         try
@@ -80,30 +100,58 @@ class AccountController extends Controller
         }
     }
 
-    /**
-     * postLogin check if username and password is correct
-     * @return jsonArray return a json array with authToken ;)
-     */
+     /**
+      * @api {post} /accounts/login Try to login
+      * @apiName      login
+      * @apiGroup Accounts
+      *
+      * @apiParam {String} username Account username
+      * @apiParam {String} password Account password
+      *
+      * @apiSuccess {Boolean} error an error occur
+      * @apiSuccess {String} message description of action
+     * @apiSuccess {Array} data empty
+      */
     public function postLogin(Request $request)
     {
-        $username = $request->input('username');
-        $password = $request->input('password');
+          try
+          {
+               $username = $request->input('username');
+               $password = $request->input('password');
 
-        if(Auth::attempt(['username' => $username, 'password' => $password]))
+               if(Auth::attempt(['username' => $username, 'password' => $password]))
+               {
+                    return response()->json(["error" => false, "message" => Lang::get('account.loginOk'), "data" => []]);
+               }
+               else
+                    return response()->json(["error" => true, "message" => Lang::get('account.loginFail'), "data" => []]);
+          }
+          catch(\Exception $e)
         {
-            return response()->json(["error" => false, "message" => Lang::get('account.loginOk')]);
+            return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
         }
-        else
-            return response()->json(["error" => true, "message" => Lang::get('account.loginFail')]);
     }
 
-
-    /**
-     * getLogout delete the current session and redirect to call page
-     */
+     /**
+      * @api {get} /accounts/logout Logout
+      * @apiName      logout
+      * @apiGroup Accounts
+      *
+      *
+      * @apiSuccess {Boolean} error an error occur
+      * @apiSuccess {String} message description of action
+     * @apiSuccess {Array} data empty
+      */
     public function getLogout()
     {
-        Auth::logout();
-        return response()->json(["error" => false, "message" => Lang::get('account.logoutOk')]);
+          try
+          {
+               Auth::logout();
+               return response()->json(["error" => false, "message" => Lang::get('account.logoutOk'), "data" => []]);
+          }
+          catch(\Exception $e)
+        {
+            return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
+        }
     }
 }

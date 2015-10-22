@@ -48,10 +48,10 @@ return [
 
         'evaluat0r' => [
             'driver'    => 'mysql',
-            'host'      => env('WEBSITE_HOST', 'localhost'),
-            'database'  => env('WEBSITE_DATABASE', 'evaluat0r'),
-            'username'  => env('WEBSITE_USERNAME', 'root'),
-            'password'  => env('WEBSITE_PASSWORD', ''),
+            'host'      => env('DB_HOST', 'localhost'),
+            'database'  => env('DB_DATABASE', 'evaluat0r'),
+            'username'  => env('DB_USERNAME', 'root'),
+            'password'  => env('DB_PASSWORD', ''),
             'charset'   => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix'    => '',
