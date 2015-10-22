@@ -27,6 +27,11 @@
     text-align: center;
 }
 
+.textarea-fixed
+{
+    resize: vertical;
+}
+
 /*
 ---------------
 LOADER --------

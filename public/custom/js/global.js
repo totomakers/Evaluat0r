@@ -11,3 +11,15 @@ loader.hide = function()
     $('#app_loader').hide();
     $('#app_content').show();
 };
+
+
+var refreshTooltip = function()
+{
+    var tooltips = $('[data-toggle="tooltip"]');
+    tooltips.tooltip();  
+}
+
+var byId = function(e)
+{
+    return e.id;
+}

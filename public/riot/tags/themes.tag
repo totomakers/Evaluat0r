@@ -74,13 +74,7 @@
                 onPageClick: pageClick,
             });
         }
-        
-        var refreshTooltip = function()
-        {
-           var tooltips = $('[data-toggle="tooltip"]');
-           tooltips.tooltip();  
-        }
-        
+
          //Enable/Disable add form
         var addForm = function(enable, clear)
         {
