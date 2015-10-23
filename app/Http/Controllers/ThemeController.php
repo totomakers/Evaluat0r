@@ -149,7 +149,6 @@ class ThemeController extends Controller
             {
                 $errors = $validator->messages()->getMessages();
                 $errorsJson = array();
-                $fields = array("name", "description");
                 
                 //----
                 //Name
@@ -179,8 +178,8 @@ class ThemeController extends Controller
             else //ok
             {
                 $theme = new Theme();
-                $theme->name = $request->input('name');
-                $theme->description = $request->input('description');
+                $theme->name = $request->name;
+                $theme->description = $request->description;
                 $theme->save();
                 
                 return response()->json(["error" => false, "message" => Lang::get('theme.add', ["name" => $theme->name]), "data" => $theme]);

@@ -55,8 +55,8 @@ Route::group(['as' => 'api', 'prefix' => 'api'], function ()
     Route::group(['as' => '::questions', 'prefix' => 'questions'], function () 
     {
         Route::get('/', ['as' => '::getAll', 'middleware' => 'auth.rank:2', 'uses'=>'QuestionController@getAll']);
+        Route::post('/add', ['as' => '::postAdd', 'middleware' => 'auth.rank:2', 'uses'=>'QuestionController@postAdd']);
         
-       // Route::post('/add', ['as' => '::postAdd', 'middleware' => 'auth.rank:2', 'uses'=>'QuestionController@postAdd']);
        // Route::delete('/delete/{id}', ['as' => '::deleteDelete', 'middleware' => 'auth.rank:2', 'uses'=>'QuestionController@deleteDelete'])->where('id', '[0-9]+');
     });
    

@@ -4,3 +4,5 @@ var Answer = function(){
     this.wording = '';
 };
 
+var answers = riot.observable();
+answers.apiBaseUrl = '/api/';
