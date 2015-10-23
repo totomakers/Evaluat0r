@@ -56,8 +56,14 @@ Route::group(['as' => 'api', 'prefix' => 'api'], function ()
     {
         Route::get('/', ['as' => '::getAll', 'middleware' => 'auth.rank:2', 'uses'=>'QuestionController@getAll']);
         Route::post('/add', ['as' => '::postAdd', 'middleware' => 'auth.rank:2', 'uses'=>'QuestionController@postAdd']);
-        
-       // Route::delete('/delete/{id}', ['as' => '::deleteDelete', 'middleware' => 'auth.rank:2', 'uses'=>'QuestionController@deleteDelete'])->where('id', '[0-9]+');
+    });
+    
+    //|--------------------
+    //| Registration routes
+    //|--------------------
+    Route::group(['as' => '::registrations', 'prefix' => 'registrations'], function () 
+    {
+        Route::get('/', ['as' => '::getAll', 'middleware' => 'auth.rank:1', 'uses'=>'RegistrationController@getAll']);
     });
    
 });
