@@ -30,6 +30,11 @@ themes.get = function(id)
     $.ajax({ url: themes.apiBaseUrl+'themes/'+id, success: themes.onGet});
 }
 
+themes.getQuestions = function(id)
+{
+    $.ajax({ url: themes.apiBaseUrl+'themes/'+id+'/questions', success: themes.onGetQuestions});
+}
+
 //-----------------
 //EVENTS ----------
 //-----------------
@@ -61,6 +66,11 @@ themes.onAdd = function(json)
 themes.onDelete = function(json)
 {
     themes.trigger('theme_delete', json);
+}
+
+themes.onGetQuestions = function(json)
+{
+    themes.trigger('theme_getQuestions', json);
 }
 
 themes.sortByName =  function(a, b) 
