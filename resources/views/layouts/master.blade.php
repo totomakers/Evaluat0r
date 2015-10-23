@@ -5,7 +5,7 @@
         <link rel="stylesheet" type="text/css" href="{!! URL::asset('bower/animate.css/animate.min.css'); !!}"/>
         <link rel="stylesheet" type="text/css" href="{!! URL::asset('bower/font-awesome/css/font-awesome.min.css'); !!}"/>
         <link rel="stylesheet" type="text/css" href="{!! URL::asset('bower/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css'); !!}"/>
-        <link rel="stylesheet" type="text/css" href="{!! URL::asset('bower/bootstrap-markdown/css/bootstrap-markdown.css'); !!}"/>
+        <link rel="stylesheet" type="text/css" href="{!! URL::asset('bower/clockpicker/dist/bootstrap-clockpicker.min.css'); !!}"/>
         <link rel="stylesheet" type="text/css" href="{!! URL::asset('custom/css/lumen.min.css'); !!}"/>
         <link rel="stylesheet" type="text/css" href="{!! URL::asset('custom/css/style.css'); !!}"/>
         @yield('css')
@@ -25,6 +25,7 @@
     <script type="text/javascript" src="{!! URL::asset('bower/bootstrap/js/tooltip.js'); !!}"></script>
     <script type="text/javascript" src="{!! URL::asset('bower/markdown/lib/markdown.js'); !!}"></script>
     <script type="text/javascript" src="{!! URL::asset('bower/bootstrap-markdown/js/bootstrap-markdown.js'); !!}"></script>
+    <script type="text/javascript" src="{!! URL::asset('bower/clockpicker/dist/bootstrap-clockpicker.min.js'); !!}"></script>
     <script type="text/javascript" src="{!! URL::asset('custom/js/riot_compiler.js'); !!}"></script>
     <script type="text/javascript" src="{!! URL::asset('bower/twbs-pagination/jquery.twbsPagination.min.js'); !!}"></script>
     
