@@ -1,6 +1,6 @@
 var Answer = function(){
     this.id;
-    this.good = false;
+    this.good = "0";
     this.wording = '';
 };
 

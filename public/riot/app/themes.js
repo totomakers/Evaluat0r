@@ -22,7 +22,7 @@ themes.add = function(params)
 
 themes.delete = function(id)
 {
-    $.ajax({type: "DELETE", url: api.apiBaseUrl+'themes/delete/'+id, success: themes.onDelete});
+    $.ajax({type: "DELETE", url: api.apiBaseUrl+'themes/'+id, success: themes.onDelete});
 }
 
 themes.get = function(id)
