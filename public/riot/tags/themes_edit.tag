@@ -4,5 +4,9 @@
     
     <questions themes={opts.themes} questions={opts.questions} page={opts.page}>
     </questions>
+    
+    <script>
+        var self = this;
+    </script>
 </themes_edit>
 

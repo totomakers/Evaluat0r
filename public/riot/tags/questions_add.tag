@@ -1,9 +1,16 @@
-<questions_add>
+<questions_add> 
     <div class="animated fadeIn">
         <div class="row">
             <div class="col-lg-12 animated fadeIn" id="theme_title" hidden>
                 <h1> <a data-toggle="tooltip" data-placement="bottom" title="Retour" href="javascript:history.back()"><i class="fa fa-chevron-left"></i></a> Theme {theme.name} <small> - {theme.description} </small></h1>
                 <hr>
+            </div>
+        </div>
+        <div class="row animated fadeIn" show={alert.display} >
+            <div class="col-lg-8">
+                <div id="alert_block" class="alert alert-danger">
+                    {alert.message}
+                </div>
             </div>
         </div>
         <div class="row">
@@ -55,7 +62,7 @@
                     </div>
                     <div class="text-right">
                         <button type="reset" class="btn btn-danger" onclick={answers_clear}>Effacer</button>
-                        <button type="submit" class="btn btn-success" onclick={questions_add}>Ajouter la question</button>
+                        <button type="submit" class="btn btn-success" onclick={questions_add} id="question_button_add">Ajouter la question</button>
                     </div>
                 </div>
             </div>
@@ -66,6 +73,7 @@
         var self = this;
         self.answers = [];
         self.theme = [];
+        self.alert = { display:false, message:""};
         
         loader.show();
         loader.hide();
@@ -91,6 +99,40 @@
             $('#theme_title').show();
         });
         
+        opts.questions.on('question_add', function(json)
+        {
+            var alert = $('#alert_block');
+            self.alert.message = "";
+            self.alert.display = true;
+            
+            if(json.error == false)
+            {
+                var question = $('#question');
+                var wording = $('#answer_add_wording');
+                var good = $('#answer_add_good');
+                
+                wording.val("");
+                good.attr("checked", false);
+                question.val("");
+                
+                self.answers = [];
+                
+                alert.removeClass('alert-danger');
+                alert.addClass('alert-success');
+                
+                opts.questions.refresh();
+            }
+            else
+            {
+                alert.addClass('alert-danger');
+                alert.removeClass('alert-success');
+            }
+            
+            self.enableForm(true);
+            self.alert.message = json.message;
+            self.update();
+        });
+        
         //----------------
         //UTILS ----------
         //----------------
@@ -110,15 +152,34 @@
             }
         };
         
+        self.enableForm = function(enable)
+        {
+            //button
+            var button = $('#question_button_add');
+            var question = $('#question');
+             
+            if(enable == true)
+            {
+                button.removeAttr('disabled');
+                question.removeAttr('disabled');
+            }
+            else
+            {
+                button.attr('disabled', 'disabled');
+                question.attr('disabled', 'disabled');
+            }
+        }
+        
         
         //----------------
-        //EVENTS ---------
+        //SIGNAL ---------
         //----------------
-        
         
         questions_add(e) {
             var questionParams = { wording : "", answers : self.answers, theme_id : self.theme.id };
             questionParams.wording = this.question.value;
+            self.enableForm(false);
+            
             opts.questions.add(questionParams);
         };
 
@@ -143,7 +204,6 @@
 
                 wording.val("");
                 good.attr("checked", false);
-                self.update();
                 refreshTooltip();
             }
         }
@@ -159,5 +219,7 @@
             self.update();
             refreshTooltip();
         }
+        
+        
     </script>
 </questions_add>

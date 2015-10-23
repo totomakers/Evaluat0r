@@ -212,7 +212,7 @@ class ThemeController extends Controller
                 return response()->json(["error" => true, "message" => Lang::get('theme.notFound'), "data" => []]);
             else
             {
-                return response()->json(["error" => true, "message" => "", "data" => $theme->questions()->get()]);
+                return response()->json(["error" => true, "message" => "", "data" => $theme->questions()->with('answers')->get()]);
             }
         }
         catch(\Exception $e)

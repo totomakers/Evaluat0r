@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Question extends Model
+class Answer extends Model
 {
     public $timestamps = false;
 
@@ -13,16 +13,11 @@ class Question extends Model
     // $table is the table name used
     // $primaryKey is the table primary key
     protected $connection = 'evaluat0r';
-    protected $table = 'question';
+    protected $table = 'answer';
     //protected $primaryKey = 'id';
       
-    public function theme()
+    public function question()
     {
-         return $this->belongsTo('App\Models\Theme', 'theme_id');
-    }
-    
-    public function answers()
-    {
-        return $this->hasMany('App\Models\Answer');
+         return $this->belongsTo('App\Models\Question', 'question_id');
     }
 }
