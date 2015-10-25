@@ -36,10 +36,17 @@ function router(collections, action, id)
             }
             break;
             
-        case 'modeles':
+        case 'templates':
             pageTitle += 'Modèles';
         
-            if(!id) riot.mount(selector, 'modeles');
+            switch(action)
+            {
+                default:
+                case 'all':  
+                    if(!id) id = 1;
+                    riot.mount(selector, 'templates', {'template': template, 'page':{id:id}});
+                break;   
+            }
             break;
         
         default: 

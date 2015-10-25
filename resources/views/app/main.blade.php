@@ -28,8 +28,8 @@
 <script src="riot/tags/themes_edit.tag" type="riot/tag"></script>
 <script src="riot/tags/themes_questions.tag" type="riot/tag"></script>
 <script src="riot/tags/themes_questions_add.tag" type="riot/tag"></script>
-<script src="riot/tags/modeles.tag" type="riot/tag"></script>
-<script src="riot/tags/modeles_themes.tag" type="riot/tag"></script>
+<script src="riot/tags/templates.tag" type="riot/tag"></script>
+<script src="riot/tags/templates_themes.tag" type="riot/tag"></script>
 @endsection
 
 @section('js_script')
@@ -42,6 +42,7 @@
 <script type="text/javascript" src="{!! URL::asset('custom/js/global.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('riot/app/auth.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('riot/app/theme.js'); !!}"></script>
+<script type="text/javascript" src="{!! URL::asset('riot/app/template.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('riot/app/question.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('riot/app/answer.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('riot/app/router.js'); !!}"></script>

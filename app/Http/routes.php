@@ -64,7 +64,10 @@ Route::group(['as' => 'api', 'prefix' => 'api'], function ()
     //|--------------------
     Route::group(['as' => '::templates', 'prefix' => 'templates'], function () 
     {
-        Route::get('/', ['as' => '::getAll', 'middleware' => 'auth.rank:1', 'uses'=>'TemplateController@getAll']);
+        Route::get('/', ['as' => '::getAll', 'middleware' => 'auth.rank:2', 'uses'=>'TemplateController@getAll']);
+        Route::delete('/{id}', ['as' => '::deleteDelete', 'middleware' => 'auth.rank:2', 'uses'=>'TemplateController@deleteDelete'])->where('id', '[0-9]+');
+        
+        Route::post('/add', ['as' => '::postAdd', 'middleware' => 'auth.rank:2', 'uses'=>'TemplateController@postAdd']);
     });
     
     //|--------------------

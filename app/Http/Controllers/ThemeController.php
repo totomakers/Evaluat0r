@@ -61,7 +61,7 @@ class ThemeController extends Controller
     
      /**
      * @api {get} /themes/{id} Request Themes information
-     * @apiName getAll
+     * @apiName getById
      * @apiGroup Themes
      *
      * @apiParam {Number} id Theme unique ID
@@ -122,7 +122,7 @@ class ThemeController extends Controller
     }
     
     /**
-     * @api {post} /themes/ Add theme in database
+     * @api {post} /themes/add Add theme in database
      * @apiName Add
      * @apiGroup Themes
      *

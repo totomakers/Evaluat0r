@@ -49,12 +49,20 @@ var pagination = {}
 pagination.refreshPagination = function(selectorBox, selectorPagination, pagination, handlerPageClick)
 {
     $(selectorPagination).remove();
+    
+    if(pagination.last_page == '0') 
+        return;
+   
     $(selectorBox).html("<span id='"+selectorPagination.replace('#', '')+"' class='pagination-sm'/></span>");
     $(selectorPagination).twbsPagination({
         totalPages: pagination.last_page,
         visiblePages: 8,
         startPage: pagination.current_page,
         onPageClick: handlerPageClick,
+        first: 'Première page',
+        prev:  'Précèdent',
+        next: 'Suivant',
+        last: 'Dernière page',
     });
 }
 

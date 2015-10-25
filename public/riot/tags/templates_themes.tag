@@ -1,4 +1,4 @@
-<modeles_themes>
+<templates_themes>
     <div id="subloader" class="center-block">
         <i class="fa fa-spinner fa-spin fa-3x"></i>
     </div>
@@ -13,7 +13,7 @@
             <h2>Thèmes <small>3</small></h1>
         </div>
     </div>
-    <div class="row"
+    <div class="row">
         <div class="col-lg-12">
             <div class="table">
                 <table class="table table-striped table-hover">
@@ -38,4 +38,8 @@
             </div>
         </div>
     </div>
-</modeles_themes>
+    
+    <script>
+        var self = this;
+    </script>
+</templates_themes>
