@@ -2,14 +2,12 @@
     <div class="animated fadeIn">
         <div class="row">
             <div class="col-lg-12">
-                <h1>Themes <small> - {themes.count} disponible(s)</small></h1>
+                <h1>Thèmes <small> - {themes.count} disponible(s)</small></h1>
                 <hr>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12">
-                <div id="alert" class="alert alert-danger animated fadeIn" hidden></div>
-            </div>
+            <div class="col-lg-12" id="alert-box"></div>
         </div>
         <div class="row">
             <div class="col-lg-12">
@@ -32,7 +30,8 @@
                                 <td>{name}</td>
                                 <td>{description}</td>
                                 <td class="text-right">
-                                    <a href="" onclick={theme_edit}><i data-toggle="tooltip" data-placement="top" title="Editer" class="fa fa-pencil fa-lg"/></a>
+                                   { questions.length } questions &nbsp; &nbsp;
+                                    <a href="" onclick={theme_edit}><i data-toggle="tooltip" data-placement="top" title="Gérer la/les question(s)" class="fa fa-plus fa-lg"></i></a>
                                     &nbsp;&nbsp;
                                     <a href="" onclick={theme_delete}><i data-toggle="tooltip" data-placement="top" title="Supprimer" class="fa fa-red fa-trash fa-lg"/></a>
                                 </td>
@@ -43,7 +42,6 @@
             </div>
             <div class="row">
                 <div class="col-lg-12 text-center" id="themes_pagination_box">
-                    <span id="themes_pagination" class="pagination-sm"/></span>
                 </div>
             </div>
         </div>
@@ -51,9 +49,10 @@
     
     <script>
         var self = this;
+        self.themes = [];
+        
         loader.show();
 
-        //When tag is mounted
         this.on('mount',function() {
             opts.themes.getAll(opts.page.id);            
         });
@@ -61,21 +60,7 @@
         //--------------------
         //UTILS -
         //--------------------
-        
-        self.refreshPagination = function(json)
-        {
-             //apply pagination
-            $('#themes_pagination').remove();
-            $('#themes_pagination_box').html("<span id='themes_pagination' class='pagination-sm'/></span>");
-            $('#themes_pagination').twbsPagination({
-                totalPages: json.data.last_page,
-                visiblePages: 8,
-                startPage: json.data.current_page,
-                onPageClick: pageClick,
-            });
-        }
 
-         //Enable/Disable add form
         self.addForm = function(enable, clear)
         {
             //button
@@ -114,8 +99,7 @@
         //---------------
         //SIGNAL --------
         //---------------
-        
-        //Click on button add
+
         themes_add(e) {
             var name = $('#themes_add_name');
             var description = $('#themes_add_description');
@@ -132,35 +116,31 @@
         theme_delete(e) {
             opts.themes.delete(e.item.id);
         }
-            
-        //navigation pagination
+        
         var pageClick = function(event, page)
         {
             var themesData= $('#themes_data');
             themesData.addClass("animated slideOutRight");
             opts.page.id = page;
-            
+
             opts.themes.getAll(page);
         }
-        
-        
+            
         //---------------
         //EVENT ---------
         //---------------
         
-        //First load
         opts.themes.on('themes_getAll', function(json) 
         {
             loader.hide();
             
             //---------
             self.themes = json.data.data;
-            self.themes.count = json.data.total;
             if(Array.isArray(self.themes) == false) self.themes = [ self.themes ];
             self.themes.sort(opts.themes.sortByName);
+            self.themes.count = json.data.total;
             self.update();
             
-            //page nav animation
             var themesData= $('#themes_data');
             themesData.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
             {
@@ -169,75 +149,41 @@
             });
            
             refreshTooltip();
-            self.refreshPagination(json);
+            pagination.refreshPagination('#themes_pagination_box', '#themes_pagination', json.data, pageClick);
         });  
         
-        //Refresh
         opts.themes.on('themes_refreshAll', function(json) 
         {
-            opts.page.id = json.data.current_page;
             self.themes = json.data.data;
+            if(Array.isArray(self.themes) == false) self.themes = [ self.themes ];
             self.themes.count = json.data.total;
             self.themes.sort(opts.themes.sortByName);
             self.update();
            
             refreshTooltip();
-            self.refreshPagination(json);
+            pagination.refreshPagination('#themes_pagination_box', '#themes_pagination', json.data, pageClick);
         });
-        
-        
-        //Ajout de theme reussi
-        opts.themes.on('themes_add_success', function(json) {
-            var alert = $('#alert');
-            alert.hide();
-            alert.empty();
-            alert.removeClass("alert-danger");
-            alert.addClass("alert-success");
-            alert.append(json.message);
-            alert.show();
-   
-            self.addForm(true, true);
-            opts.themes.refreshAll(opts.page.id);
-        });
-        
-        //Ajout de theme échoué
-        opts.themes.on('themes_add_fail', function(json) {
-            var alert = $('#alert');
-            alert.hide();
-            alert.empty();
-            alert.removeClass("alert-success");
-            alert.addClass("alert-danger"); 
-            json.message.forEach(function(value){
-                alert.append(value+"</br>");
-            });
-            alert.show();
-            
-            self.addForm(true, false);
-        });
-        
-        //Suppression theme
-        opts.themes.on('theme_delete', function(json) {
-            var alert = $('#alert');
-            alert.hide();
-            alert.empty();
-            
+
+        opts.themes.on('themes_add', function(json) 
+        {
             if(json.error)
-            {
-                alert.removeClass("alert-success");
-                alert.addClass("alert-danger"); 
-            }
+                alert.show('#alert-box', 'danger', json.message);
             else
-            {
-                alert.removeClass("alert-danger");
-                alert.addClass("alert-success");
-            }
-            
-            alert.append(json.message);
-            alert.show();
+                alert.show('#alert-box', 'success', json.message);
+                
+            self.addForm(true, (json.error == false));
+            if(json.error == false) opts.themes.refreshAll(opts.page.id);
+        });
+
+        opts.themes.on('themes_delete', function(json) 
+        {
+            if(json.error)
+                alert.show('#alert-box', 'danger', json.message);
+            else
+                alert.show('#alert-box', 'success', json.message);
             
             opts.themes.refreshAll(opts.page.id);  
         });
         
-       
     </script>
 </themes>

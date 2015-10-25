@@ -6,146 +6,80 @@
                 <hr>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col-lg-5">
-            <form class="form" id="sections_form">
-                <div class="form-group">
-                    <label for="survey_title">Intitulé du questionnaire :</label>
-                    <input type="text" class="form-control" id="survey_title" placeholder="Test recrutement,..." required>
-                </div>
-                <div class="form-group">
-                    <label for="survey_time">Durée du test : </label>
-                    <div class="input-group clockpicker">
-                        <input type="text" class="form-control" value="00:00">
-                        <span class="input-group-addon">
-                            <span class="fa fa-clock-o"></span>
-                        </span>
-                    </div>
-                </div>
-                <div class="form-inline">
-                    <div class="table">
-                        <table id="survey_data" class="table table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Seuil</th>
-                                    <th>Inf./Sup.</th>
-                                    <th>Pourcentage</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="has-error">
-                                    <td>Non acquis</td>
-                                    <td class="text-center">inférieur à</td>
-                                    <td><input type="number" class="form-control" id="survey_leve_min" placeholder="35" onchange={level_mid} required></input> %</td>
-                                </tr>
-                                <tr class="has-warning">
-                                    <td>En cours</td>
-                                    <td class="text-center">inférieur à</td>
-                                    <td><input type="number" class="form-control" id="survey_leve_mid" placeholder="65" onchange={level_max} required></input> %</td>
-                                </tr>
-                                <tr class="has-success">
-                                    <td>Acquis</td>
-                                    <td class="text-center">supérieur à </td>
-                                    <td><input type="number" class="form-control" id="survey_leve_max" disabled></input> %</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+        <div class="row">
+            <div class="col-lg-7">
                 <div class="table">
-                    <table id="question_data" class="table table-striped table-hover">
+                    <table class="table table-striped">
                         <thead>
-                            <tr>
-                                <th>Thème</th>
-                                <th>Nombre de questions</th>
-                                <th></th>
-                            </tr>
+                            <th></th>
+                            <th>Nom</th>
+                            <th>Durée du test</th>
+                            <th>Admis: % requis</th>
+                            <th>En cours d'acquisition: % requis</th>
+                            <th>Nombre de thèmes</th>
+                            <th>Nombre de question(s) total</th>
+                            <th>Actions</th>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><input type="text" class="form-control" id="section_add_theme" oninput={section_input} placeholder="Thèmes"></input></td>
-                                <td><input type="number" class="form-control" id="section_add_number_answer" oninput={section_input} placeholder="20"></input></td>
-                                <td class="text-right"><button id="answer_add_submit" class="btn btn-success btn-lg" onclick={section_add}><i id="section_submit_ico" class="fa fa-plus fa-lg"></i></button></td>
-                            </tr>
-                            <tr each={sections}>
-                                <td>{libelle}</td>
-                                <td>{number}</td>
-                                <td class="text-right">
-                                    <a href="" onclick={section_delete}><i data-toggle="tooltip" data-placement="top" title="Supprimer" class="fa fa-red fa-trash fa-lg"/></a>
+                                <td></td>
+                                <td><input type="text" class="form-control" id="model_add_name" placeholder="Nom"></input></td>
+                                <td>
+                                    <div class="input-group clockpicker">
+                                        <input type="text" class="form-control" value="00:00">
+                                        <span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
+                                    </div>
                                 </td>
+                                <td><input type="text" class="form-control" id="model_add_admis" placeholder="15"></input></td>
+                                <td><input type="text" class="form-control" id="model_add_admis" placeholder="34"></input></td>
+                                <td></td>
+                                <td></td>
+                                <td><button id="model_add_button" class="btn btn-success btn-lg" onclick={models_add}><i id="models_add_button_ico" class="fa fa-plus fa-lg"></i></button></td>
                             </tr>
+                            <tr>
+                                <td><input type="radio" name="currentModel" value="{id}" checked></td>
+                                <td>Test d'admission</td>
+                                <td>1:00 heures</td>
+                                <td><span class="text-success">±85%</span></td>
+                                <td><span class="text-warning">±35%</span></td>
+                                <td>4</td>
+                                <td>50</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><input type="radio" name="currentModel" value="{id_2}"></td>
+                                <td>Test d'admission</td>
+                                <td>1:00 heures</td>
+                                <td><span class="text-success">±85%</span></td>
+                                <td><span class="text-warning">±35%</span></td>
+                                <td>4</td>
+                                <td>50</td>
+                                <td></td>
+                            <t/r>
                         </tbody>
                     </table>
                 </div>
-                <div class="row">
-                 <div class="text-right">
-                        <button type="reset" class="btn btn-danger" onclick={section_clear}>Effacer</button>
-                        <button type="submit" class="btn btn-success">Ajouter</button>
-                    </div>
-                </div>
-            </form>
+            </div>
+            <div class="col-lg-5" class="animated fadeIn">
+                <modeles_themes>
+                </modeles_themes>
+            </div>
         </div>
     </div>
+    
     <script>
-        loader.hide();
-       
-       var self = this;
-       this.sections = [];
-       
-        //When tag is mounted
+        var self = this;
+        loader.show();
+        
         this.on('mount',function() {
             $('.clockpicker').clockpicker({
                     donetext: 'Valider',
                     default: '00:00',
-                    placement: 'right',
+                    placement: 'bottom',
                     //align: 'top',
-            });       
+            });   
+
+            loader.hide();            
         });
-        
-        level_mid(e) {
-            $("#survey_leve_mid").val($("#survey_leve_min").val());
-        };  
-        
-        level_max(e) {
-            $("#survey_leve_max").val($("#survey_leve_mid").val());
-        }; 
-        
-        //----------------
-        //EVENTS ---------
-        //----------------
-
-        section_clear(e) {
-            $('#sections_form')[0].reset();
-            self.sections = [];
-            self.update();
-        };
-        
-        section_add(e){
-            var libelle = $('#section_add_theme');
-            var number = $('#section_add_number_answer');
-            
-            var newSection = new Answer();
-            newSection.id = self.sections.length;
-            newSection.libelle = libelle.val();
-            newSection.number = number.val();
-            self.sections.push(newSection);
-
-            libelle.val("");
-            number.val("");
-            self.update();
-            refreshTooltip();
-        }
-        
-        section_delete(e){
-            console.log("ok");
-            var index = self.sections.map(byId).indexOf(e.item.id);
-            self.sections.splice(index, 1);
-            
-            self.update();
-            refreshTooltip();
-        }
-
-        
     </script>
 </modeles>

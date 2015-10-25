@@ -1,5 +1,8 @@
-var loader = {};
+//------------
+//LOADER -----
+//------------
 
+var loader = {};
 loader.show = function()
 {
     $('#app_loader').show();
@@ -12,6 +15,52 @@ loader.hide = function()
     $('#app_content').show();
 };
 
+//--------------
+//ALERT --------
+//--------------
+
+var alert = {};
+alert.show = function(selector, type, message)
+{
+    box = $(selector);
+    messageBuffer = "";
+    
+    if(Array.isArray(message))
+    {
+        for(var i = 0; i < message.length; i++)
+            messageBuffer += message[i] + "</br>";
+    }
+    else
+        messageBuffer = message;
+        
+    
+    box[0].innerHTML = '<div class="alert alert-'+type+' alert-dismissible animated fadeIn"> \
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button> \
+                    '+messageBuffer+'</div>';
+                    
+    box.show();
+} 
+
+//-------------
+//PAGINATION --
+//-------------
+
+var pagination = {}
+pagination.refreshPagination = function(selectorBox, selectorPagination, pagination, handlerPageClick)
+{
+    $(selectorPagination).remove();
+    $(selectorBox).html("<span id='"+selectorPagination.replace('#', '')+"' class='pagination-sm'/></span>");
+    $(selectorPagination).twbsPagination({
+        totalPages: pagination.last_page,
+        visiblePages: 8,
+        startPage: pagination.current_page,
+        onPageClick: handlerPageClick,
+    });
+}
+
+//-------------
+//UTILS -------
+//-------------
 
 var refreshTooltip = function()
 {

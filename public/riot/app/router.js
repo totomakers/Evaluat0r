@@ -17,10 +17,13 @@ function router(collections, action, id)
             {
                 case 'edit':
                     //-----
-                    if(!id) 
+                    if(!id)
                         riot.route('themes/all/1'); 
                     else 
+                    {
+                        pageTitle += ' - Géstion des questions';
                         riot.mount(selector, 'themes_edit', {'api': api, 'themes': themes, 'questions': questions, 'page': {id:id} });
+                    }
                     //-----
                 break;
                 case 'delete': break;
@@ -29,7 +32,7 @@ function router(collections, action, id)
                 default:
                 case 'all':
                      if(!id) id = 1;
-                     riot.mount(selector, 'themes', {'api': api, 'themes' : themes, 'page' : { id : id} });
+                     riot.mount(selector, 'themes', {'api': api, 'themes' : themes, 'page' : { id : id}, 'alert': alert });
                     break;
             }
             break;

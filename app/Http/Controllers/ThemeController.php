@@ -34,7 +34,7 @@ class ThemeController extends Controller
     {
         try
         {
-            $themes = Theme::orderBy('name');
+            $themes = Theme::with('questions')->orderBy('name');
             if($request->has('page'))
             {
                  $page = $request->input('page');
@@ -49,7 +49,7 @@ class ThemeController extends Controller
                  return response()->json(["error"=> false, "message" =>"", "data" => $results->toArray()]);
             }
             
-            $themes = Theme::all();
+            $themes = Theme::with('questions')->get();
             return response()->json(["error"=> false, "message" =>"", "data" => $themes]);
 
         }

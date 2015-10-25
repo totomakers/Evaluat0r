@@ -1,16 +1,13 @@
-<questions_add> 
+<themes_questions_add> 
     <div class="animated fadeIn">
         <div class="row">
             <div class="col-lg-12 animated fadeIn" id="theme_title" hidden>
-                <h1> <a data-toggle="tooltip" data-placement="bottom" title="Retour" href="javascript:history.back()"><i class="fa fa-chevron-left"></i></a> Theme {theme.name} <small> - {theme.description} </small></h1>
+                <h1> <a data-toggle="tooltip" data-placement="bottom" title="Retour" href="javascript:history.back()"><i class="fa fa-chevron-left"></i></a> Thème {theme.name} <small> - {theme.description} </small></h1>
                 <hr>
             </div>
         </div>
-        <div class="row animated fadeIn" show={alert.display} >
-            <div class="col-lg-8">
-                <div id="alert_block" class="alert alert-danger">
-                    {alert.message}
-                </div>
+        <div class="row animated fadeIn">
+            <div class="col-lg-8" id="alert-box">
             </div>
         </div>
         <div class="row">
@@ -73,11 +70,9 @@
         var self = this;
         self.answers = [];
         self.theme = [];
-        self.alert = { display:false, message:""};
         
         loader.show();
-        loader.hide();
-
+        
         this.on('mount',function() 
         {
             opts.themes.get(opts.page.id);
@@ -89,6 +84,8 @@
                 resize:'vertical',
                 hiddenButtons:'Image',
             })
+            
+            loader.hide();
         });
         
         opts.themes.on('themes_get', function(json) 
@@ -99,12 +96,8 @@
             $('#theme_title').show();
         });
         
-        opts.questions.on('question_add', function(json)
+        opts.questions.on('questions_add', function(json)
         {
-            var alert = $('#alert_block');
-            self.alert.message = "";
-            self.alert.display = true;
-            
             if(json.error == false)
             {
                 var question = $('#question');
@@ -112,24 +105,18 @@
                 var good = $('#answer_add_good');
                 
                 wording.val("");
-                good.attr("checked", false);
                 question.val("");
+                good.attr("checked", false);
                 
                 self.answers = [];
                 
-                alert.removeClass('alert-danger');
-                alert.addClass('alert-success');
-                
+                alert.show('#alert-box', 'success', json.message);
                 opts.questions.refresh();
             }
             else
-            {
-                alert.addClass('alert-danger');
-                alert.removeClass('alert-success');
-            }
+                alert.show('#alert-box', 'danger', json.message);
             
             self.enableForm(true);
-            self.alert.message = json.message;
             self.update();
         });
         
@@ -222,4 +209,4 @@
         
         
     </script>
-</questions_add>
+</themes_questions_add>

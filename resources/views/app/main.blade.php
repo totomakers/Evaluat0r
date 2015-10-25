@@ -26,15 +26,15 @@
 <script src="riot/tags/home.tag" type="riot/tag"></script>
 <script src="riot/tags/themes.tag" type="riot/tag"></script>
 <script src="riot/tags/themes_edit.tag" type="riot/tag"></script>
+<script src="riot/tags/themes_questions.tag" type="riot/tag"></script>
+<script src="riot/tags/themes_questions_add.tag" type="riot/tag"></script>
 <script src="riot/tags/modeles.tag" type="riot/tag"></script>
-<script src="riot/tags/questions.tag" type="riot/tag"></script>
-<script src="riot/tags/questions_add.tag" type="riot/tag"></script>
+<script src="riot/tags/modeles_themes.tag" type="riot/tag"></script>
 @endsection
 
 @section('js_script')
 <script type="text/javascript" src="{!! URL::asset('custom/js/sidebar.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('custom/js/global.js'); !!}"></script>
-<script type="text/javascript" src="{!! URL::asset('bower/strip-markdown/strip-markdown.min.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('riot/app/api.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('riot/app/themes.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('riot/app/questions.js'); !!}"></script>

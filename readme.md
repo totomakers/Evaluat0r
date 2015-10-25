@@ -9,10 +9,9 @@
 
 #### Installer l'application :
 
++ Lancer la commande `npm install -g bower`
 + Lancer la commande `composer install` dans vote répertoire
-+ Lancer la commande `composer update` dans vote répertoire
 + Lancer la commande `npm install` dans votre répertoire
-+ Lancer la commande `npm install -g bower` dans votre répertoire
 + Lancer la commande `bower update` dans votre répertoire
 + Installer les SQL du dossier SQL
 + Copier `.env.example` et le renommer en `.env` et le paramétrer

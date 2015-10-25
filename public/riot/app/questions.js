@@ -24,10 +24,10 @@ questions.delete = function(id)
 //-----------------
 questions.onAdd = function(json)
 {
-    questions.trigger('question_add', json);
+    questions.trigger('questions_add', json);
 }
 
 questions.onDelete = function(json)
 {
-    questions.trigger('question_delete', json);
+    questions.trigger('questions_delete', json);
 }

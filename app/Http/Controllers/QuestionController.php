@@ -88,7 +88,7 @@ class QuestionController extends Controller
      */
     public function postAdd(Request $request)
     {
-        try
+        try 
         {
             //rules to apply of each field
             $rulesQuestion = array(
@@ -158,8 +158,12 @@ class QuestionController extends Controller
                  );
             
                 $answersError = false;
+                $oneAnswerGood = false;
+                
                 for($i = 0; $i < count($request->answers); ++$i)
                 {
+                    if($request->answers[$i]["good"] == "true") $oneAnswerGood = true;
+                    
                     $validatorAnswer = Validator::make($request->answers[$i], $rulesAnswer);
                     if($validatorAnswer->fails())
                     {
@@ -190,11 +194,14 @@ class QuestionController extends Controller
                     }
                 }
                 
+                if(!$oneAnswerGood)
+                    array_push($errorsJson, Lang::get('answer.oneGoodRequired'));
+            
                 //------------
                 //Insertion --
                 //------------
                 
-                if(!$answersError)
+                if(!$answersError && $oneAnswerGood)
                 {
                     $question = new Question();
                     $question->wording = $request->wording;

@@ -1,4 +1,4 @@
-<questions hidden>
+<themes_questions hidden>
     <div class="row">
         <div class="col-lg-12">
             <h2>{ questionsData.length } questions</h2>
@@ -32,7 +32,7 @@
                                         <td>{wording}</td>
                                         <td>  
                                             <span class="checkbox checkbox-success checkbox-circle">
-                                                <input type="checkbox" class="styled" id="answer_add_good" checked={good}>
+                                                <input type="checkbox" class="styled" id="answer_add_good" checked={good} disabled>
                                                 <label for="answer_add_good"></label>
                                             </span>
                                         </td>
@@ -75,7 +75,7 @@
         //EVENT --
         //--------
         
-        opts.themes.on('theme_getQuestions', function(json) {
+        opts.themes.on('themes_getQuestions', function(json) {
             self.questionsData = json.data;
             self.update();
             refreshTooltip();
@@ -86,7 +86,7 @@
             opts.themes.getQuestions(opts.page.id);
         });
         
-        opts.questions.on('question_delete', function(json)
+        opts.questions.on('questions_delete', function(json)
         {
             var index = self.questionsData.map(byId).indexOf(json.data.id);
             self.questionsData.splice(index,1);
@@ -96,4 +96,4 @@
         });
         
     </script>
-</questions>
+</themes_questions>
