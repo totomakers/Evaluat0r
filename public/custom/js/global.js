@@ -3,17 +3,18 @@
 //------------
 
 var loader = {};
-loader.show = function()
-{
-    $('#app_loader').show();
-    $('#app_content').hide();
-};
 
-loader.hide = function()
+loader.show = function(selector)
 {
-    $('#app_loader').hide();
-    $('#app_content').show();
-};
+    selector = typeof selector !== 'undefined' ? selector : '#app_loader';
+    $(selector).show();
+}
+
+loader.hide = function(selector)
+{
+    selector = typeof selector !== 'undefined' ? selector : '#app_loader';
+    $(selector).hide();
+}
 
 //--------------
 //ALERT --------
