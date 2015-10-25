@@ -12,11 +12,11 @@ MySQL - 10.0.21-MariaDB : Database - evaluat0r
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-/*Table structure for table `modele` */
+/*Table structure for table `template` */
 
-DROP TABLE IF EXISTS `modele`;
+DROP TABLE IF EXISTS `template`;
 
-CREATE TABLE `modele` (
+CREATE TABLE `template` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Identifant du test',
   `name` text NOT NULL COMMENT 'Nom du test',
   `duration` time NOT NULL COMMENT 'Durée du test',

@@ -5,8 +5,8 @@
 function router(collections, action, id)
 {
     var selector = document.getElementById('app_content');
+    var basePageTitle = 'Evaluat0r - ';
     var pageTitle = '';
-
 
     switch(collections)
     {
@@ -16,23 +16,22 @@ function router(collections, action, id)
             switch(action)
             {
                 case 'edit':
-                    //-----
                     if(!id)
                         riot.route('themes/all/1'); 
                     else 
                     {
-                        pageTitle += ' - Géstion des questions';
-                        riot.mount(selector, 'themes_edit', {'api': api, 'themes': themes, 'questions': questions, 'page': {id:id} });
+                        pageTitle += ' : Géstion des questions';
+                        riot.mount(selector, 'themes_edit', {'theme': theme, 'question': question, 'page': {id:id} });
                     }
-                    //-----
                 break;
+                
                 case 'delete': break;
                 case 'add': break;
                 
                 default:
                 case 'all':
                      if(!id) id = 1;
-                     riot.mount(selector, 'themes', {'api': api, 'themes' : themes, 'page' : { id : id}, 'alert': alert });
+                     riot.mount(selector, 'themes', {'theme' : theme, 'page' : { id : id}, 'alert': alert });
                     break;
             }
             break;
@@ -45,11 +44,11 @@ function router(collections, action, id)
         
         default: 
             pageTitle += 'Accueil';
-            riot.mount(selector, 'home', api);
+            riot.mount(selector, 'home', auth);
         break;
     }
     
-    document.title = 'Evaluat0r - ' + pageTitle;
+    document.title =  basePageTitle + pageTitle;
 };
 
 riot.route(router);

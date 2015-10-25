@@ -60,11 +60,20 @@ Route::group(['as' => 'api', 'prefix' => 'api'], function ()
     });
     
     //|--------------------
+    //| Template routes
+    //|--------------------
+    Route::group(['as' => '::templates', 'prefix' => 'templates'], function () 
+    {
+        Route::get('/', ['as' => '::getAll', 'middleware' => 'auth.rank:1', 'uses'=>'TemplateController@getAll']);
+    });
+    
+    //|--------------------
     //| Registration routes
     //|--------------------
     Route::group(['as' => '::registrations', 'prefix' => 'registrations'], function () 
     {
         Route::get('/', ['as' => '::getAll', 'middleware' => 'auth.rank:1', 'uses'=>'RegistrationController@getAll']);
     });
+    
 
 });

@@ -8,17 +8,17 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-              <div class="panel panel-default animated fadeIn" id="questions_content" each={questionsData} >
-                <div class="panel-heading" role="tab" id="{ 'question_heading_'+id }">
+              <div class="panel panel-default animated fadeIn" id="questions-content" each={questionsData} >
+                <div class="panel-heading" role="tab" id="{ 'question-heading-'+id }">
                   <h4 class="panel-title">
-                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="{ '#question_collapse_'+id }" aria-expanded="true" aria-controls="{ 'question_collapse_'+id }">
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="{ '#question-collapse-'+id }" aria-expanded="true" aria-controls="{ 'question-collapse-'+id }">
                         { stripHTML(markdown.toHTML(wording)) }...
                     </a>
                      <span class="pull-right"><a href="" onclick={question_delete}><i data-toggle="tooltip" data-placement="top" title="Supprimer" class="fa fa-red fa-trash fa-lg"></i></a></span>
                   </h4>
                 </div>
-                <div id="{ 'question_collapse_'+id }" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{ 'question_heading_'+id }">
-                  <div class="panel-body" id="{ 'question_content_'+id }">
+                <div id="{ 'question-collapse-'+id }" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{ 'question-heading-'+id }">
+                  <div class="panel-body" id="{ 'question-content-'+id }">
                         <raw content="{markdown.toHTML(wording)}"></raw>
                         <hr>
                         <div class="table">
@@ -52,7 +52,7 @@
         self.questionsData = [];
         
         this.on('mount', function(){
-            opts.themes.getQuestions(opts.page.id);
+            opts.theme.getQuestions(opts.page.id);
         });
         
         self.stripHTML = function(html)
@@ -68,25 +68,25 @@
         //SIGNAL
         //-------
         question_delete(e){
-            opts.questions.delete(e.item.id);
+            opts.question.delete(e.item.id);
         }
         
         //--------
         //EVENT --
         //--------
         
-        opts.themes.on('themes_getQuestions', function(json) {
+        opts.theme.on('theme_getQuestions', function(json) {
             self.questionsData = json.data;
             self.update();
             refreshTooltip();
         });
         
-        opts.questions.on('questions_refresh', function()
+        opts.question.on('question_refresh', function()
         {
-            opts.themes.getQuestions(opts.page.id);
+            opts.theme.getQuestions(opts.page.id);
         });
         
-        opts.questions.on('questions_delete', function(json)
+        opts.question.on('question_delete', function(json)
         {
             var index = self.questionsData.map(byId).indexOf(json.data.id);
             self.questionsData.splice(index,1);

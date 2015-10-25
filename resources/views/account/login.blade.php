@@ -10,8 +10,8 @@
 @endsection
 
 @section('js_script')
-<script type="text/javascript" src="{!! URL::asset('riot/app/api.js'); !!}"></script>
+<script type="text/javascript" src="{!! URL::asset('riot/app/auth.js'); !!}"></script>
 <script>
-riot.mount('login', api);
+riot.mount('login', auth);
 </script>
 @endsection

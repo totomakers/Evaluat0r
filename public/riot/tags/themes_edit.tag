@@ -1,8 +1,8 @@
 <themes_edit>
-    <themes_questions_add api={opts.api} themes={opts.themes} page={opts.page} questions={opts.questions}>
+    <themes_questions_add api={opts.api} theme={opts.theme} page={opts.page} question={opts.question}>
     </themes_questions_add>
     
-    <themes_questions themes={opts.themes} questions={opts.questions} page={opts.page}>
+    <themes_questions theme={opts.theme} question={opts.question} page={opts.page}>
     </themes_questions>
     
     <script>

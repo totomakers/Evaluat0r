@@ -1,7 +1,7 @@
 <themes_questions_add> 
     <div class="animated fadeIn">
         <div class="row">
-            <div class="col-lg-12 animated fadeIn" id="theme_title" hidden>
+            <div class="col-lg-12 animated fadeIn" id="theme-title" hidden>
                 <h1> <a data-toggle="tooltip" data-placement="bottom" title="Retour" href="javascript:history.back()"><i class="fa fa-chevron-left"></i></a> Thème {theme.name} <small> - {theme.description} </small></h1>
                 <hr>
             </div>
@@ -15,7 +15,7 @@
                 <h2><small>Nouvelle question :</small></h2>
             </div>
         </div>
-        <form id="questions_form">
+        <form id="question-form">
             <div class="row">
                 <div class="col-lg-8">
                     <div class="form-group">
@@ -23,7 +23,7 @@
                         <textarea class="form-control textarea-fixed" id="question" name="question" rows="10"></textarea>
                     </div>
                     <div class="table-responsive">
-                        <table id="question_data" class="table table-striped table-hover">
+                        <table id="question-data" class="table table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th>Réponse</th>
@@ -33,21 +33,21 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><input type="text" class="form-control" id="answer_add_wording" oninput={answer_input} placeholder="Libellé"></input></td>
+                                    <td><input type="text" class="form-control" id="answer-add-wording" oninput={answer_input} placeholder="Libellé"></input></td>
                                     <td>
                                         <span class="checkbox checkbox-success">
-                                            <input type="checkbox" class="styled" id="answer_add_good">
-                                            <label for="answer_add_good"></label>
+                                            <input type="checkbox" class="styled" id="answer-add-good">
+                                            <label for="answer-add-good"></label>
                                         </span>
                                     </td>
-                                    <td class="text-right"><button id="answer_add_submit" class="btn btn-success btn-lg" onclick={answer_add}><i id="answer_submit_ico" class="fa fa-plus fa-lg"></i></button></td>
+                                    <td class="text-right"><button id="answer-button-add" class="btn btn-success btn-lg" onclick={answer_add}><i id="answer-button-add-ico" class="fa fa-plus fa-lg"></i></button></td>
                                 </tr>
                                 <tr each={answers}>
                                     <td>{wording}</td>
                                     <td>
                                         <span class="checkbox checkbox-success checkbox-circle">
-                                            <input type="checkbox" class="styled" id="answer_add_good" checked={good} disabled>
-                                            <label for="answer_add_good"></label>
+                                            <input type="checkbox" class="styled" id="answer-add-good" checked={good} disabled>
+                                            <label for="answer-add-good"></label>
                                         </span>
                                     </td>
                                     <td class="text-right">
@@ -58,8 +58,8 @@
                         </table>
                     </div>
                     <div class="text-right">
-                        <button type="reset" class="btn btn-danger" onclick={answers_clear}>Effacer</button>
-                        <button type="submit" class="btn btn-success" onclick={questions_add} id="question_button_add">Ajouter la question</button>
+                        <button type="reset" class="btn btn-danger" onclick={answer_deleteAll}>Effacer</button>
+                        <button type="submit" class="btn btn-success" onclick={question_add} id="question-button-add">Ajouter la question</button>
                     </div>
                 </div>
             </div>
@@ -75,7 +75,7 @@
         
         this.on('mount',function() 
         {
-            opts.themes.get(opts.page.id);
+            opts.theme.get(opts.page.id);
             refreshTooltip();
             
             $("#question").markdown({
@@ -88,21 +88,21 @@
             loader.hide();
         });
         
-        opts.themes.on('themes_get', function(json) 
+        opts.theme.on('theme_get', function(json) 
         {
             self.theme = json.data;
             self.update();
             
-            $('#theme_title').show();
+            $('#theme-title').show();
         });
         
-        opts.questions.on('questions_add', function(json)
+        opts.question.on('question_add', function(json)
         {
             if(json.error == false)
             {
                 var question = $('#question');
-                var wording = $('#answer_add_wording');
-                var good = $('#answer_add_good');
+                var wording = $('#answer-add-wording');
+                var good = $('#answer-add-good');
                 
                 wording.val("");
                 question.val("");
@@ -111,7 +111,7 @@
                 self.answers = [];
                 
                 alert.show('#alert-box', 'success', json.message);
-                opts.questions.refresh();
+                opts.question.refresh();
             }
             else
                 alert.show('#alert-box', 'danger', json.message);
@@ -125,7 +125,7 @@
         //----------------
         
         self.checkAnswerInput = function(){
-            var input = $('#answer_add_wording');
+            var input = $('#answer-add-wording');
             
             if(!input.val())
             {
@@ -142,7 +142,7 @@
         self.enableForm = function(enable)
         {
             //button
-            var button = $('#question_button_add');
+            var button = $('#question-button-add');
             var question = $('#question');
              
             if(enable == true)
@@ -162,16 +162,16 @@
         //SIGNAL ---------
         //----------------
         
-        questions_add(e) {
+        question_add(e) {
             var questionParams = { wording : "", answers : self.answers, theme_id : self.theme.id };
             questionParams.wording = this.question.value;
             self.enableForm(false);
             
-            opts.questions.add(questionParams);
+            opts.question.add(questionParams);
         };
 
-        answers_clear(e) {
-            $('#questions_form')[0].reset();
+        answer_deleteAll(e) {
+            $('#question-form')[0].reset();
             self.answers = [];
             self.update();
         };
@@ -180,8 +180,8 @@
         answer_add(e){
             if(self.checkAnswerInput())
             {
-                var wording = $('#answer_add_wording');
-                var good = $('#answer_add_good');
+                var wording = $('#answer-add-wording');
+                var good = $('#answer-add-good');
                 
                 var newAnswer = new Answer();
                 newAnswer.id = self.answers.length;

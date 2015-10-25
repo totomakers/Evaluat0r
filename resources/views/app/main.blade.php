@@ -33,14 +33,19 @@
 @endsection
 
 @section('js_script')
+<script type="text/javascript" src="{!! URL::asset('bower/markdown/lib/markdown.js'); !!}"></script>
+<script type="text/javascript" src="{!! URL::asset('bower/bootstrap-markdown/js/bootstrap-markdown.js'); !!}"></script>
+<script type="text/javascript" src="{!! URL::asset('bower/clockpicker/dist/bootstrap-clockpicker.min.js'); !!}"></script>
+<script type="text/javascript" src="{!! URL::asset('bower/twbs-pagination/jquery.twbsPagination.min.js'); !!}"></script>
+<script type="text/javascript" src="{!! URL::asset('bower/he/he.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('custom/js/sidebar.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('custom/js/global.js'); !!}"></script>
-<script type="text/javascript" src="{!! URL::asset('riot/app/api.js'); !!}"></script>
-<script type="text/javascript" src="{!! URL::asset('riot/app/themes.js'); !!}"></script>
-<script type="text/javascript" src="{!! URL::asset('riot/app/questions.js'); !!}"></script>
-<script type="text/javascript" src="{!! URL::asset('riot/app/answers.js'); !!}"></script>
+<script type="text/javascript" src="{!! URL::asset('riot/app/auth.js'); !!}"></script>
+<script type="text/javascript" src="{!! URL::asset('riot/app/theme.js'); !!}"></script>
+<script type="text/javascript" src="{!! URL::asset('riot/app/question.js'); !!}"></script>
+<script type="text/javascript" src="{!! URL::asset('riot/app/answer.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('riot/app/router.js'); !!}"></script>
 <script>
-   riot.mount($('nav'), 'app_nav', api);
+   riot.mount($('nav'), 'app_nav', auth);
 </script>
 @endsection
