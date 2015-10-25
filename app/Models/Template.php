@@ -15,4 +15,9 @@ class Template extends Model
     protected $connection = 'evaluat0r';
     protected $table = 'template';
     //protected $primaryKey = 'id';
+    
+    public function themes()
+    {
+        return $this->belongsToMany('App\Models\Theme', 'template_theme', 'template_id', 'theme_id')->withPivot('question_count');
+    }
 }

@@ -32,6 +32,11 @@ template.add = function(params)
     $.ajax({type: "POST", url: template.apiBaseUrl+'/add', data: params, success: template.onAdd});
 }
 
+template.getThemes = function(id)
+{
+     $.ajax({ url: template.apiBaseUrl+'/'+id+'/themes', success: template.onGetThemes});
+}
+
 //-----------------
 //EVENTS ----------
 //-----------------
@@ -54,4 +59,9 @@ template.onDelete = function(json)
 template.onAdd = function(json)
 {
     template.trigger('template_add', json);
+}
+
+template.onGetThemes = function(json)
+{
+    template.trigger('template_themes', json);
 }

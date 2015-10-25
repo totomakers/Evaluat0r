@@ -60,6 +60,34 @@ class TemplateController extends Controller
         }
     }
     
+     /**
+     * @api {get} /templates/{id}/themes Request Template Themes information
+     * @apiName getThemesByTheme
+     * @apiGroup Templates
+     *
+     * @apiParam {Number} id Template unique ID
+     *
+     * @apiSuccess {Boolean} error an error occur
+     * @apiSuccess {String} message description of action
+     * @apiSuccess {Array} data all themes link to the themes
+     */
+    public function getThemesByTemplate($id)
+    {
+        try
+        {
+            $template = Template::with('themes')->find($id);
+
+            if(!$template)
+                return response()->json(["error" => true, "message" => Lang::get('template.notFound'), "data" => []]);
+            
+            return response()->json(["error" => true, "message" => "", "data" => $template->themes]);
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
+        }
+    }
+    
     /**
      * @api {post} /template/add add a new template
      * @apiName Add
@@ -71,7 +99,7 @@ class TemplateController extends Controller
      */
     public function postAdd(Request $request)
     {
-         try
+        try
         {
             //rules to apply of each field
             $rules = array(

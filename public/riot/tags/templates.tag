@@ -56,7 +56,7 @@
             </div>
             </div>
             <div class="col-lg-5" class="animated fadeIn">
-                <templates_themes>
+                <templates_themes template={opts.template}>
                 </templates_themes>
             </div>
         </div>
@@ -155,7 +155,8 @@
         }
         
         template_themes_load(e){
-           
+           console.log(e.item.id);
+           template.getThemes(e.item.id);
         }
                     
         //---------------
@@ -180,7 +181,7 @@
             });
             
             if($('.template-radio').length > 0)
-                $('.template-radio')[0].setAttribute("checked", "checked"); //check the first
+                $('.template-radio')[0].click();
             
             refreshTooltip();
             pagination.refreshPagination('#templates-pagination-box', '#templates-pagination', json.data, pageClick);
