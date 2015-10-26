@@ -89,7 +89,7 @@ class TemplateController extends Controller
     }
     
     /**
-     * @api {post} /template/add add a new template
+     * @api {post} /templates/add add a new template
      * @apiName Add
      * @apiGroup Templates
      *
@@ -189,7 +189,7 @@ class TemplateController extends Controller
     }
     
      /**
-     * @api {delete} /template/{id} delete a specific template
+     * @api {delete} /templates/{id} delete a specific template
      * @apiName delete
      * @apiGroup Templates
      *

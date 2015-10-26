@@ -9,6 +9,7 @@
     "markdown": "~0.5.0",
     "bootstrap-markdown": "~2.9.0",
     "he": "~0.5.0",
-    "clockpicker": "~0.0.7"
+    "clockpicker": "~0.0.7",
+    "select2": "~4.0.0"
   }
 }
