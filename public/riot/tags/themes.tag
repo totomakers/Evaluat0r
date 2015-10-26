@@ -1,5 +1,5 @@
-<themes hidden>
-    <div class="animated fadeIn">
+<themes>
+    <div class="animated fadeIn" id="themes-body" hidden>
         <div class="row">
             <div class="col-lg-12">
                 <h1>Thèmes <small> - {themes.count} disponible(s)</small></h1>
@@ -135,8 +135,6 @@
         
         opts.theme.on('theme_getAll', function(json) 
         {
-            loader.hide();
-            
             //---------
             self.themes = json.data.data;
             if(Array.isArray(self.themes) == false) self.themes = [ self.themes ];
@@ -153,6 +151,9 @@
            
             refreshTooltip();
             pagination.refreshPagination('#themes-pagination-box', '#themes-pagination', json.data, pageClick);
+            
+            loader.hide();
+            $('#themes-body').show();
         });  
         
         opts.theme.on('theme_refreshAll', function(json) 

@@ -1,5 +1,5 @@
 <templates>
-    <div class="animated fadeIn">
+    <div class="animated fadeIn" id="templates-body" hidden>
         <div class="row">
             <div class="col-lg-12">
                 <h1>Modèles <small>- {templates.count} modèle(s)</small></h1>
@@ -79,7 +79,6 @@
             });   
             
             opts.template.getAll(opts.page.id);
-            loader.hide();
         });
         
         //---------------
@@ -192,6 +191,9 @@
             
             refreshTooltip();
             pagination.refreshPagination('#templates-pagination-box', '#templates-pagination', json.data, pageClick);
+            
+            $('#templates-body').show();
+            loader.hide();
         });  
         
         opts.template.on('template_refreshAll', function(json) 
