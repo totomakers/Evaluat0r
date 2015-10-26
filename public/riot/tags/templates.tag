@@ -7,7 +7,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-7">
+            <div class="col-lg-8">
                 <div class="row">
                     <div class="col-lg-12" id="templates-alert-box">
                     </div>
@@ -17,8 +17,8 @@
                         <thead>
                             <th>Nom</th>
                             <th>Durée du test</th>
-                            <th>Admis: % requis</th>
-                            <th>En cours d'acquisition: % requis</th>
+                            <th>Admis(%)</th>
+                            <th>En cours(%)</th>
                             <th>Thèmes</th>
                             <th>Actions</th>
                         </thead>
@@ -57,7 +57,7 @@
                 </div>
             </div>
             </div>
-            <div class="col-lg-5" class="animated fadeIn">
+            <div class="col-lg-4" class="animated fadeIn">
                 <templates_themes template={opts.template}>
                 </templates_themes>
             </div>
