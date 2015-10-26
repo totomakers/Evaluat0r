@@ -79,7 +79,6 @@
             });   
             
             opts.template.getAll(opts.page.id);
-
             loader.hide();            
         });
         
@@ -158,7 +157,7 @@
         }
         
         template_themes_load(e){
-           console.log(e.item.id);
+           template.trigger('templates_themes_loading');
            template.getThemes(e.item.id);
         }
                     
@@ -202,7 +201,9 @@
             pagination.refreshPagination('#themes-pagination-box', '#themes-pagination', json.data, pageClick);
             
              if($('.template-radio').length > 0)
-                $('.template-radio')[0].setAttribute("checked", "checked"); //check the first
+                $('.template-radio')[0].click();
+             else
+                 template.trigger('templates_themes_hide');
         });
 
         opts.template.on('template_delete', function(json)
