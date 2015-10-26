@@ -79,7 +79,7 @@
             });   
             
             opts.template.getAll(opts.page.id);
-            loader.hide();            
+            loader.hide();
         });
         
         //---------------
@@ -137,6 +137,10 @@
             var templatesData= $('#templates-data');
             templatesData.addClass("animated fadeOutLeft");
             opts.page.id = page;
+            riot.route.stop();
+            riot.route('templates/all/'+page)
+            riot.route.start();
+
 
             opts.template.getAll(page);
         }
