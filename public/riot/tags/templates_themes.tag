@@ -14,14 +14,14 @@
                     <table class="table table-striped table-hover">
                         <thead>
                             <th>Thèmes</th>
-                            <th>Nombre de questions ?</th>
+                            <th>Nb. questions</th>
                             <th>Actions</th>
                         </thead>
                         <tbody>
                             <tr>
-                                <td><input type="text" class="form-control" id="modele_theme_name" placeholder="Votre thème"></input></td>
-                                <td><input type="text" class="form-control" id="modele_theme_questions_count" placeholder="Nombre de question"></input></td>
-                                <td><button id="model_theme_add_button" class="btn btn-success btn-lg" onclick={models_add}><i id="model_theme_button_ico" class="fa fa-plus fa-lg"></i></button></td>
+                                <td class="col-md-6"><select class="form-control" id="modele-theme-theme-name" placeholder=""></select></td>
+                                <td><input type="text" class="form-control" id="modele-theme-questions-count" placeholder=""></input></td>
+                                <td><button id="model-theme-add-button" class="btn btn-success btn-lg" onclick={models_add}><i id="model_theme_button_ico" class="fa fa-plus fa-lg"></i></button></td>
                             </tr>
                             <tr each={themes}>
                                 <td><a href="#themes/edit/{ pivot.theme_id }">{name}</a></td>
@@ -42,6 +42,18 @@
         this.on('mount', function(){
         });
         
+        self.select2ThemeTemplate = function(result) 
+        {
+            if (result.loading) return "Chargement...";
+        
+            var markup = '<div>'+result.name+'</div>'
+            return markup;
+        }
+          
+        self.select2ThemeSelect = function(selection) {
+            return selection.name;
+        }
+        
         opts.template.on('template_themes', function(json)
         {
             self.themes = json.data;
@@ -49,7 +61,43 @@
         
             loader.hide('#subloader');
             $('#templates-themes-content').show();
+            
+            //refresh select2
+            $("#modele-theme-theme-name").select2({
+                  language: 'fr',
+                  minimumInputLength: 2,
+                  ajax: {
+                    url: "api/themes/select2",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                      return {
+                        q: params.term, // search term
+                      };
+                    },
+                    processResults: function (data, page) {
+                      return { results: data.data };
+                    },
+                    
+                    results: function (data) {
+                        var newData = [];
+                        $.each(data, function (index ,value) {
+                            newData.push({
+                                id: value.id,  //id part present in data
+                                text: value.name,  //string to be displayed
+                            });
+                        });
+                    },
+                    
+                    cache: true
+                  },
+                  escapeMarkup: function (markup) { return markup; },
+                  minimumInputLength: 1,
+                  templateResult: self.select2ThemeTemplate,
+                  templateSelection: self.select2ThemeSelect
+            });
         });
+
         
         opts.template.on('templates_themes_hide', function()
         {

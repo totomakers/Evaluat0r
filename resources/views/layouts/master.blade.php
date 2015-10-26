@@ -5,7 +5,6 @@
         <link rel="stylesheet" type="text/css" href="{!! URL::asset('bower/animate.css/animate.min.css'); !!}"/>
         <link rel="stylesheet" type="text/css" href="{!! URL::asset('bower/font-awesome/css/font-awesome.min.css'); !!}"/>
         <link rel="stylesheet" type="text/css" href="{!! URL::asset('bower/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css'); !!}"/>
-        <link rel="stylesheet" type="text/css" href="{!! URL::asset('bower/clockpicker/dist/bootstrap-clockpicker.min.css'); !!}"/>
         <link rel="stylesheet" type="text/css" href="{!! URL::asset('custom/css/lumen.min.css'); !!}"/>
         <link rel="stylesheet" type="text/css" href="{!! URL::asset('custom/css/style.css'); !!}"/>
         @yield('css')

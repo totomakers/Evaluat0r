@@ -3,6 +3,8 @@
 
 @section('css')
 <link rel="stylesheet" type="text/css" href="{!! URL::asset('custom/css/simple-sidebar.css'); !!}"/>
+<link rel="stylesheet" type="text/css" href="{!! URL::asset('bower/select2/dist/css/select2.min.css'); !!}"/>
+<link rel="stylesheet" type="text/css" href="{!! URL::asset('bower/clockpicker/dist/bootstrap-clockpicker.min.css'); !!}"/>
 @endsection
 
 @section('nav')
@@ -38,6 +40,9 @@
 <script type="text/javascript" src="{!! URL::asset('bower/clockpicker/dist/bootstrap-clockpicker.min.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('bower/twbs-pagination/jquery.twbsPagination.min.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('bower/he/he.js'); !!}"></script>
+<script type="text/javascript" src="{!! URL::asset('bower/twbs-pagination/jquery.twbsPagination.min.js'); !!}"></script>
+<script type="text/javascript" src="{!! URL::asset('bower/select2/dist/js/select2.full.min.js'); !!}"></script>
+<script type="text/javascript" src="{!! URL::asset('bower/select2/dist/js/i18n/fr.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('custom/js/sidebar.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('custom/js/global.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('riot/app/auth.js'); !!}"></script>

@@ -220,4 +220,30 @@ class ThemeController extends Controller
             return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
         }
     }
+    
+    /**
+     * @api {get} /themes/select2 delete a specific template
+     * @apiName select2
+     * @apiGroup Themes
+     *
+     *
+     * @apiSuccess {Boolean} error an error occur
+     * @apiSuccess {String} message description of action
+     * @apiSuccess {Array} data current select2 data
+     */
+    public function getSelect2(Request $request)
+    {
+        try
+        {
+            $q = $request->q;
+            $themes = Theme::where('name', 'LIKE', '%'.$q.'%')->orderBy('name', 'desc')->get();
+            
+            return response()->json(["error" => false, "message" => '', "data" => $themes]);
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
+        }
+        
+    }
 }
