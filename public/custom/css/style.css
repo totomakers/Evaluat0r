@@ -32,6 +32,11 @@
     resize: vertical;
 }
 
+.v-align
+{
+    vertical-align:middle!important;
+}
+
 /*
 ---------------
 LOADER --------
