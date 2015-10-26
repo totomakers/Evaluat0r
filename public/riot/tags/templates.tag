@@ -138,9 +138,9 @@
             templatesData.addClass("animated fadeOutLeft");
             opts.page.id = page;
             riot.route.stop();
-            riot.route('templates/all/'+page)
+            riot.route('templates/all/'+page);
             riot.route.start();
-
+            riot.route(router);
 
             opts.template.getAll(page);
         }
