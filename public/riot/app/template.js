@@ -34,7 +34,17 @@ template.add = function(params)
 
 template.getThemes = function(id)
 {
-     $.ajax({ url: template.apiBaseUrl+'/'+id+'/themes', success: template.onGetThemes});
+    $.ajax({ url: template.apiBaseUrl+'/'+id+'/themes', success: template.onGetThemes});
+}
+
+template.addTheme = function(id, params)
+{
+   $.ajax({type: "POST", url: template.apiBaseUrl+'/'+id+'/themes/add',  data: params, success: template.onAddTheme});
+}
+
+template.removeTheme = function(id, themeId)
+{
+    $.ajax({ type: "DELETE", url: template.apiBaseUrl+'/'+id+'/themes/'+themeId, success: template.onRemoveTheme});
 }
 
 //-----------------
@@ -64,4 +74,14 @@ template.onAdd = function(json)
 template.onGetThemes = function(json)
 {
     template.trigger('template_themes', json);
+}
+
+template.onAddTheme = function(json)
+{
+    template.trigger('template_add_theme', json);
+}
+
+template.onRemoveTheme = function(json)
+{
+    template.trigger('template_remove_theme', json);
 }
