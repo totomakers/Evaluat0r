@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Lang;
 use Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Template;
+use App\Models\Theme;
 
 class TemplateController extends Controller
 {
@@ -80,7 +81,7 @@ class TemplateController extends Controller
             if(!$template)
                 return response()->json(["error" => true, "message" => Lang::get('template.notFound'), "data" => []]);
             
-            return response()->json(["error" => true, "message" => "", "data" => $template->themes]);
+            return response()->json(["error" => false, "message" => "", "data" => ["data" => $template->themes, "from" => $id]]);
         }
         catch(\Exception $e)
         {
@@ -210,7 +211,113 @@ class TemplateController extends Controller
             else
             {
                 $template->delete();
-                return response()->json(["error" => true, "message" => Lang::get('template.delete', ['name' => $template->name]), "data" => $template]);
+                return response()->json(["error" => false, "message" => Lang::get('template.delete', ['name' => $template->name]), "data" => $template]);
+            }
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
+        }
+    }
+    
+    /**
+     * @api {post} /templates/{id}/themes/add link a themes with a templates
+     * @apiName themes add
+     * @apiGroup Templates
+     *
+     * @apiParam {Number} id Template unique ID
+     *
+     * @apiSuccess {Boolean} error an error occur
+     * @apiSuccess {String} message description of action
+     * @apiSuccess {Array} data 
+     */
+    public function postAddTheme($id, Request $request)
+    {
+        try
+        {
+            //rules to apply of each field
+            $rules = array(
+                'theme_id'         => 'required|integer|exists:theme,id',
+                'question_count'   => 'required|numeric|min:1',
+            );
+            
+            $errorsJson = array();
+            
+            //try to validate
+            $validator = Validator::make($request->all(), $rules);
+            if ($validator->fails()) 
+            {
+                $errors = $validator->messages()->getMessages();
+                
+                //---------
+                //theme_id ----
+                //---------
+                if(array_key_exists("theme_id", $errors))
+                    for($j = 0; $j < count($errors["theme_id"]); ++$j)
+                    {
+                        $key = $errors["theme_id"][$j];
+                        array_push($errorsJson, Lang::get('validator.'.$key, ["name" => "Theme"]));
+                    }
+                    
+                //----------------
+                //question_count -
+                //----------------
+                if(array_key_exists("question_count", $errors))
+                    for($j = 0; $j < count($errors["question_count"]); ++$j)
+                    {
+                        $key = $errors["question_count"][$j];
+                        $value = (strpos($key, '.min.') !== false) ? 0 : 1; 
+                        array_push($errorsJson, Lang::get('validator.'.$key, ["name" => "nombre de question", "value" => $value]));
+                    }
+
+                //error
+                return response()->json(["error" => true, "message" => $errorsJson, "data" => []]);
+            }
+            else
+            {
+                $template = Template::find($id);
+                $theme = Theme::find($request->theme_id);
+                
+                $template->themes()->detach(array($theme->id));
+                $template->themes()->save($theme, array('question_count' => $request->question_count));
+
+                return response()->json(["error" => false, "message" => Lang::get('template.themeAdd', ["name" => $theme->name]), "data" => ["template"=>$template, "theme"=>$theme]]);
+                
+            }
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
+        }
+    }
+    
+        
+    /**
+     * @api {delete} /templates/{id}/themes/{theme_id} link a themes with a templates
+     * @apiName Theme remove
+     * @apiGroup Templates
+     *
+     * @apiParam {Number} id Template unique ID
+     * @apiParam {Number} theme_id Theme unique ID
+     *
+     * @apiSuccess {Boolean} error an error occur
+     * @apiSuccess {String} message description of action
+     * @apiSuccess {Array} data 
+     */
+    public function deleteRemoveTheme($id, $theme_id)
+    {
+        try
+        {
+            $template = Template::find($id);
+            
+            if(!$template)
+                return response()->json(["error" => true, "message" => Lang::get('template.notFound'), "data" => []]);
+            else
+            {
+                $theme = Theme::find($theme_id);
+                $template->themes()->detach(array($theme->id));
+                
+                return response()->json(["error" => false, "message" => Lang::get('template.themeRemove', ['name' => $theme->name]), "data" => []]);
             }
         }
         catch(\Exception $e)

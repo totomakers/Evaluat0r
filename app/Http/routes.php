@@ -44,8 +44,8 @@ Route::group(['as' => 'api', 'prefix' => 'api'], function ()
         Route::get('/', ['as' => '::getAll', 'middleware' => 'auth.rank:2', 'uses'=>'ThemeController@getAll']);
         Route::get('/select2', ['as'=> '::select2', 'middleware' => 'auth.rank:2', 'uses'=>'ThemeController@getSelect2']);
        
-        Route::get('/{id}', ['as' => '::get', 'middleware' => 'auth.rank:2', 'uses'=>'ThemeController@getById']);
-        Route::get('/{id}/questions', ['as' => '::getQuestionsByTheme', 'middleware' => 'auth.rank:0', 'uses'=>'ThemeController@getQuestionsByTheme']);
+        Route::get('/{id}', ['as' => '::get', 'middleware' => 'auth.rank:2', 'uses'=>'ThemeController@getById'])->where('id', '[0-9]+');
+        Route::get('/{id}/questions', ['as' => '::getQuestionsByTheme', 'middleware' => 'auth.rank:0', 'uses'=>'ThemeController@getQuestionsByTheme'])->where('id', '[0-9]+');
         
         Route::post('/add', ['as' => '::postAdd', 'middleware' => 'auth.rank:2', 'uses'=>'ThemeController@postAdd']);
         Route::delete('/{id}', ['as' => '::deleteDelete', 'middleware' => 'auth.rank:2', 'uses'=>'ThemeController@deleteDelete'])->where('id', '[0-9]+');
@@ -68,9 +68,11 @@ Route::group(['as' => 'api', 'prefix' => 'api'], function ()
     {
         Route::get('/', ['as' => '::getAll', 'middleware' => 'auth.rank:2', 'uses'=>'TemplateController@getAll']);
         Route::get('/{id}/themes', ['as' => '::getThemesByTemplate', 'middleware' => 'auth.rank:2', 'uses'=>'TemplateController@getThemesByTemplate'])->where('id', '[0-9]+');
+        Route::post('/{id}/themes/add', ['as' => '::postAddTheme', 'middleware' => 'auth.rank:2', 'uses'=>'TemplateController@postAddTheme'])->where('id', '[0-9]+');
+        Route::delete('/{id}/themes/{id_theme}', ['as' => '::deleteRemoveTheme', 'middleware' => 'auth.rank:2', 'uses'=>'TemplateController@deleteRemoveTheme'])->where('id', '[0-9]+')->where('id_theme', '[0-9]+');
+        
         
         Route::delete('/{id}', ['as' => '::deleteDelete', 'middleware' => 'auth.rank:2', 'uses'=>'TemplateController@deleteDelete'])->where('id', '[0-9]+');
-
         Route::post('/add', ['as' => '::postAdd', 'middleware' => 'auth.rank:2', 'uses'=>'TemplateController@postAdd']);
     });
     
