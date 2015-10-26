@@ -15,7 +15,6 @@
                 <div class="table" id="templates-data">
                     <table class="table table-striped">
                         <thead>
-                            <th></th>
                             <th>Nom</th>
                             <th>Durée du test</th>
                             <th>Admis: % requis</th>
@@ -25,7 +24,6 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td></td>
                                 <td><input type="text" class="form-control" id="template-add-name" placeholder="Nom"></input></td>
                                 <td>
                                     <div class="input-group clockpicker">
@@ -39,13 +37,17 @@
                                 <td><button id="template-add-button" class="btn btn-success btn-lg" onclick={template_add}><i id="template-add-button-ico" class="fa fa-plus fa-lg"></i></button></td>
                             </tr>
                             <tr each={ templates }>
-                                <td><input type="radio" name="currentModel" value="{id}" class="template-radio" onclick={template_themes_load}></td>
-                                <td>{name}</td>
-                                <td class="text-right">{duration}</td>
-                                <td class="text-right"><span class="text-success">±{accepted_prc}%</span></td>
-                                <td class="text-right"><span class="text-warning">±{ongoing_prc}%</span></td>
-                                <td class="text-right"></td>
-                                <td class="text-center"><a href="" onclick={template_delete}><i data-toggle="tooltip" data-placement="top" title="Supprimer" class="fa fa-red fa-trash fa-lg"/></td>
+                                <td>
+                                    <span class="radio radio-primary">
+                                        <input type="radio" name="currentModel" id="template-radio-name-{id}" value="{id}" class="template-radio" onclick={template_themes_load}>
+                                        <label for="template-radio-name-{id}">{name}</label>
+                                    </span>
+                                </td>
+                                <td class="text-right v-align">{duration}</td>
+                                <td class="text-right v-align"><span class="text-success">±{accepted_prc}%</span></td>
+                                <td class="text-right v-align"><span class="text-warning">±{ongoing_prc}%</span></td>
+                                <td class="text-right v-align"></td>
+                                <td class="text-center v-align"><a href="" onclick={template_delete}><i data-toggle="tooltip" data-placement="top" title="Supprimer" class="fa fa-red fa-trash fa-lg"/></td>
                             </tr>
                         </tbody>
                     </table>
@@ -69,9 +71,10 @@
         
         this.on('mount',function() {
             $('.clockpicker').clockpicker({
-                    donetext: 'Valider',
+                    //donetext: 'Valider',
                     default: '00:00',
                     placement: 'bottom',
+                    autoclose : true,
                     //align: 'top',
             });   
             
@@ -133,7 +136,7 @@
         var pageClick = function(event, page)
         {
             var templatesData= $('#templates-data');
-            templates.addClass("animated slideOutRight");
+            templatesData.addClass("animated fadeOutLeft");
             opts.page.id = page;
 
             opts.template.getAll(page);
@@ -176,8 +179,9 @@
             var templatesData = $('#templates-data');
             templatesData.one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function()
             {
-                templatesData.removeClass("animated slideOutRight");
-                templatesData.addClass("animated slideInLeft");
+                templatesData.removeClass("animated fadeOutLeft");
+                
+                templatesData.addClass("animated fadeInLeft");
             });
             
             if($('.template-radio').length > 0)
