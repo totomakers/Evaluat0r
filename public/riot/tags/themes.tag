@@ -121,6 +121,10 @@
             var themesData= $('#themes-data');
             themesData.addClass("animated slideOutRight");
             opts.page.id = page;
+            riot.route.stop();
+            riot.route('themes/all/'+page);
+            riot.route.start();
+            riot.route(router);
 
             opts.theme.getAll(page);
         }

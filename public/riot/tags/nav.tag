@@ -16,11 +16,12 @@
         <div class="collapse navbar-collapse" id="bs-sidebar-navbar-collapse-1">
             <ul class="nav navbar-nav" show={user}>
                 <li><a href="#">Accueil<i class="pull-right fa fa-blue fa-home fa-lg"></i></a></li>
-                <li show={user.rank<=1}><a href="#result">Résultat<i class="pull-right fa fa-blue fa-bar-chart fa-lg"></i></a></li>
-                <li show={user.rank==1}><a href="#qcm">Démarrer un QCM<i class="pull-right fa fa-blue fa-plus fa-lg"></i></span></a></li>
-                <li show={user.rank==2}><a href="#themes">Thèmes<i class="pull-right fa fa-blue fa-cube fa-lg"></i></a></li>
-                <li show={user.rank==2}><a href="#templates/all/1">Modèles<i class="pull-right fa fa-blue fa-cubes fa-lg"></i></a></li>
-                <li show={user.rank==0}><a href="#eval">Evaluation<i class="pull-right fa fa-blue fa-pencil fa-lg"></i></a></li>
+                <li show={user.rank<=1 
+                }><a href="#result">Résultat<i class="pull-right fa fa-blue fa-bar-chart fa-lg"></i></a></li>
+                <li show={user.rank==1 || user.rank==99}><a href="#sessions">Session de test<i class="pull-right fa fa-blue fa-plus fa-lg"></i></span></a></li>
+                <li show={user.rank==2 || user.rank==99}><a href="#themes">Thèmes<i class="pull-right fa fa-blue fa-cube fa-lg"></i></a></li>
+                <li show={user.rank==2 || user.rank==99}><a href="#templates">Modèles<i class="pull-right fa fa-blue fa-cubes fa-lg"></i></a></li>
+                <li show={user.rank==0 || user.rank==99}><a href="#eval">Evaluation<i class="pull-right fa fa-blue fa-pencil fa-lg"></i></a></li>
                 <li><a href="#" onclick={auth.logout}>Déconnexion<i class="pull-right fa  fa-blue fa-sign-out fa-lg"></i></a></li>
             </ul>
         </div>

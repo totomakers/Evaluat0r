@@ -1,6 +1,6 @@
 /*
 SQLyog Community v12.12 (64 bit)
-MySQL - 10.0.21-MariaDB : Database - evaluat0r
+MySQL - 5.6.26 : Database - evaluat0r
 *********************************************************************
 */
 
@@ -21,8 +21,11 @@ CREATE TABLE `template_theme` (
   `theme_id` int(10) unsigned NOT NULL COMMENT 'Identifiant du theme',
   `question_count` int(10) unsigned NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`template_id`,`theme_id`),
-  KEY `question_count` (`question_count`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  KEY `question_count` (`question_count`),
+  KEY `FK_TEMPLATE_THEME_ID_THEME_ID` (`theme_id`),
+  CONSTRAINT `FK_TEMPLATE_THEME_ID_TEMPLATE_ID` FOREIGN KEY (`template_id`) REFERENCES `template` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `FK_TEMPLATE_THEME_ID_THEME_ID` FOREIGN KEY (`theme_id`) REFERENCES `theme` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

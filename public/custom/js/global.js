@@ -71,6 +71,11 @@ pagination.refreshPagination = function(selectorBox, selectorPagination, paginat
 //UTILS -------
 //-------------
 
+var formatTime =function(value) {
+    var res = value.replace(":", "h").substring(0, 5);
+
+    return res;
+}
 var refreshTooltip = function()
 {
     var tooltips = $('[data-toggle="tooltip"]');

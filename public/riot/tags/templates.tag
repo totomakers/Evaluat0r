@@ -43,7 +43,7 @@
                                         <label for="template-radio-name-{id}">{name}</label>
                                     </span>
                                 </td>
-                                <td class="text-right v-align">{duration}</td>
+                                <td class="text-right v-align">{formatTime(duration)}</td>
                                 <td class="text-right v-align"><span class="text-success">±{accepted_prc}%</span></td>
                                 <td class="text-right v-align"><span class="text-warning">±{ongoing_prc}%</span></td>
                                 <td class="text-right v-align"></td>
@@ -216,7 +216,6 @@
                 alert.show('#templates-alert-box', 'danger', json.message);
             else
                 alert.show('#templates-alert-box', 'success', json.message);
-            
             opts.template.refreshAll(opts.page.id);  
         });
         

@@ -31,7 +31,7 @@ function router(collections, action, id)
                 default:
                 case 'all':
                      if(!id) id = 1;
-                     riot.mount(selector, 'themes', {'theme' : theme, 'page' : { id : id}, 'alert': alert });
+                     riot.mount(selector, 'themes', {'theme' : theme, 'page' : { id : id}});
                     break;
             }
             break;
@@ -45,6 +45,19 @@ function router(collections, action, id)
                 case 'all':  
                     if(!id) id = 1;
                     riot.mount(selector, 'templates', {'template': template, 'page':{id:id}});
+                break;   
+            }
+            break;
+        
+        case 'sessions':
+            pageTitle += 'Session';
+        
+            switch(action)
+            {
+                default:
+                case 'all':  
+                    if(!id) id = 1;
+                    riot.mount(selector, 'sessions');
                 break;   
             }
             break;

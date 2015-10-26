@@ -140,7 +140,7 @@ class ThemeController extends Controller
             //rules to apply of each field
             $rules = array(
                 'name'             => 'required|min:2|max:25',
-                'description'      => 'required|min:10|max:100',
+                'description'      => 'required|min:10|max:115',
             );
             
             //try to validate

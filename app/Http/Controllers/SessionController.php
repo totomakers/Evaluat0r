@@ -9,17 +9,17 @@ use Illuminate\Support\Facades\Lang;
 
 use Auth;
 use App\Http\Controllers\Controller;
-use App\Models\Registration;
+use App\Models\Session;
 
 
-class RegistrationController extends Controller
+class SessionController extends Controller
 {
     public function __construct()
     {
     }
 
      /**
-     * @api {get} /question Request Registrations information
+     * @api {get} /session Request Registrations information
      * @apiName getAll
      * @apiGroup Questions
      *
@@ -32,7 +32,7 @@ class RegistrationController extends Controller
     {
         try
         {
-            $registrations = Registration::all();
+            $registrations = Session::all();
             return response()->json(["error"=> false, "message" =>"", "data" => $questions]);
         }
         catch(\Exception $e)

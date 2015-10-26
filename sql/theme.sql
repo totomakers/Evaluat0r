@@ -19,9 +19,9 @@ DROP TABLE IF EXISTS `theme`;
 CREATE TABLE `theme` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Id du thème',
   `name` text NOT NULL COMMENT 'Nom du thème',
-  `description` text NOT NULL COMMENT 'Description du thème',
+  `description` tinytext NOT NULL COMMENT 'Description du thème',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

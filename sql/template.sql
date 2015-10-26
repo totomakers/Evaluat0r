@@ -1,6 +1,6 @@
 /*
 SQLyog Community v12.12 (64 bit)
-MySQL - 10.0.21-MariaDB : Database - evaluat0r
+MySQL - 5.6.26 : Database - evaluat0r
 *********************************************************************
 */
 
@@ -23,7 +23,7 @@ CREATE TABLE `template` (
   `accepted_prc` int(10) unsigned NOT NULL COMMENT '% pour avoir admis',
   `ongoing_prc` int(10) unsigned NOT NULL COMMENT '% pour avoir en cours d''acquisition',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

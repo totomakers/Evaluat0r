@@ -32,6 +32,7 @@
 <script src="riot/tags/themes_questions_add.tag" type="riot/tag"></script>
 <script src="riot/tags/templates.tag" type="riot/tag"></script>
 <script src="riot/tags/templates_themes.tag" type="riot/tag"></script>
+<script src="riot/tags/sessions.tag" type="riot/tag"></script>
 @endsection
 
 @section('js_script')
