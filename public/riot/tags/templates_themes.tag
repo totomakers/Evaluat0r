@@ -1,6 +1,6 @@
 <templates_themes>
-    <div id="subloader" class="center-block">
-        <i class="fa fa-spinner fa-spin fa-3x"></i>
+    <div class="center-block" id="subloader">
+        <i class="fa fa-spinner fa-spin fa-3x"/>
     </div>
     <div id="templates-themes-content" class="animated fadeIn" hidden>
         <div class="row">
@@ -44,14 +44,22 @@
         
         opts.template.on('template_themes', function(json)
         {
-            //need to animate when loaded
-            $('#templates-themes-content').hide();
-            
             self.themes = json.data;
             self.update();
         
             loader.hide('#subloader');
             $('#templates-themes-content').show();
+        });
+        
+        opts.template.on('templates_themes_hide', function()
+        {
+             $('#templates-themes-content').hide();
+        });
+        
+        opts.template.on('templates_themes_loading', function()
+        {
+            loader.show('#subloader');
+            $('#templates-themes-content').hide();
         });
         
     </script>
