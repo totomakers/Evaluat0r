@@ -1,5 +1,5 @@
 <templates_themes>
-    <div class="center-block" id="subloader">
+    <div id="subloader" hidden>
         <i class="fa fa-spinner fa-spin fa-3x"/>
     </div>
     <div id="templates-themes-content" class="animated fadeIn" hidden>
