@@ -1,7 +1,7 @@
-<sessions_edit_questions>
+<sessions_questions>
     <div class="row">
         <div class="col-lg-12">
-            <h2>Questions</h2>
+            <h2>Questions <small>- 23 questions</small></h2>
             <hr>
         </div>
     </div>
@@ -46,4 +46,4 @@
             </div>
         </div>
     </div>
-</sessions_edit_questions>
+</sessions_questions>

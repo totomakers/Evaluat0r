@@ -11,6 +11,7 @@
     "he": "~0.5.0",
     "clockpicker": "~0.0.7",
     "select2": "~4.0.0",
-    "eonasdan-bootstrap-datetimepicker": "~4.17.37"
+    "eonasdan-bootstrap-datetimepicker": "~4.17.37",
+    "moment": "~2.10.6"
   }
 }

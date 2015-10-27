@@ -35,11 +35,11 @@
 <script src="riot/tags/templates_themes.tag" type="riot/tag"></script>
 <script src="riot/tags/sessions.tag" type="riot/tag"></script>
 <script src="riot/tags/sessions_edit.tag" type="riot/tag"></script>
-<script src="riot/tags/sessions_edit_modify.tag" type="riot/tag"></script>
-<script src="riot/tags/sessions_edit_candidates.tag" type="riot/tag"></script>
-<script src="riot/tags/sessions_edit_questions.tag" type="riot/tag"></script>
 <script src="riot/tags/evaluations.tag" type="riot/tag"></script>
 <script src="riot/tags/evaluations_details.tag" type="riot/tag"></script>
+<script src="riot/tags/sessions_modify.tag" type="riot/tag"></script>
+<script src="riot/tags/sessions_candidates.tag" type="riot/tag"></script>
+<script src="riot/tags/sessions_questions.tag" type="riot/tag"></script>
 @endsection
 
 @section('js_script')
@@ -60,6 +60,7 @@
 <script type="text/javascript" src="{!! URL::asset('riot/app/template.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('riot/app/question.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('riot/app/answer.js'); !!}"></script>
+<script type="text/javascript" src="{!! URL::asset('riot/app/session.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('riot/app/router.js'); !!}"></script>
 <script>
    riot.mount($('nav'), 'app_nav', auth);

@@ -1,5 +1,4 @@
 var auth = riot.observable();
-
 auth.apiBaseUrl = '/api/accounts';
 
 //----------------
