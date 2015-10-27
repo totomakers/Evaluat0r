@@ -84,5 +84,13 @@ Route::group(['as' => 'api', 'prefix' => 'api'], function ()
         Route::get('/', ['as' => '::getAll', 'middleware' => 'auth.rank:1', 'uses'=>'SessionController@getAll']);
     });
     
+    //|--------------------
+    //| Evaluation routes
+    //|--------------------
+    Route::group(['as' => '::evaluations', 'prefix' => 'evaluations'], function () 
+    {
+        Route::get('/', ['as' => '::getAll', 'middleware' => 'auth.rank:0', 'uses'=>'EvaluationController@getAll']);
+    });
+    
 
 });

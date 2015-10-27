@@ -8,18 +8,18 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-              <div class="panel panel-default animated fadeIn" id="questions-content" each={questionsData} >
-                <div class="panel-heading" role="tab" id="{ 'question-heading-'+id }">
+              <div class="panel panel-default animated fadeIn" id="questions-content">
+                <div class="panel-heading" role="tab" id="">
                   <h4 class="panel-title">
-                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="{ '#question-collapse-'+id }" aria-expanded="true" aria-controls="{ 'question-collapse-'+id }">
-                        { stripHTML(markdown.toHTML(wording)) }...
+                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="" aria-expanded="true" aria-controls="">
+                       ...
                     </a>
-                     <span class="pull-right"><a href="" onclick={question_delete}><i data-toggle="tooltip" data-placement="top" title="Supprimer" class="fa fa-red fa-trash fa-lg"></i></a></span>
+                     <span class="pull-right"><a href=""><i data-toggle="tooltip" data-placement="top" title="Supprimer" class="fa fa-red fa-trash fa-lg"></i></a></span>
                   </h4>
                 </div>
-                <div id="{ 'question-collapse-'+id }" class="panel-collapse collapse" role="tabpanel" aria-labelledby="{ 'question-heading-'+id }">
-                  <div class="panel-body" id="{ 'question-content-'+id }">
-                        <raw content="{markdown.toHTML(wording)}"></raw>
+                <div id="" class="panel-collapse collapse" role="tabpanel" aria-labelledby="">
+                  <div class="panel-body" id="">
+                        <raw content=""></raw>
                         <hr>
                         <div class="table">
                             <table class="table table-hover table-striped">
@@ -28,11 +28,11 @@
                                     <th>Bonne réponse</th>
                                 </thead>
                                 <tbody>
-                                    <tr each={this.answers}>
-                                        <td>{wording}</td>
+                                    <tr>
+                                        <td>Question sur le c++</td>
                                         <td>  
                                             <span class="checkbox checkbox-success checkbox-circle">
-                                                <input type="checkbox" class="styled" id="answer_add_good" checked={good} disabled>
+                                                <input type="checkbox" class="styled" id="answer_add_good" checked="true" disabled>
                                                 <label for="answer_add_good"></label>
                                             </span>
                                         </td>

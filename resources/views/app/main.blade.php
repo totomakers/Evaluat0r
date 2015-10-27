@@ -38,6 +38,8 @@
 <script src="riot/tags/sessions_edit_modify.tag" type="riot/tag"></script>
 <script src="riot/tags/sessions_edit_candidates.tag" type="riot/tag"></script>
 <script src="riot/tags/sessions_edit_questions.tag" type="riot/tag"></script>
+<script src="riot/tags/evaluations.tag" type="riot/tag"></script>
+<script src="riot/tags/evaluations_details.tag" type="riot/tag"></script>
 @endsection
 
 @section('js_script')

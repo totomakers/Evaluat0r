@@ -67,7 +67,7 @@
                     up: "fa fa-arrow-up",
                     down: "fa fa-arrow-down"
                 },
-            format: 'DD/MM/YYYY',    
+            format: 'DD/MM/YYYY', 
         });
         
         $('.clockpicker').clockpicker({

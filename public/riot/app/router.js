@@ -71,6 +71,29 @@ function router(collections, action, id)
                 break;   
             }
             break;
+            
+            case 'evaluations':
+            pageTitle += 'Evaluation';
+        
+            switch(action)
+            {
+                 case 'start':
+                    if(!id)
+                        riot.route('evaluations'); 
+                    else 
+                    {
+                        pageTitle += ' : TEST';
+                        riot.mount(selector, 'evalutions_details', {'page': {id:id} });
+                    }
+                break;
+                
+                default:
+                case 'all':  
+                    if(!id) id = 1;
+                    riot.mount(selector, 'evaluations');
+                break;   
+            }
+            break;
         
         default: 
             pageTitle += 'Accueil';
