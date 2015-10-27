@@ -70,8 +70,7 @@ Route::group(['as' => 'api', 'prefix' => 'api'], function ()
         Route::get('/{id}/themes', ['as' => '::getThemesByTemplate', 'middleware' => 'auth.rank:2', 'uses'=>'TemplateController@getThemesByTemplate'])->where('id', '[0-9]+');
         Route::post('/{id}/themes/add', ['as' => '::postAddTheme', 'middleware' => 'auth.rank:2', 'uses'=>'TemplateController@postAddTheme'])->where('id', '[0-9]+');
         Route::delete('/{id}/themes/{id_theme}', ['as' => '::deleteRemoveTheme', 'middleware' => 'auth.rank:2', 'uses'=>'TemplateController@deleteRemoveTheme'])->where('id', '[0-9]+')->where('id_theme', '[0-9]+');
-        
-        
+
         Route::delete('/{id}', ['as' => '::deleteDelete', 'middleware' => 'auth.rank:2', 'uses'=>'TemplateController@deleteDelete'])->where('id', '[0-9]+');
         Route::post('/add', ['as' => '::postAdd', 'middleware' => 'auth.rank:2', 'uses'=>'TemplateController@postAdd']);
     });
@@ -82,6 +81,13 @@ Route::group(['as' => 'api', 'prefix' => 'api'], function ()
     Route::group(['as' => '::sessions', 'prefix' => 'sessions'], function () 
     {
         Route::get('/', ['as' => '::getAll', 'middleware' => 'auth.rank:1', 'uses'=>'SessionController@getAll']);
+        
+        Route::get('/{id}', ['as' => '::get', 'middleware' => 'auth.rank:1', 'uses'=>'SessionController@getById']);
+        Route::delete('/{id}', ['as' => '::deleteDelete', 'middleware' => 'auth.rank:1', 'uses'=>'SessionController@deleteDelete']);
+        Route::put('/{id}', ['as' => '::put',  'middleware' => 'auth.rank:1', 'uses'=>'SessionController@putUpdate']);
+        Route::post('/add', ['as' => '::postAdd', 'middleware' => 'auth.rank:1', 'uses'=>'SessionController@postAdd']);
+        
+        Route::put('/{id}/questions/from/{theme_id}', ['as' => '::putGenerateQuestion', 'middleware' => 'auth.rank:1', 'uses'=>'SessionController@putGenerateQuestion']);
     });
     
 

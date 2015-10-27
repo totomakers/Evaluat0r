@@ -60,14 +60,14 @@ function router(collections, action, id)
                     else 
                     {
                         pageTitle += ' : Géstion des sessions';
-                        riot.mount(selector, 'sessions_edit', {'page': {id:id} });
+                        riot.mount(selector, 'sessions_edit', {'session':session, 'page': {id:id} });
                     }
                 break;
                 
                 default:
                 case 'all':  
                     if(!id) id = 1;
-                    riot.mount(selector, 'sessions');
+                    riot.mount(selector, 'sessions', {'session':session, 'page':{id:id}});
                 break;   
             }
             break;

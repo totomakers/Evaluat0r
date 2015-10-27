@@ -1,17 +1,21 @@
 <sessions_edit>
-    <div class="row">
+    <div class="row animated fadeIn">
         <div class="col-lg-6">
-            <session_edit_modify>
-            </session_edit_modify>
+            <sessions_modify session={opts.session} page={opts.page}>
+            </sessions_modify>
         </div>
         <div class="col-lg-6">
-            <sessions_edit_candidates>
-            </sessions_edit_candidates>
+            <sessions_candidates>
+            </sessions_candidates>
         </div>
     </div>
     
-    <sessions_edit_questions>
-    </sessions_edit_questions>
+    <div class="row">
+        <div class="col-lg-12 animated fadeIn" >
+            <sessions_questions>
+            </sessions_questions>
+        </div>
+    </div>
     <script>
         loader.hide();
     </script>

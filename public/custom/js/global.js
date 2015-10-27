@@ -86,3 +86,8 @@ var byId = function(e)
 {
     return e.id;
 }
+
+var dateFormatFr = function(date)
+{
+    return moment(date, 'YYYY-MM-DD').format('DD/MM/YYYY');
+}

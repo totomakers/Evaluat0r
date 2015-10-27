@@ -1,4 +1,4 @@
-<sessions_edit_candidates>
+<sessions_candidates>
     <div id="subloader" class="text-center" hidden>
         <i class="fa fa-spinner fa-spin fa-3x"/>
     </div>
@@ -36,4 +36,4 @@
             </div>
         </div>
     </div>
-</sessions_edit_candidates>
+</sessions_candidates>
