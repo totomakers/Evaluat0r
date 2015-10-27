@@ -10,9 +10,11 @@ use Carbon\Carbon;
 
 use Auth;
 use App\Http\Controllers\Controller;
+
+use App\Models\Account;
+use App\Models\Question;
 use App\Models\Session;
 use App\Models\Template;
-use App\Models\Question;
 
 class SessionController extends Controller
 {
@@ -60,20 +62,20 @@ class SessionController extends Controller
     }
 
 
-      /**
-     * @api {get} /sessions/{id} Get wanted session info
-     * @apiName getById();
-     * @apiGroup Sessions
-     *
-     * @apiParam {Number} id Session unique Id
-     *
-     * @apiSuccess {Boolean} error an error occur
-     * @apiSuccess {String} message description of action
-     * @apiSuccess {Array} data wanted session
-     */
+    /**
+    * @api {get} /sessions/{id} Get wanted session info
+    * @apiName getById();
+    * @apiGroup Sessions
+    *
+    * @apiParam {Number} id Session unique Id
+    *
+    * @apiSuccess {Boolean} error an error occur
+    * @apiSuccess {String} message description of action
+    * @apiSuccess {Array} data wanted session
+    */
     public function getById($id)
     {
-         try
+        try
         {
             $session = Session::find($id);
             
@@ -81,6 +83,34 @@ class SessionController extends Controller
                 return response()->json(["error" => true, "message" => Lang::get('session.notFound'), "data" => []]);
             else
                 return response()->json(["error" => false, "message" => "", "data" => $session]);
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
+        }
+    }
+    
+   /**
+    * @api {get} /sessions/{id}/candidates Get session candidates
+    * @apiName getCandidates($id);
+    * @apiGroup Sessions
+    *
+    * @apiParam {Number} id Session unique Id
+    *
+    * @apiSuccess {Boolean} error an error occur
+    * @apiSuccess {String} message description of action
+    * @apiSuccess {Array} data Session candidates
+    */
+    public function getCandidates($id)
+    {
+        try
+        {
+            $session = Session::with('candidates')->find($id);
+            
+            if(!$session)
+                return response()->json(["error" => true, "message" => Lang::get('session.notFound'), "data" => []]);
+            else
+                return response()->json(["error" => false, "message" => "", "data" => $session->candidates]);
         }
         catch(\Exception $e)
         {
@@ -351,7 +381,7 @@ class SessionController extends Controller
      
      /**
      * @api {delete} /sessions/{id}/candidates/{account_id} Remove a candidate
-     * @apiName removeCandidate();
+     * @apiName deleteRemoveCandidate();
      * @apiGroup Sessions
      *
      * @apiParam {Number} id Session unique id
@@ -361,9 +391,30 @@ class SessionController extends Controller
      * @apiSuccess {String} message description of action
      * @apiSuccess {Array} data Remove account id, firstname and lastname
      */
-    public function removeCandidate($id, Request $request)
+    public function deleteRemoveCandidate($id, $account_id)
     {
-        
+        try
+        {
+            $session = Session::find($id);
+            
+            if(!$session)
+                return response()->json(["error" => true, "message" => Lang::get('session.notFound'), "data" => []]);
+            else
+            {
+                $account = Account::find($account_id);
+                
+                if(!$account)
+                    return response()->json(["error" => true, "message" => Lang::get('account.notFound'), "data" => []]);
+                
+                $session->candidates()->detach(array($account->id));
+                
+                return response()->json(["error" => false, "message" => Lang::get('session.candidateRemove', ['name' => $account->firstname . ' ' . $account->lastname]), "data" => []]);
+            }
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
+        }
     }
 
     /**

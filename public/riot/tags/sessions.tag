@@ -59,7 +59,7 @@
                                 <td class="text-right">{question_count}</td>
                                 <td class="text-right">{candidate_count}</td>
                                 <td class="text-right">
-                                    <a href="#sessions/edit/{id}"><i data-toggle="tooltip" data-placement="top" title="Editer" class="fa fa-plus fa-lg"></i></a>
+                                    <a href="#sessions/edit/{id}"><i data-toggle="tooltip" data-placement="top" title="Editer" class="fa fa-pencil fa-lg"></i></a>
                                     &nbsp;&nbsp;
                                     <a href="" onclick={session_delete}><i data-toggle="tooltip" data-placement="top" title="Supprimer" class="fa fa-red fa-trash fa-lg"/></a>
                                 </td>

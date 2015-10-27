@@ -35,6 +35,16 @@ session.update = function(id, params)
     $.ajax({type: "PUT", url: session.apiBaseUrl+'/'+id , data: params, success: session.onUpdate});
 }
 
+session.getCandidates = function(id)
+{
+    $.ajax({ url: session.apiBaseUrl+'/'+id+'/candidates', success: session.onCandidates});
+}
+
+session.removeCandidate = function(id, candidateId)
+{
+    $.ajax({type: "DELETE", url: session.apiBaseUrl+'/'+id+'/candidates/'+candidateId, success: session.onRemoveCandidate});
+}
+
 //------------------
 //EVENTS -----------
 //------------------
@@ -67,4 +77,14 @@ session.onRefreshAll = function(json)
 session.onDelete = function(json)
 {
     session.trigger('session_delete', json);
+}
+
+session.onCandidates = function(json)
+{
+    session.trigger('session_candidates', json);
+}
+
+session.onRemoveCandidate = function(json)
+{
+    session.trigger('session_remove_candidate', json);
 }

@@ -5,7 +5,7 @@
             </sessions_modify>
         </div>
         <div class="col-lg-6">
-            <sessions_candidates>
+            <sessions_candidates session={opts.session} page={opts.page}>
             </sessions_candidates>
         </div>
     </div>
