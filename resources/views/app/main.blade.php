@@ -5,6 +5,7 @@
 <link rel="stylesheet" type="text/css" href="{!! URL::asset('custom/css/simple-sidebar.css'); !!}"/>
 <link rel="stylesheet" type="text/css" href="{!! URL::asset('bower/select2/dist/css/select2.min.css'); !!}"/>
 <link rel="stylesheet" type="text/css" href="{!! URL::asset('bower/clockpicker/dist/bootstrap-clockpicker.min.css'); !!}"/>
+<link rel="stylesheet" type="text/css" href="{!! URL::asset('bower/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css'); !!}"/>
 @endsection
 
 @section('nav')
@@ -33,6 +34,10 @@
 <script src="riot/tags/templates.tag" type="riot/tag"></script>
 <script src="riot/tags/templates_themes.tag" type="riot/tag"></script>
 <script src="riot/tags/sessions.tag" type="riot/tag"></script>
+<script src="riot/tags/sessions_edit.tag" type="riot/tag"></script>
+<script src="riot/tags/sessions_edit_modify.tag" type="riot/tag"></script>
+<script src="riot/tags/sessions_edit_candidates.tag" type="riot/tag"></script>
+<script src="riot/tags/sessions_edit_questions.tag" type="riot/tag"></script>
 @endsection
 
 @section('js_script')
@@ -44,6 +49,8 @@
 <script type="text/javascript" src="{!! URL::asset('bower/twbs-pagination/jquery.twbsPagination.min.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('bower/select2/dist/js/select2.full.min.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('bower/select2/dist/js/i18n/fr.js'); !!}"></script>
+<script type="text/javascript" src="{!! URL::asset('bower/moment/min/moment-with-locales.min.js'); !!}"></script>
+<script type="text/javascript" src="{!! URL::asset('bower/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('custom/js/sidebar.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('custom/js/global.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('riot/app/auth.js'); !!}"></script>

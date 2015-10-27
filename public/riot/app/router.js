@@ -54,6 +54,16 @@ function router(collections, action, id)
         
             switch(action)
             {
+                 case 'edit':
+                    if(!id)
+                        riot.route('sessions/all/1'); 
+                    else 
+                    {
+                        pageTitle += ' : Géstion des sessions';
+                        riot.mount(selector, 'sessions_edit', {'page': {id:id} });
+                    }
+                break;
+                
                 default:
                 case 'all':  
                     if(!id) id = 1;
