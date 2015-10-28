@@ -167,6 +167,7 @@ class SessionController extends Controller
                         $key = $errors["duration"][$j];
                         array_push($errorsJson, Lang::get('validator.'.$key, ["name" => "Durée", "value" => ""]));
                     }
+                    
                 //--------------
                 //accepted_prc -
                 //--------------
@@ -257,6 +258,8 @@ class SessionController extends Controller
                 'start_date'    => 'date_format:d/m/Y',
                 'end_date'      => 'date_format:d/m/Y',
                 'duration'      => 'date_format:G:i',
+                'accepted_prc'  => 'required|numeric|min:0|max:100',
+                'ongoing_prc'   => 'required|numeric|min:0|max:100',
             );
             
             $errorsJson = array();
@@ -310,6 +313,29 @@ class SessionController extends Controller
                         array_push($errorsJson, Lang::get('validator.'.$key, ["name" => "Durée", "value" => ""]));
                     }
               
+                //--------------
+                //accepted_prc -
+                //--------------
+                if(array_key_exists("accepted_prc", $errors))
+                    for($j = 0; $j < count($errors["accepted_prc"]); ++$j)
+                    {
+                        $key = $errors["accepted_prc"][$j];
+                        $value = (strpos($key, '.min.') !== false) ? 0 : 100; 
+                        array_push($errorsJson, Lang::get('validator.'.$key, ["name" => "'% pour être admis'", "value" => $value]));
+                    }
+                    
+                    
+                //--------------
+                //ongoing_prc -
+                //--------------
+                if(array_key_exists("ongoing_prc", $errors))
+                    for($j = 0; $j < count($errors["ongoing_prc"]); ++$j)
+                    {
+                        $key = $errors["ongoing_prc"][$j];
+                        $value = (strpos($key, '.min.') !== false) ? 0 : 100; 
+                        array_push($errorsJson, Lang::get('validator.'.$key, ["name" => "'% pour être en cours d'acquisition'", "value" => $value]));
+                    }
+                    
                 //error
                 return response()->json(["error" => true, "message" => $errorsJson, "data" => []]);
             }
@@ -319,6 +345,8 @@ class SessionController extends Controller
                 if($request->has('start_date')) $session->start_date = Carbon::createFromFormat('d/m/Y', $request->start_date);
                 if($request->has('end_date')) $session->end_date =  Carbon::createFromFormat('d/m/Y', $request->end_date);
                 if($request->has('duration')) $session->duration = $request->duration;
+                if($request->has('accepted_prc')) $session->accepted_prc = $request->accepted_prc;
+                if($request->has('ongoing_prc')) $session->ongoing_prc = $request->ongoing_prc;
                 
                 //Need to be inferior 
                 if($session->start_date > $session->end_date)
@@ -327,6 +355,13 @@ class SessionController extends Controller
                 //Need not to be today
                 if($session->start_date < Carbon::today())
                     return response()->json(["error" => true, "message" =>  Lang::get('session.lowStartDate'), "data" => []]);
+                    
+                //PRC need to be superieur 
+                if($session->accepted_prc <= $session->ongoing_prc)
+                {
+                    array_push($errorsJson, Lang::get('session.onGoingPrcBadValue'));
+                    return response()->json(["error" => true, "message" => $errorsJson, "data" => []]);
+                }
                 
                 $session->save();
                 return response()->json(["error" => false, "message" =>  Lang::get('session.update', ['name' => $session->name]), "data" => $session]);

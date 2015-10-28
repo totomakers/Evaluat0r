@@ -14,6 +14,22 @@
               <input type="text" class="form-control" id="session-name" value={session.name}>
             </div>
           </div>
+           <div class="form-group">
+            <label for="session-duration" class="col-lg-2 control-label">Acquis</label>
+            <div class="col-lg-3">
+                <div class='input-group'>
+                    <input type='text' class="form-control" id="session-accepted-prc" value={session.accepted_prc}/>
+                    <span class="input-group-addon">%</span>
+                </div>
+            </div>
+            <label for="session-duration" class="col-lg-2 control-label">En cours</label>
+            <div class="col-lg-3">
+                <div class='input-group'>
+                    <input type='text' class="form-control" id="session-ongoing-prc" value={session.ongoing_prc}/>
+                    <span class="input-group-addon">%</span>
+                </div>
+            </div>
+          </div>
           <div class="form-group">
             <label for="session-date-start" class="col-lg-2 control-label">Date début</label>
             <div class="col-lg-4">
@@ -105,6 +121,8 @@
             var startDate = $('#session-date-start');
             var endDate = $('#session-date-end');
             var duration = $('#session-duration');
+            var accepted = $('#session-accepted-prc');
+            var ongoing = $('#session-ongoing-prc');
             
             var buttonModify = $('#button-modify');
             var buttonModifyIco = $('#button-modify-ico');
@@ -116,6 +134,8 @@
                 endDate.removeAttr('disabled');
                 duration.removeAttr('disabled');
                 buttonModify.removeAttr('disabled');
+                accepted.removeAttr('disabled');
+                ongoing.removeAttr('disabled');
                 
                 buttonModifyIco.addClass('fa-pencil');
                 buttonModifyIco.removeClass('fa-spinner');
@@ -128,6 +148,8 @@
                 endDate.attr('disabled', 'disabled');
                 duration.attr('disabled', 'disabled');
                 buttonModify.attr('disabled', 'disabled');
+                accepted.attr('disabled', 'disabled');
+                ongoing.attr('disabled', 'disabled');
                 
                 buttonModifyIco.removeClass('fa-pencil');
                 buttonModifyIco.addClass('fa-spinner fa-spin');
@@ -145,7 +167,9 @@
             var start_date = $('#session-date-start').val();
             var end_date = $('#session-date-end').val();
             var duration = $('#session-duration').val();
-            var params = { 'name' : name, 'start_date': start_date, 'end_date': end_date, 'duration': duration };
+            var accepted = $('#session-accepted-prc').val();
+            var ongoing = $('#session-ongoing-prc').val();
+            var params = { 'name' : name, 'start_date': start_date, 'end_date': end_date, 'duration': duration, 'accepted_prc':accepted, 'ongoing_prc':ongoing };
             
             opts.session.update(opts.page.id, params);
         }
