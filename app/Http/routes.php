@@ -30,8 +30,20 @@ Route::group(['as' => 'api', 'prefix' => 'api'], function ()
         Route::get('/',                     ['as' => '::getAll', 'middleware' => 'auth.rank:0', 'uses'=>'AccountController@getAll']);
         Route::get('/{id}',                 ['as' => '::get', 'uses'=>'AccountController@getById'])->where('id', '[0-9]+');
         Route::get('/profil',               ['as' => '::profil', 'middleware' => 'auth.rank:0', 'uses'=>'AccountController@getProfil']);
+        
+        //auth
         Route::post('/login',               ['as' => '::login', 'uses'=>'AccountController@postLogin']);
         Route::get('/logout',               ['as' => '::logout', 'uses'=>'AccountController@getLogout']);
+        
+        //evaluations
+        Route::get('/evaluations',  ['as' => '::evalutions', 'uses'=>'AccountController@getEvaluations']);
+        Route::group(['prefix' => 'evaluations'], function () 
+        {
+            Route::get('/available', ['as' => '::getAvailable', 'middleware' => 'auth.rank:0', 'uses'=>'AccountController@getEvaluationsAvailable']);
+            Route::get('/inprogress', ['as' => '::getInProgress', 'middleware' => 'auth.rank:0', 'uses'=>'AccountController@getEvaluationsInprogress']);
+        });
+
+        //select2
         Route::get('/select2/candidates',   ['as' => '::select2::candidate', 'uses'=>'AccountController@getSelect2Candidates']);
     });
     

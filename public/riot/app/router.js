@@ -90,7 +90,7 @@ function router(collections, action, id)
                 default:
                 case 'all':  
                     if(!id) id = 1;
-                    riot.mount(selector, 'evaluations');
+                    riot.mount(selector, 'evaluations', {'auth':auth} );
                 break;   
             }
             break;

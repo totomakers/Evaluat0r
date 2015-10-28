@@ -20,7 +20,16 @@ class Account extends Model implements AuthenticatableContract
     protected $table = 'account';
     //protected $primaryKey = 'id';
 
+    public function sessions()
+    {
+        return $this->belongsToMany('App\Models\Session', 'session_candidate', 'account_id', 'session_id')->withPivot('created_at');
+    }
+    
+    public function evalutions()
+    {
+        return $this->belongsToMany('App\Models\Session', 'evaluation', 'account_id', 'session_id')->withPivot('id', 'start');
+    }
 
     protected $fillable = ['firstname', 'lastname', 'email', 'rank']; //can be mass assignable
-    protected $hidden = ['sha1_pass', 'session_key', 'token_key']; //exclude from the api
+    protected $hidden = ['sha1_pass', 'session_key', 'token_key', 'remember_token']; //exclude from the api
 }

@@ -27,6 +27,7 @@
     </div>
     
     <script>
+        loader.show();
         var self = this;
         
         this.on('mount',function(){

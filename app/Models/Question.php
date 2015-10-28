@@ -14,7 +14,6 @@ class Question extends Model
     // $primaryKey is the table primary key
     protected $connection = 'evaluat0r';
     protected $table = 'question';
-    //protected $primaryKey = 'id';
       
     public function theme()
     {
