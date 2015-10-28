@@ -28,7 +28,7 @@
                                 <td class="v-align">{(duration == '00:00:00') ? 'Illimité' : duration }</td>
                                 <td class="text-right v-align">{question_count}</td>
                                 <td class="text-right">
-                                    <a href=""><button id="template-add-button" class="btn btn-danger"><i id="template-add-button-ico" class="fa fa-inbox"></i> Commencer</button></a>
+                                    <a href="#evaluations/details/{id}"><button id="template-add-button" class="btn btn-danger"><i id="template-add-button-ico" class="fa fa-inbox"></i> Commencer</button></a>
                                 </td>
                             </tr>
                         </tbody>

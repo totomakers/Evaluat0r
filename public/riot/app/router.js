@@ -77,13 +77,13 @@ function router(collections, action, id)
         
             switch(action)
             {
-                 case 'start':
+                 case 'details':
                     if(!id)
                         riot.route('evaluations'); 
                     else 
                     {
                         pageTitle += ' : TEST';
-                        riot.mount(selector, 'evalutions_details', {'page': {id:id} });
+                        riot.mount(selector, 'evalutions_details', {'auth':auth, 'page': {id:id} });
                     }
                 break;
                 

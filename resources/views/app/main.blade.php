@@ -37,6 +37,7 @@
 <script src="riot/tags/sessions_edit.tag" type="riot/tag"></script>
 <script src="riot/tags/evaluations.tag" type="riot/tag"></script>
 <script src="riot/tags/evaluations_details.tag" type="riot/tag"></script>
+<script src="riot/tags/evaluations_info.tag" type="riot/tag"></script>
 <script src="riot/tags/sessions_modify.tag" type="riot/tag"></script>
 <script src="riot/tags/sessions_candidates.tag" type="riot/tag"></script>
 <script src="riot/tags/sessions_questions.tag" type="riot/tag"></script>

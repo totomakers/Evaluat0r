@@ -227,4 +227,29 @@ class AccountController extends Controller
             return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
         }
     }
+    
+   /**
+    * @api {get} /accounts/evalutions/{id}/resume Get evaluation resume
+    * @apiName  getEvaluationResume Evalutions
+    * @apiGroup Accounts
+    *
+    * @apiSuccess {Boolean} error an error occur
+    * @apiSuccess {String} message description of action
+    * @apiSuccess {Array} data resume of  the test
+    */
+    public function getEvaluationResume($id)
+    {
+        try
+        {
+            $account = Auth::user();
+            $evaluation = Evaluation::where('account_id', $account->id)->where('session_id', $id)->first();
+            
+            if(!$evaluation)
+                return response()->json(["error" => true, "message" => "evaluation.notStart", "data" => []]);
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
+        }
+    }
 }

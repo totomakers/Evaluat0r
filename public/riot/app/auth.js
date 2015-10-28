@@ -19,9 +19,9 @@ auth.logout = function()
     $.ajax({ url: auth.apiBaseUrl+'/logout', success: auth.onLogout});
 }
 
-auth.getAvailableEvaluations = function()
+auth.getEvaluationsResume = function(evaluationId)
 {
-    
+    $.ajax({ url: auth.apiBaseUrl+'/evaluations/'+evaluationId+'/resume', success: auth.onEvaluationsResume});
 }
 
 auth.getEvaluations = function(status)
@@ -67,6 +67,10 @@ auth.onGetEvaluationsAvaialble = function(json)
 
 auth.onGetEvaluationsInProgress = function(json)
 {
-    console.log(json);
     auth.trigger('account_evaluations_in_progress', json);
+}
+
+auth.onEvaluationsResume = function(json)
+{
+    auth.trigger('account_evaluations_resume', json);
 }

@@ -39,8 +39,7 @@ Route::group(['as' => 'api', 'prefix' => 'api'], function ()
         Route::get('/evaluations',  ['as' => '::evalutions', 'uses'=>'AccountController@getEvaluations']);
         Route::group(['prefix' => 'evaluations'], function () 
         {
-            Route::get('/available', ['as' => '::getAvailable', 'middleware' => 'auth.rank:0', 'uses'=>'AccountController@getEvaluationsAvailable']);
-            Route::get('/inprogress', ['as' => '::getInProgress', 'middleware' => 'auth.rank:0', 'uses'=>'AccountController@getEvaluationsInprogress']);
+            Route::get('/{id}/resume', ['as' => '::getResume', 'middleware' => 'auth.rank:0', 'uses'=>'AccountController@getEvaluationResume']);
         });
 
         //select2

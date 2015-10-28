@@ -12,5 +12,5 @@ class Evaluation extends Model
     // $primaryKey is the table primary key
     protected $connection = 'evaluat0r';
     protected $table = 'evaluation';
-    //protected $primaryKey = 'id';
+    protected $primaryKey = 'id';
 }
