@@ -222,7 +222,7 @@ class ThemeController extends Controller
     }
     
     /**
-     * @api {get} /themes/select2 delete a specific template
+     * @api {get} /themes/select2 select2
      * @apiName select2
      * @apiGroup Themes
      *
@@ -244,6 +244,5 @@ class ThemeController extends Controller
         {
             return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
         }
-        
     }
 }

@@ -19,16 +19,16 @@ class QuestionController extends Controller
     {
     }
 
-     /**
-     * @api {get} /question Request Questions information
-     * @apiName getAll
-     * @apiGroup Questions
-     *
-     *
-     * @apiSuccess {Boolean} error an error occur
-     * @apiSuccess {String} message description of action
-     * @apiSuccess {Array} data Data of all questions
-     */
+    /**
+    * @api {get} /question Request Questions information
+    * @apiName getAll
+    * @apiGroup Questions
+    *
+    *
+    * @apiSuccess {Boolean} error an error occur
+    * @apiSuccess {String} message description of action
+    * @apiSuccess {Array} data Data of all questions
+    */
     public function getAll()
     {
         try
@@ -43,49 +43,18 @@ class QuestionController extends Controller
     }
     
     /**
-     * @api {delete} /question/{id} delete a specific question
-     * @apiName delete
-     * @apiGroup Questions
-     *
-     * @apiParam {Number} id Question unique ID
-     *
-     * @apiSuccess {Boolean} error an error occur
-     * @apiSuccess {String} message description of action
-     * @apiSuccess {Array} data current deleted question
-     */
-    public function deleteDelete($id)
-    {
-        try
-        {
-            $question = Question::find($id);
-            
-            if(!$question)
-                return response()->json(["error" => true, "message" => Lang::get('question.notFound'), "data" => []]);
-            else
-            {
-                $question->delete();
-                return response()->json(["error" => true, "message" => Lang::get('question.delete'), "data" => $question]);
-            }
-        }
-        catch(\Exception $e)
-        {
-            return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
-        }
-    }
-    
-    /**
-     * @api {post} /questions Add questions
-     * @apiName getAll
-     * @apiGroup Themes
-     *
-     * @apiParam {String} wording question content in markdown
-     * @apiParam {Array} answers array of answer
-     * @apiParam {Number} themes_id theme id
-     *
-     * @apiSuccess {Boolean} error an error occur
-     * @apiSuccess {String} message description of action
-     * @apiSuccess {Array} data Data of the theme
-     */
+    * @api {post} /questions Add questions
+    * @apiName getAll
+    * @apiGroup Themes
+    *
+    * @apiParam {String} wording question content in markdown
+    * @apiParam {Array} answers array of answer
+    * @apiParam {Number} themes_id theme id
+    *
+    * @apiSuccess {Boolean} error an error occur
+    * @apiSuccess {String} message description of action
+    * @apiSuccess {Array} data Data of the theme
+    */
     public function postAdd(Request $request)
     {
         try 
@@ -234,4 +203,37 @@ class QuestionController extends Controller
             return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
         }
     }
+
+    /**
+     * @api {delete} /question/{id} delete a specific question
+     * @apiName delete
+     * @apiGroup Questions
+     *
+     * @apiParam {Number} id Question unique ID
+     *
+     * @apiSuccess {Boolean} error an error occur
+     * @apiSuccess {String} message description of action
+     * @apiSuccess {Array} data current deleted question
+     */
+    public function deleteDelete($id)
+    {
+        try
+        {
+            $question = Question::find($id);
+            
+            if(!$question)
+                return response()->json(["error" => true, "message" => Lang::get('question.notFound'), "data" => []]);
+            else
+            {
+                $question->delete();
+                return response()->json(["error" => true, "message" => Lang::get('question.delete'), "data" => $question]);
+            }
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
+        }
+    }
+    
+    
 }

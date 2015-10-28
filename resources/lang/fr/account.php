@@ -8,5 +8,6 @@ return [
     'shouldBeLogged' => 'Vous devez être connecté.',
     'rankTooLow' => 'Vous n\'avez pas les droits',
     'notFound' => 'Le compte n\'existe pas',
+    'notRank0' => 'Le compte \':email\' n\'est pas un candidat',
 ];
 

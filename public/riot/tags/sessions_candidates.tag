@@ -26,12 +26,12 @@
                             <tr>
                                 <td><select class="form-control" id="sessions-candidates-name" placeholder=""></select></td>
                                 <td></td>
-                                <td class="text-center"><button id="sessions-candidates-add-button" class="btn btn-success btn-lg"><i id="model_theme_button_ico" class="fa fa-plus fa-lg"></i></button></td>
+                                <td class="text-center"><button id="sessions-candidates-add-button" class="btn btn-success" onclick={sessions_add_candidate}><i id="model_theme_button_ico" class="fa fa-plus"></i></button></td>
                             </tr>
                             <tr each={candidates}>
                                 <td><a href="#">{firstname} {lastname}</a></td>
                                 <td>{ dateTimeFormatFr(pivot.created_at) }</td>
-                                <td class="text-center"><a href="" onclick={sessions_remove_candidates}><i data-toggle="tooltip" data-placement="top" title="Supprimer" class="fa fa-red fa-trash fa-lg"/></a></td>
+                                <td class="text-center"><a href="" onclick={sessions_remove_candidate}><i data-toggle="tooltip" data-placement="top" title="Supprimer" class="fa fa-red fa-trash fa-lg"/></a></td>
                             </tr>
                         </tbody>
                     </table>
@@ -85,8 +85,12 @@
         //SIGNALS --
         //----------
         
-        sessions_remove_candidates(e){
+        sessions_remove_candidate(e){
             opts.session.removeCandidate(opts.page.id, e.item.id);
+        }
+        
+        sessions_add_candidate(e){
+            opts.session.addCandidate(opts.page.id, { account_id: $('#sessions-candidates-name').val() });
         }
         
         //-----------
@@ -95,7 +99,7 @@
         
         self.select2CandidateTemplate = function(result) 
         {
-            if (result.loading) return "Chargement...";
+            if (result.loading) return "Recherche...";
         
             var markup = '<div>'+result.firstname+' ' + result.lastname + '</div>';
             return markup;
@@ -116,6 +120,19 @@
             refreshTooltip();
         });
         
+        opts.session.on('session_add_candidate', function(json)
+        {
+            if(json.error == true)
+                 alert.show('#sessions-candidates-alert-box', 'danger', json.message);
+            else
+            {
+                alert.show('#sessions-candidates-alert-box', 'success', json.message);
+                self.candidates.push(json.data);
+                self.update();
+                refreshTooltip();
+            }
+        });
+        
         opts.session.on('session_remove_candidate', function(json)
         {
             if(json.error == true)
@@ -123,9 +140,15 @@
             else
             {
                 alert.show('#sessions-candidates-alert-box', 'success', json.message);
-                opts.session.getCandidates(opts.page.id);
+
+                var index = self.candidates.map(byId).indexOf(json.data.id);
+                self.candidates.splice(index, 1);
+                self.update();
+                refreshTooltip();
             }
         });
+        
+
         
     </script>
 </sessions_candidates>

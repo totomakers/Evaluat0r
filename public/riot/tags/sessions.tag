@@ -172,9 +172,9 @@
         
         var initDatepicker = function(selector)
         {
-            var tomorrow = new Date();
-            tomorrow.setDate((new Date()).getDate()+1);
-        
+            var yesterday = new Date();
+            yesterday.setDate(yesterday.getDate()-1);
+
              $(selector).datetimepicker({
                icons: {
                         time: "fa fa-clock-o",
@@ -184,8 +184,9 @@
                     },
                 locale: 'fr',
                 format: 'DD/MM/YYYY',    
-                minDate: tomorrow,
-                useCurrent : true,
+                minDate: yesterday,
+                disabledDates: [yesterday],
+                defaultDate : new Date(),
             });
         }
         

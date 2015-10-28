@@ -22,15 +22,15 @@ class TemplateController extends Controller
     //API ------------------------
     //----------------------------
     
-     /**
-     * @api {get} /templates Request Templates information
-     * @apiName getAll
-     * @apiGroup Templates
-     *
-     * @apiSuccess {Boolean} error an error occur
-     * @apiSuccess {String} message description of action
-     * @apiSuccess {Array} data all templates
-     */
+    /**
+    * @api {get} /templates Request Templates information
+    * @apiName getAll
+    * @apiGroup Templates
+    *
+    * @apiSuccess {Boolean} error an error occur
+    * @apiSuccess {String} message description of action
+    * @apiSuccess {Array} data all templates
+    */
     public function getAll(Request $request)
     {
         try
@@ -62,42 +62,14 @@ class TemplateController extends Controller
     }
     
      /**
-     * @api {get} /templates/{id}/themes Request Template Themes information
-     * @apiName getThemesByTheme
-     * @apiGroup Templates
-     *
-     * @apiParam {Number} id Template unique ID
-     *
-     * @apiSuccess {Boolean} error an error occur
-     * @apiSuccess {String} message description of action
-     * @apiSuccess {Array} data all themes link to the themes
-     */
-    public function getThemesByTemplate($id)
-    {
-        try
-        {
-            $template = Template::with('themes')->find($id);
-
-            if(!$template)
-                return response()->json(["error" => true, "message" => Lang::get('template.notFound'), "data" => []]);
-            
-            return response()->json(["error" => false, "message" => "", "data" => ["data" => $template->themes, "from" => $id]]);
-        }
-        catch(\Exception $e)
-        {
-            return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
-        }
-    }
-    
-    /**
-     * @api {post} /templates/add add a new template
-     * @apiName Add
-     * @apiGroup Templates
-     *
-     * @apiSuccess {Boolean} error an error occur
-     * @apiSuccess {String} message description of action
-     * @apiSuccess {Array} data new template data
-     */
+    * @api {post} /templates/add add a new template
+    * @apiName Add
+    * @apiGroup Templates
+    *
+    * @apiSuccess {Boolean} error an error occur
+    * @apiSuccess {String} message description of action
+    * @apiSuccess {Array} data new template data
+    */
     public function postAdd(Request $request)
     {
         try
@@ -105,7 +77,6 @@ class TemplateController extends Controller
             //rules to apply of each field
             $rules = array(
                 'name'          => 'required|min:2|max:25',
-                'duration'      => 'required|date_format:G:i',
                 'accepted_prc'  => 'required|numeric|min:0|max:100',
                 'ongoing_prc'   => 'required|numeric|min:0|max:100',
             );
@@ -128,17 +99,7 @@ class TemplateController extends Controller
                         $value = (strpos($key, '.min.') !== false) ? 2 : 25; 
                         array_push($errorsJson, Lang::get('validator.'.$key, ["name" => "Nom", "value" => $value]));
                     }
-                    
-                //----------
-                //duration -
-                //----------
-                if(array_key_exists("duration", $errors))
-                    for($j = 0; $j < count($errors["duration"]); ++$j)
-                    {
-                        $key = $errors["duration"][$j];
-                        array_push($errorsJson, Lang::get('validator.'.$key, ["name" => "Durée", "value" => ""]));
-                    }
-                    
+
                 //--------------
                 //accepted_prc -
                 //--------------
@@ -175,13 +136,40 @@ class TemplateController extends Controller
                 
                 $template = new template();
                 $template->name = $request->name;
-                $template->duration = $request->duration;
                 $template->accepted_prc = $request->accepted_prc;
                 $template->ongoing_prc = $request->ongoing_prc;
                 $template->save();
                 
                 return response()->json(["error" => false, "message" => Lang::get('template.add', ["name" => $template->name]), "data" => $template]);
             }
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
+        }
+    }
+    
+    /**
+    * @api {get} /templates/{id}/themes Request Template Themes information
+    * @apiName getThemesByTheme
+    * @apiGroup Templates
+    *
+    * @apiParam {Number} id Template unique ID
+    *
+    * @apiSuccess {Boolean} error an error occur
+    * @apiSuccess {String} message description of action
+    * @apiSuccess {Array} data all themes link to the themes
+    */
+    public function getThemesByTemplate($id)
+    {
+        try
+        {
+            $template = Template::with('themes')->find($id);
+
+            if(!$template)
+                return response()->json(["error" => true, "message" => Lang::get('template.notFound'), "data" => []]);
+            
+            return response()->json(["error" => false, "message" => "", "data" => ["data" => $template->themes, "from" => $id]]);
         }
         catch(\Exception $e)
         {
@@ -319,6 +307,31 @@ class TemplateController extends Controller
                 
                 return response()->json(["error" => false, "message" => Lang::get('template.themeRemove', ['name' => $theme->name]), "data" => []]);
             }
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
+        }
+    }
+    
+    /**
+    * @api {get} /templates/select2 select2
+    * @apiName select2
+    * @apiGroup Templates
+    *
+    *
+    * @apiSuccess {Boolean} error an error occur
+    * @apiSuccess {String} message description of action
+    * @apiSuccess {Array} data current select2 data
+    */
+    public function getSelect2(Request $request)
+    {
+        try
+        {
+            $q = $request->q;
+            $templates = Template::where('name', 'LIKE', '%'.$q.'%')->orderBy('name', 'desc')->get();
+            
+            return response()->json(["error" => false, "message" => '', "data" => $templates]);
         }
         catch(\Exception $e)
         {

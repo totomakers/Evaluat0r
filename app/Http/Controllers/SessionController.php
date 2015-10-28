@@ -22,16 +22,15 @@ class SessionController extends Controller
     {
     }
 
-     /**
-     * @api {get} /sessions Request Sessions information
-     * @apiName getAll
-     * @apiGroup Sessions
-     *
-     *
-     * @apiSuccess {Boolean} error an error occur
-     * @apiSuccess {String} message description of action
-     * @apiSuccess {Array} data Data of all sessions
-     */
+    /**
+    * @api {get} /sessions Request Sessions information
+    * @apiName getAll
+    * @apiGroup Sessions
+    *
+    * @apiSuccess {Boolean} error an error occur
+    * @apiSuccess {String} message description of action
+    * @apiSuccess {Array} data Data of all sessions
+    */
     public function getAll(Request $request)
     {
         try
@@ -61,7 +60,6 @@ class SessionController extends Controller
         }
     }
 
-
     /**
     * @api {get} /sessions/{id} Get wanted session info
     * @apiName getById();
@@ -83,34 +81,6 @@ class SessionController extends Controller
                 return response()->json(["error" => true, "message" => Lang::get('session.notFound'), "data" => []]);
             else
                 return response()->json(["error" => false, "message" => "", "data" => $session]);
-        }
-        catch(\Exception $e)
-        {
-            return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
-        }
-    }
-    
-   /**
-    * @api {get} /sessions/{id}/candidates Get session candidates
-    * @apiName getCandidates($id);
-    * @apiGroup Sessions
-    *
-    * @apiParam {Number} id Session unique Id
-    *
-    * @apiSuccess {Boolean} error an error occur
-    * @apiSuccess {String} message description of action
-    * @apiSuccess {Array} data Session candidates
-    */
-    public function getCandidates($id)
-    {
-        try
-        {
-            $session = Session::with('candidates')->find($id);
-            
-            if(!$session)
-                return response()->json(["error" => true, "message" => Lang::get('session.notFound'), "data" => []]);
-            else
-                return response()->json(["error" => false, "message" => "", "data" => $session->candidates]);
         }
         catch(\Exception $e)
         {
@@ -207,13 +177,13 @@ class SessionController extends Controller
                 $session->end_date =  Carbon::createFromFormat('d/m/Y', $request->end_date);
                 $session->duration = $request->duration;
                 
-                 //Need to be inferior 
+                //Need to be inferior 
                 if($session->start_date > $session->end_date)
                     return response()->json(["error" => true, "message" =>  Lang::get('session.badStartDate'), "data" => []]);
                 
                 //Need not to be today
-                if($session->start_date <= new Carbon())
-                    return response()->json(["error" => true, "message" =>  Lang::get('session.shouldBeNotToday'), "data" => []]);
+                if($session->start_date < Carbon::today())
+                    return response()->json(["error" => true, "message" =>  Lang::get('session.lowStartDate'), "data" => []]);
                 
                 $session->save();
                 return response()->json(["error" => false, "message" => Lang::get('session.add', ["name" => $session->name]), "data" => $session]);
@@ -224,6 +194,7 @@ class SessionController extends Controller
             return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
         }
     }
+    
     
      /**
      * @api {put} /sessions/{id} Update Session informations
@@ -311,7 +282,7 @@ class SessionController extends Controller
             else
             {
                 if($request->has('name')) $session->name = $request->name;
-                if($request->has('start_date')) Carbon::createFromFormat('d/m/Y', $request->start_date);
+                if($request->has('start_date')) $session->start_date = Carbon::createFromFormat('d/m/Y', $request->start_date);
                 if($request->has('end_date')) $session->end_date =  Carbon::createFromFormat('d/m/Y', $request->end_date);
                 if($request->has('duration')) $session->duration = $request->duration;
                 
@@ -320,8 +291,8 @@ class SessionController extends Controller
                     return response()->json(["error" => true, "message" =>  Lang::get('session.badStartDate'), "data" => []]);
                 
                 //Need not to be today
-                if($session->start_date <= new Carbon())
-                    return response()->json(["error" => true, "message" =>  Lang::get('session.shouldBeNotToday'), "data" => []]);
+                if($session->start_date < Carbon::today())
+                    return response()->json(["error" => true, "message" =>  Lang::get('session.lowStartDate'), "data" => []]);
                 
                 $session->save();
                 return response()->json(["error" => false, "message" =>  Lang::get('session.update', ['name' => $session->name]), "data" => $session]);
@@ -333,17 +304,17 @@ class SessionController extends Controller
         }
     }
     
-     /**
-     * @api {delete} /sessions/{id} Delete Session informations
-     * @apiName deleteDelete();
-     * @apiGroup Sessions
-     *
-     * @apiParam {Number} id Session unique Id
-     *
-     * @apiSuccess {Boolean} error an error occur
-     * @apiSuccess {String} message description of action
-     * @apiSuccess {Array} data Updated Session
-     */
+   /**
+    * @api {delete} /sessions/{id} Delete Session informations
+    * @apiName deleteDelete();
+    * @apiGroup Sessions
+    *
+    * @apiParam {Number} id Session unique Id
+    *
+    * @apiSuccess {Boolean} error an error occur
+    * @apiSuccess {String} message description of action
+    * @apiSuccess {Array} data Updated Session
+    */
     public function deleteDelete($id)
     {
         try
@@ -364,19 +335,100 @@ class SessionController extends Controller
         }
     }
     
+    //----------------------------------------
+    //CANDIDATES -----------------------------
+    //----------------------------------------
+    
+   /**
+    * @api {get} /sessions/{id}/candidates Get session candidates
+    * @apiName getCandidates($id);
+    * @apiGroup Sessions
+    *
+    * @apiParam {Number} id Session unique Id
+    *
+    * @apiSuccess {Boolean} error an error occur
+    * @apiSuccess {String} message description of action
+    * @apiSuccess {Array} data Session candidates
+    */
+    public function getCandidates($id)
+    {
+        try
+        {
+            $session = Session::with('candidates')->find($id);
+            
+            if(!$session)
+                return response()->json(["error" => true, "message" => Lang::get('session.notFound'), "data" => []]);
+            else
+                return response()->json(["error" => false, "message" => "", "data" => $session->candidates]);
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
+        }
+    }
+
      /**
      * @api {post} /sessions/{id}/candidates Add new candidate
-     * @apiName addCandidate();
+     * @apiName postAddCandidate();
      * @apiGroup Sessions
      *
-     * @apiParam {Number} account_id Account unique id
+     * @apiParam {Number} id Session unique id
      *
      * @apiSuccess {Boolean} error an error occur
      * @apiSuccess {String} message description of action
-     * @apiSuccess {Array} data Added account id, firstname and lastname
+     * @apiSuccess {Array} data Added account
      */
-    public function addCandidate($id, Request $request)
+    public function postAddCandidate($id, Request $request)
     {
+        //rules to apply of each field
+        $rules = array(
+            'account_id'  => 'required|integer|exists:account,id',
+        );
+        
+        $errorsJson = array();
+            
+        //try to validate
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) 
+        {
+            $errors = $validator->messages()->getMessages();
+            
+            //--------------
+            //account_id ----
+            //---------------
+            if(array_key_exists("account_id", $errors))
+                for($j = 0; $j < count($errors["account_id"]); ++$j)
+                {
+                    $key = $errors["account_id"][$j];
+                    array_push($errorsJson, Lang::get('validator.'.$key, ["name" => "Candidat"]));
+                }
+                
+            return response()->json(["error" => true, "message" => $errorsJson, "data" => []]);
+        }
+        else
+        {
+            $session = Session::find($id);
+            
+            if(!$session)
+                return response()->json(["error" => true, "message" => Lang::get('session.notFound'), "data" => []]);
+        
+            $accountFind = $session->candidates()->find($request->account_id);
+            if($accountFind)
+                return response()->json(["error" => true, "message" => Lang::get('session.candidateAlreadyMember')]);
+
+            
+            $account = Account::find($request->account_id);
+            
+            if(!$account)
+                return response()->json(["error" => true, "message" => Lang::get('account.notFound'), "data" => []]);
+                
+            if($account->rank > 0)
+                return response()->json(["error" => true, "message" => Lang::get('account.notRank0', ["email" => $account->email])]);
+                
+            $session->candidates()->detach(array($account->id));
+            $session->candidates()->save($account, array('created_at' => new Carbon()));
+            return response()->json(["error" => false, "message" => Lang::get('session.candidateAdd', ["name" => $account->lastname . ' ' . $account->firstname]), "data" => $account]);
+        }
     }
      
      /**
@@ -416,6 +468,10 @@ class SessionController extends Controller
             return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
         }
     }
+    
+    //---------------------
+    //QUESTIONS -----------
+    //---------------------
 
     /**
      * @api {get} /sessions/{id}/questions Return all questions of session
@@ -430,6 +486,19 @@ class SessionController extends Controller
      */
      public function getQuestions($id)
      {
+         try
+        {
+            $session = Session::with('questions')->find($id);
+            
+            if(!$session)
+                return response()->json(["error" => true, "message" => Lang::get('session.notFound'), "data" => []]);
+            else
+                return response()->json(["error" => false, "message" => "", "data" => $session->questions]);
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
+        }
      }
      
      
@@ -450,19 +519,22 @@ class SessionController extends Controller
         $template = Template::find($template_id);
         $session = Session::find($id);
         
-        //check date
-        $today = new Carbon();
-        if($session->start_date >= $today)
-            return response()->json(["error" => true, "message" => Lang::get('session.alreadyStart'), "data" => ""]);
-        
         //check template
         if(!$template) 
-            return response()->json(["error" => false, "message" => Lang::get('session.templateNotFound'), "data" => ""]);
+            return response()->json(["error" => true, "message" => Lang::get('session.templateNotFound'), "data" => ""]);
             
         //check session
         if(!$session)
-            return response()->json(["error" => false, "message" => Lang::get('session.notFound'), "data" => ""]);
-           
+            return response()->json(["error" => true, "message" => Lang::get('session.notFound'), "data" => ""]);
+        
+        if($session->questions()->count() > 0)
+        {
+            //check date
+            $today = Carbon::today();
+            if($session->start_date <= $today)
+                return response()->json(["error" => true, "message" => Lang::get('session.alreadyStart'), "data" => ""]);
+        }
+
            
         //--------------------
         //GENERATE QUESTION --
@@ -499,7 +571,7 @@ class SessionController extends Controller
         $session->questions()->detach($selectedQuestions);
         $session->questions()->attach($selectedQuestions);
 
-        $questionsForSession = Question::whereIn('id', $selectedQuestions)->get();
+        $questionsForSession = Question::with('answers')->whereIn('id', $selectedQuestions)->get();
         
         $message[] = Lang::get('session.generateQuestion');
         return response()->json(["error" => false, "message" => $message, "data" => $questionsForSession]);

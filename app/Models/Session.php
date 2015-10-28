@@ -25,7 +25,7 @@ class Session extends Model
     //Relationships
     public function questions()
     {
-        return $this->belongsToMany('App\Models\Question', 'session_question', 'session_id', 'question_id');
+        return $this->belongsToMany('App\Models\Question', 'session_question', 'session_id', 'question_id')->with('answers');
     }
     
     public function candidates()

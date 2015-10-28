@@ -1,7 +1,7 @@
 <sessions_modify>
     <div class="animated fadeIn" id="session-edit-content" hidden>
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12 animated slideInDown">
                 <h2><a data-toggle="tooltip" data-placement="bottom" title="Retour" href="javascript:history.back()"><i class="fa fa-chevron-left"></i></a> { session.name }</h2>
                 <hr>
             </div>
@@ -70,10 +70,10 @@
         
         var initDatepicker = function(selector)
         {
-            var tomorrow = new Date();
-            tomorrow.setDate((new Date()).getDate()+1);
+            var yesterday = new Date();
+            yesterday.setDate(yesterday.getDate()-1);
         
-             $(selector).datetimepicker({
+            $(selector).datetimepicker({
                icons: {
                         time: "fa fa-clock-o",
                         date: "fa fa-calendar",
@@ -82,8 +82,9 @@
                     },
                 locale: 'fr',
                 format: 'DD/MM/YYYY',    
-                minDate: tomorrow,
-                useCurrent : true,
+                minDate: yesterday,
+                disabledDates: [yesterday],
+                defaultDate : new Date(),
             });
         }
         
