@@ -15,6 +15,4 @@ class AnswerController extends Controller
     public function __construct()
     {
     }
-    
-   
 }

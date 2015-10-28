@@ -21,15 +21,15 @@ class EvaluationController extends Controller
     //API ------------------------
     //----------------------------
     
-     /**
-     * @api {get} /evaluations Request Themes information
-     * @apiName getAll
-     * @apiGroup Themes
-     *
-     * @apiSuccess {Boolean} error an error occur
-     * @apiSuccess {String} message description of action
-     * @apiSuccess {Array} data all themes
-     */
+    /**
+    * @api {get} /evaluations Request Themes information
+    * @apiName getAll
+    * @apiGroup Themes
+    *
+    * @apiSuccess {Boolean} error an error occur
+    * @apiSuccess {String} message description of action
+    * @apiSuccess {Array} data all themes
+    */
     public function getAll()
     {
         try

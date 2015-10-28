@@ -1,8 +1,8 @@
 <themes_questions_add> 
     <div class="animated fadeIn">
         <div class="row">
-            <div class="col-lg-12 animated fadeIn" id="theme-title" hidden>
-                <h1> <a data-toggle="tooltip" data-placement="bottom" title="Retour" href="javascript:history.back()"><i class="fa fa-chevron-left"></i></a> Thème {theme.name} <small> - {theme.description} </small></h1>
+            <div class="col-lg-12 animated slideInDown" id="theme-title" hidden>
+                <h2><a data-toggle="tooltip" data-placement="bottom" title="Retour" href="javascript:history.back()"><i class="fa fa-chevron-left"></i></a> Thème {theme.name} <small> - {theme.description}</small></h>
                 <hr>
             </div>
         </div>
@@ -70,22 +70,18 @@
         var self = this;
         self.answers = [];
         self.theme = [];
-        
         loader.show();
         
         this.on('mount',function() 
         {
             opts.theme.get(opts.page.id);
-            refreshTooltip();
-            
+
             $("#question").markdown({
                 fullscreen:{enable:false},
                 iconlibrary:'fa',
                 resize:'vertical',
                 hiddenButtons:'Image',
             })
-            
-            loader.hide();
         });
         
         opts.theme.on('theme_get', function(json) 
@@ -93,7 +89,9 @@
             self.theme = json.data;
             self.update();
             
+            loader.hide();
             $('#theme-title').show();
+            refreshTooltip();
         });
         
         opts.question.on('question_add', function(json)

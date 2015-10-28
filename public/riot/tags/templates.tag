@@ -2,7 +2,7 @@
     <div class="animated fadeIn" id="templates-body" hidden>
         <div class="row">
             <div class="col-lg-12">
-                <h1>Modèles <small>- {templates.count} modèle(s)</small></h1>
+                <h1>Modèles <small>- {templates.count} disponible(s)</small></h1>
                 <hr>
             </div>
         </div>
@@ -16,7 +16,6 @@
                     <table class="table table-striped">
                         <thead>
                             <th>Nom</th>
-                            <th>Durée du test</th>
                             <th>Admis(%)</th>
                             <th>En cours(%)</th>
                             <th>Thèmes</th>
@@ -25,12 +24,6 @@
                         <tbody>
                             <tr>
                                 <td><input type="text" class="form-control" id="template-add-name" placeholder="Nom"></input></td>
-                                <td>
-                                    <div class="input-group clockpicker">
-                                        <input type="text" class="form-control" value="00:00" id="template-add-duration">
-                                        <span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
-                                    </div>
-                                </td>
                                 <td><input type="text" class="form-control" id="template-add-accepted-prc" placeholder="80"></input></td>
                                 <td><input type="text" class="form-control" id="template-add-ongoing-prc" placeholder="50"></input></td>
                                 <td></td>
@@ -43,7 +36,6 @@
                                         <label for="template-radio-name-{id}">{name}</label>
                                     </span>
                                 </td>
-                                <td class="text-right v-align">{formatTime(duration)}</td>
                                 <td class="text-right v-align"><span class="text-success">±{accepted_prc}%</span></td>
                                 <td class="text-right v-align"><span class="text-warning">±{ongoing_prc}%</span></td>
                                 <td class="text-right v-align"></td>
@@ -70,14 +62,6 @@
         loader.show();
         
         this.on('mount',function() {
-            $('.clockpicker').clockpicker({
-                    //donetext: 'Valider',
-                    default: '00:00',
-                    placement: 'bottom',
-                    autoclose : true,
-                    //align: 'top',
-            });   
-            
             opts.template.getAll(opts.page.id);
         });
         
@@ -88,7 +72,6 @@
         var enableForm = function(enable, clear)
         {
             var name = $('#template-add-name');
-            var duration = $('#template-add-duration');
             var ongoingPrc = $('#template-add-ongoing-prc');
             var acceptedPrc = $('#template-add-accepted-prc');
             var buttonAdd = $('#template-add-button');
@@ -97,7 +80,6 @@
             if(enable == true)
             {
                 name.removeAttr('disabled');
-                duration.removeAttr('disabled');
                 ongoingPrc.removeAttr('disabled');
                 acceptedPrc.removeAttr('disabled');
                 buttonAdd.removeAttr('disabled');
@@ -109,7 +91,6 @@
             else
             {
                 name.attr('disabled', 'disabled');
-                duration.attr('disabled', 'disabled');
                 ongoingPrc.attr('disabled', 'disabled');
                 acceptedPrc.attr('disabled', 'disabled');
                 buttonAdd.attr('disabled', 'disabled');
@@ -121,7 +102,6 @@
             if(clear)
             {
                 name.val('');
-                duration.val('');
                 ongoingPrc.val('');
                 acceptedPrc.val('');
             }
@@ -152,11 +132,10 @@
             enableForm(false, false);
             
             var name = $('#template-add-name');
-            var duration = $('#template-add-duration');
             var ongoingPrc = $('#template-add-ongoing-prc');
             var acceptedPrc = $('#template-add-accepted-prc');
             
-            opts.template.add({name: name.val(), duration: duration.val(), ongoing_prc: ongoingPrc.val(), accepted_prc: acceptedPrc.val() });
+            opts.template.add({name: name.val(), ongoing_prc: ongoingPrc.val(), accepted_prc: acceptedPrc.val() });
         }
         
         template_themes_load(e){

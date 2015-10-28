@@ -12,7 +12,7 @@
     
     <div class="row">
         <div class="col-lg-12 animated fadeIn" >
-            <sessions_questions>
+            <sessions_questions session={opts.session} page={opts.page}>
             </sessions_questions>
         </div>
     </div>

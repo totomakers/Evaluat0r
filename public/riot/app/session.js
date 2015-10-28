@@ -40,13 +40,28 @@ session.getCandidates = function(id)
     $.ajax({ url: session.apiBaseUrl+'/'+id+'/candidates', success: session.onCandidates});
 }
 
+session.addCandidate = function(id, params)
+{
+    $.ajax({type: "POST", url: session.apiBaseUrl+'/'+id+'/candidates/add', data: params, success: session.onAddCandidate});
+}
+
 session.removeCandidate = function(id, candidateId)
 {
     $.ajax({type: "DELETE", url: session.apiBaseUrl+'/'+id+'/candidates/'+candidateId, success: session.onRemoveCandidate});
 }
 
+session.getQuestions = function(id)
+{
+    $.ajax({ url: session.apiBaseUrl+'/'+id+'/questions', success: session.onQuestions});
+}
+
+session.putQuestions = function(id, template_id)
+{
+    $.ajax({type: "PUT", url: session.apiBaseUrl+'/'+id+'/questions/from/'+template_id, success: session.onPutQuestions});
+}
+
 //------------------
-//EVENTS -----------
+//EVENTS -----------s
 //------------------
 
 session.onGet = function(json)
@@ -84,7 +99,22 @@ session.onCandidates = function(json)
     session.trigger('session_candidates', json);
 }
 
+session.onAddCandidate = function(json)
+{
+    session.trigger('session_add_candidate', json);
+}
+
 session.onRemoveCandidate = function(json)
 {
     session.trigger('session_remove_candidate', json);
+}
+
+session.onQuestions = function(json)
+{
+    session.trigger('session_questions', json);
+}
+
+session.onPutQuestions = function(json)
+{
+    session.trigger('session_put_questions', json);
 }
