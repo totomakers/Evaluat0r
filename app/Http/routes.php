@@ -30,18 +30,9 @@ Route::group(['as' => 'api', 'prefix' => 'api'], function ()
         Route::get('/',                     ['as' => '::getAll', 'middleware' => 'auth.rank:0', 'uses'=>'AccountController@getAll']);
         Route::get('/{id}',                 ['as' => '::get', 'uses'=>'AccountController@getById'])->where('id', '[0-9]+');
         Route::get('/profil',               ['as' => '::profil', 'middleware' => 'auth.rank:0', 'uses'=>'AccountController@getProfil']);
-        
-        //auth
         Route::post('/login',               ['as' => '::login', 'uses'=>'AccountController@postLogin']);
         Route::get('/logout',               ['as' => '::logout', 'uses'=>'AccountController@getLogout']);
         
-        //evaluations
-        Route::get('/evaluations',  ['as' => '::evalutions', 'uses'=>'AccountController@getEvaluations']);
-        Route::group(['prefix' => 'evaluations'], function () 
-        {
-            Route::get('/{id}/resume', ['as' => '::getResume', 'middleware' => 'auth.rank:0', 'uses'=>'AccountController@getEvaluationResume']);
-        });
-
         //select2
         Route::get('/select2/candidates',   ['as' => '::select2::candidate', 'uses'=>'AccountController@getSelect2Candidates']);
     });
@@ -89,7 +80,7 @@ Route::group(['as' => 'api', 'prefix' => 'api'], function ()
     Route::group(['as' => '::sessions', 'prefix' => 'sessions'], function () 
     {
         Route::get('/', ['as' => '::getAll', 'middleware' => 'auth.rank:1', 'uses'=>'SessionController@getAll']);
-        Route::get('/{id}', ['as' => '::get', 'middleware' => 'auth.rank:1', 'uses'=>'SessionController@getById'])->where('id', '[0-9]+');
+        Route::get('/{id}', ['as' => '::get', 'middleware' => 'auth.rank:0', 'uses'=>'SessionController@getById'])->where('id', '[0-9]+');
         Route::delete('/{id}', ['as' => '::deleteDelete', 'middleware' => 'auth.rank:1', 'uses'=>'SessionController@deleteDelete'])->where('id', '[0-9]+');
         Route::put('/{id}', ['as' => '::put',  'middleware' => 'auth.rank:1', 'uses'=>'SessionController@putUpdate'])->where('id', '[0-9]+');
         Route::post('/add', ['as' => '::postAdd', 'middleware' => 'auth.rank:1', 'uses'=>'SessionController@postAdd']);
@@ -105,7 +96,8 @@ Route::group(['as' => 'api', 'prefix' => 'api'], function ()
     //|--------------------
     Route::group(['as' => '::evaluations', 'prefix' => 'evaluations'], function () 
     {
-        Route::get('/', ['as' => '::getAll', 'middleware' => 'auth.rank:0', 'uses'=>'EvaluationController@getAll']);
+        Route::get('/', ['as' => '::getAll', 'middleware' => 'auth.rank:0', 'uses'=>'EvaluationController@getCurrentEvaluation']);
+        Route::get('/start/{session_id}', ['as' => '::start', 'middleware' => 'auth.rank:0', 'uses'=>'EvaluationController@getStart']);
     });
     
 

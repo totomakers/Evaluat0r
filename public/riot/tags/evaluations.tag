@@ -28,7 +28,7 @@
                                 <td class="v-align">{(duration == '00:00:00') ? 'Illimité' : duration }</td>
                                 <td class="text-right v-align">{question_count}</td>
                                 <td class="text-right">
-                                    <a href="#evaluations/details/{id}"><button id="template-add-button" class="btn btn-danger"><i id="template-add-button-ico" class="fa fa-inbox"></i> Commencer</button></a>
+                                    <a href="#evaluations/start/{id}"><button id="template-add-button" class="btn btn-danger"><i id="template-add-button-ico" class="fa fa-inbox"></i> Commencer</button></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -55,6 +55,7 @@
                                 <th>Nom session</th>
                                 <th>Date début</th>
                                 <th>Date fin</th>
+                                <th>Démarrer le</th>
                                 <th>Durée</th>
                                 <th class="text-right">Question répondues</th>
                                 <th class="text-right">Question marquées</th>
@@ -63,14 +64,15 @@
                         </thead>
                         <tbody>
                             <tr each={evaluations.in_progress}>
-                                <td class="v-align">{name}</td>
-                                <td class="v-align">{dateFormatFr(start_date)}</td>
-                                <td class="v-align">{dateFormatFr(end_date)}</td>
-                                <td class="v-align">{(duration == '00:00:00') ? 'Illimité' : duration }</td>
+                                <td class="v-align">{session.name}</td>
+                                <td class="v-align">{dateFormatFr(session.start_date)}</td>
+                                <td class="v-align">{dateFormatFr(session.end_date)}</td>
+                                <td class="v-align">{dateTimeFormatFr(start)}</td>
+                                <td class="v-align">{(session.duration == '00:00:00') ? 'Illimité' : session.duration }</td>
                                 <td class="text-right v-align">?</td>
                                 <td class="text-right v-align">?</td>
                                 <td class="text-right">
-                                    <a href=""><button id="template-add-button" class="btn btn-warning"><i id="template-add-button-ico" class="fa fa-pencil"></i> Reprendre</button></a>
+                                    <a href="#evaluations/exam/{id}"><button id="template-add-button" class="btn btn-warning"><i id="template-add-button-ico" class="fa fa-pencil"></i> Reprendre</button></a>
                                 </td>
                             </tr>
                         </tbody>
@@ -88,20 +90,19 @@
     <script>
         var self = this;
         self.evaluations = { in_progress : [], available : []};
-        self.inProgressEvaluations = {};
         
         loader.hide();
         loader.show('#evaluations-available-loader');
         
         this.on('mount',function(){
-            opts.auth.getEvaluations('available');
-            opts.auth.getEvaluations('in_progress');
+            opts.evaluation.get('available');
+            opts.evaluation.get('in_progress');
         });
         
         //-----------------
         //SLOTS ----------
         //-----------------
-        opts.auth.on('account_evaluations_available', function(json){
+        opts.evaluation.on('evaluation_available', function(json){
             self.evaluations.available = json.data;
             self.update();
             
@@ -109,7 +110,7 @@
             $('#evaluations-available-content').show();
         });
         
-        opts.auth.on('account_evaluations_in_progress', function(json){
+        opts.evaluation.on('evaluation_in_progress', function(json){
             self.evaluations.in_progress = json.data;
             self.update();
             

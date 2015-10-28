@@ -12,7 +12,6 @@ function router(collections, action, id)
     {
         case 'themes':
             pageTitle += 'Thèmes';
-            
             switch(action)
             {
                 case 'edit':
@@ -47,7 +46,7 @@ function router(collections, action, id)
                     riot.mount(selector, 'templates', {'template': template, 'page':{id:id}});
                 break;   
             }
-            break;
+        break;
         
         case 'sessions':
             pageTitle += 'Session';
@@ -55,8 +54,7 @@ function router(collections, action, id)
             switch(action)
             {
                  case 'edit':
-                    if(!id)
-                        riot.route('sessions/all/1'); 
+                    if(!id) riot.route('sessions/all/1'); 
                     else 
                     {
                         pageTitle += ' : Géstion des sessions';
@@ -70,30 +68,28 @@ function router(collections, action, id)
                     riot.mount(selector, 'sessions', {'session':session, 'page':{id:id}});
                 break;   
             }
-            break;
+        break;
             
-            case 'evaluations':
+        case 'evaluations':
             pageTitle += 'Evaluation';
-        
             switch(action)
             {
-                 case 'details':
-                    if(!id)
-                        riot.route('evaluations'); 
-                    else 
-                    {
-                        pageTitle += ' : TEST';
-                        riot.mount(selector, 'evalutions_details', {'auth':auth, 'page': {id:id} });
-                    }
+                case 'start':
+                    if(!id) id = 1;
+                    riot.mount(selector, 'evaluations_start', {'evaluation':evaluation, 'session':session, 'page': {id:id} });
                 break;
                 
+                case 'exam':
+                    if(!id) riot.route('evaluations/');
+                    riot.mount(selector, 'evaluations_exam', {'evaluation':evaluation, 'session':session, 'page': {id:id} });
+                    break;
+                
                 default:
-                case 'all':  
-                    if(!id) id = 1;
-                    riot.mount(selector, 'evaluations', {'auth':auth} );
+                case 'all': 
+                    riot.mount(selector, 'evaluations', {'evaluation':evaluation} );
                 break;   
             }
-            break;
+        break;
         
         default: 
             pageTitle += 'Accueil';

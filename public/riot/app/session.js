@@ -10,6 +10,11 @@ session.getAll = function(page)
     $.ajax({ url: session.apiBaseUrl+'?page='+page, success: session.onGetAll});
 }
 
+session.get = function(id)
+{
+    $.ajax({ url: session.apiBaseUrl+'/'+id, success: session.onGet});
+}
+
 session.refreshAll = function(page)
 {
     $.ajax({ url: session.apiBaseUrl+'?page='+page, success: session.onRefreshAll});
@@ -23,11 +28,6 @@ session.add = function(params)
 session.delete = function(id)
 {
      $.ajax({type: "DELETE", url: session.apiBaseUrl+'/'+id , success: session.onDelete});
-}
-
-session.get = function(id)
-{
-    $.ajax({ url: session.apiBaseUrl+'/'+id, success: session.onGet});
 }
 
 session.update = function(id, params)

@@ -19,28 +19,6 @@ auth.logout = function()
     $.ajax({ url: auth.apiBaseUrl+'/logout', success: auth.onLogout});
 }
 
-auth.getEvaluationsResume = function(evaluationId)
-{
-    $.ajax({ url: auth.apiBaseUrl+'/evaluations/'+evaluationId+'/resume', success: auth.onEvaluationsResume});
-}
-
-auth.getEvaluations = function(status)
-{
-    var successCallback;
-    
-    switch(status)
-    {
-        case 'available': successCallback = auth.onGetEvaluationsAvaialble; break;
-        case 'in_progress': successCallback = auth.onGetEvaluationsInProgress; break;
-        case 'ended': successCallback = auth.onGetEvaluationsEnded; break;
-        default:
-            console.log(status);
-            break;
-    }
-
-    $.ajax({ url: auth.apiBaseUrl+'/evaluations?status='+status, success: successCallback});
-}
-
 //-----------------
 //EVENTS ----------
 //-----------------
@@ -57,20 +35,4 @@ auth.triggerProfile = function(json)
 auth.onLogout = function(json)
 {
     document.location.href = '/';
-}
-
-auth.onGetEvaluationsAvaialble = function(json)
-{
-    console.log(json);
-    auth.trigger('account_evaluations_available', json);
-}
-
-auth.onGetEvaluationsInProgress = function(json)
-{
-    auth.trigger('account_evaluations_in_progress', json);
-}
-
-auth.onEvaluationsResume = function(json)
-{
-    auth.trigger('account_evaluations_resume', json);
 }

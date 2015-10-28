@@ -18,16 +18,10 @@ class Account extends Model implements AuthenticatableContract
     // $primaryKey is the table primary key
     protected $connection = 'evaluat0r';
     protected $table = 'account';
-    //protected $primaryKey = 'id';
-
+    
     public function sessions()
     {
         return $this->belongsToMany('App\Models\Session', 'session_candidate', 'account_id', 'session_id')->withPivot('created_at');
-    }
-    
-    public function evalutions()
-    {
-        return $this->belongsToMany('App\Models\Session', 'evaluation', 'account_id', 'session_id')->withPivot('id', 'start');
     }
 
     protected $fillable = ['firstname', 'lastname', 'email', 'rank']; //can be mass assignable

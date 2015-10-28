@@ -36,8 +36,8 @@
 <script src="riot/tags/sessions.tag" type="riot/tag"></script>
 <script src="riot/tags/sessions_edit.tag" type="riot/tag"></script>
 <script src="riot/tags/evaluations.tag" type="riot/tag"></script>
-<script src="riot/tags/evaluations_details.tag" type="riot/tag"></script>
-<script src="riot/tags/evaluations_info.tag" type="riot/tag"></script>
+<script src="riot/tags/evaluations_start.tag" type="riot/tag"></script>
+<script src="riot/tags/evaluations_exam.tag" type="riot/tag"></script>
 <script src="riot/tags/sessions_modify.tag" type="riot/tag"></script>
 <script src="riot/tags/sessions_candidates.tag" type="riot/tag"></script>
 <script src="riot/tags/sessions_questions.tag" type="riot/tag"></script>
@@ -62,6 +62,7 @@
 <script type="text/javascript" src="{!! URL::asset('riot/app/question.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('riot/app/answer.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('riot/app/session.js'); !!}"></script>
+<script type="text/javascript" src="{!! URL::asset('riot/app/evaluation.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('riot/app/router.js'); !!}"></script>
 <script>
    riot.mount($('nav'), 'app_nav', auth);
