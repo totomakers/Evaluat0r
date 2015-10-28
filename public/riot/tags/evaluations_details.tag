@@ -3,17 +3,9 @@
         <div class="row">
              <div class="col-lg-12">
                 <div class="col-lg-2">
-                    <h3>TIMER</h3>
                 </div>
-                <div class="col-lg-8">
-                    <!-- LINKED NAV -->
-                    <div class="text-center">
-                        <ol class="carousel-linked-nav pagination">
-                          <li class="active" id="1"><a href="#1">1</a></li>
-                          <li><a href="#2" id="2">2</a></li>
-                          <li><a href="#3" id="3">3</a></li>
-                        </ol>
-                    </div>
+                <div class="col-lg-8 text-center">
+                    <h3>TIMER</h3>
                 </div>
                 <div class="col-lg-2">
                     <button type="button" class="btn btn-danger btn-lg text-right"><i class="fa fa-close fa-lg v-align"></i> Quitter</button>
@@ -26,6 +18,13 @@
             </div>
             <div class="col-lg-8">
                 <div id="carousel" class="carousel slide" data-ride="carousel">
+                      <div class="text-center">
+                        <ol class="carousel-linked-nav pagination">
+                          <li class="active" id="1"><a href="#1">1</a></li>
+                          <li><a href="#2" id="2">2</a></li>
+                          <li><a href="#3" id="3">3</a></li>
+                        </ol>
+                    </div>
                     <!-- Wrapper for slides -->
                     <div class="carousel-inner" role="listbox">
                         <!-- /!\ Attention pour le bon fonctionnent il faut le premiere question en class="item active" /!\ --> 
@@ -67,8 +66,12 @@
                                 </div>
                             </div>
                             <div class="row text-center">
-                                <button type="button" class="btn btn-warning" onclick={answer_marqued}>Marquer</button>
-                                <button type="button" class="btn btn-success" onclick={answer_validate}>Valider</button>
+                                <a href="#carousel" role="button" data-slide="next">
+                                   <button type="button" class="btn btn-warning"  onclick={answer_marqued}>Marquer</button>
+                                </a>
+                                <a href="#carousel" role="button" data-slide="next">
+                                   <button type="button" class="btn btn-success" role="button" data-slide="next" onclick={answer_validate}>Valider</button>
+                                </a>
                             </div>
                         </div>
                          <!-- /!\ ici on ne met plus la classe item active mais seulement item /!\ -->
@@ -110,8 +113,12 @@
                                 </div>
                             </div>
                             <div class="row text-center">
-                                <button type="button" class="btn btn-warning" onclick={answer_marqued}>Marquer</button>
-                                <button type="button" class="btn btn-success" onclick={answer_validate}>Valider</button>
+                                <a href="#carousel" role="button" data-slide="next" >
+                                   <button type="button" class="btn btn-warning"  onclick={answer_marqued}>Marquer</button>
+                                </a>
+                                <a href="#carousel" role="button" data-slide="next">
+                                   <button type="button" class="btn btn-success valide" role="button" data-slide="next" onclick={answer_validate}>Valider</button>
+                                </a>
                             </div>
                         </div>
                         <div class="item">
@@ -128,6 +135,8 @@
     </div>
     <script>
     loader.hide();
+    var self = this;
+    self.currentIndex = 0;
     
      this.on('mount',function() {
         $('.carousel').carousel({
@@ -135,7 +144,7 @@
             interval:false,
         })
         
-        /* SLIDE ON CLICK */ 
+        /* SLIDE ON CLICK LINKED NAV*/ 
         $('.carousel-linked-nav > li > a').click(function() {
 
             // saisir href , retirez signe dièse , convertir en nombre
@@ -159,11 +168,13 @@
     // Link modifier
     //---------------
     answer_validate(e){
-        $('.carousel-linked-nav .active').addClass('active');
+        $('.carousel-linked-nav .active').addClass('marqued');
+        $('.carousel-linked-nav .active').addClass('valide');
     }
     
     answer_marqued(e){
-        $('.carousel-linked-nav > li  .active').addClass('btn btn-warning');
+        $('.carousel-linked-nav .active').addClass('valide');
+        $('.carousel-linked-nav .active').addClass('marqued');
     }
     </script>
 </evalutions_details>
