@@ -77,8 +77,6 @@ class TemplateController extends Controller
             //rules to apply of each field
             $rules = array(
                 'name'          => 'required|min:2|max:25',
-                'accepted_prc'  => 'required|numeric|min:0|max:100',
-                'ongoing_prc'   => 'required|numeric|min:0|max:100',
             );
             
             $errorsJson = array();
@@ -100,44 +98,13 @@ class TemplateController extends Controller
                         array_push($errorsJson, Lang::get('validator.'.$key, ["name" => "Nom", "value" => $value]));
                     }
 
-                //--------------
-                //accepted_prc -
-                //--------------
-                if(array_key_exists("accepted_prc", $errors))
-                    for($j = 0; $j < count($errors["accepted_prc"]); ++$j)
-                    {
-                        $key = $errors["accepted_prc"][$j];
-                        $value = (strpos($key, '.min.') !== false) ? 0 : 100; 
-                        array_push($errorsJson, Lang::get('validator.'.$key, ["name" => "'% pour être admis'", "value" => $value]));
-                    }
-                    
-                    
-                //--------------
-                //ongoing_prc -
-                //--------------
-                if(array_key_exists("ongoing_prc", $errors))
-                    for($j = 0; $j < count($errors["ongoing_prc"]); ++$j)
-                    {
-                        $key = $errors["ongoing_prc"][$j];
-                        $value = (strpos($key, '.min.') !== false) ? 0 : 100; 
-                        array_push($errorsJson, Lang::get('validator.'.$key, ["name" => "'% pour être en cours d'acquisition'", "value" => $value]));
-                    }
-
                 //error
                 return response()->json(["error" => true, "message" => $errorsJson, "data" => []]);
             }
             else //ok
             {
-                if($request->accepted_prc <= $request->ongoing_prc)
-                {
-                    array_push($errorsJson, Lang::get('template.onGoingPrcBadValue'));
-                    return response()->json(["error" => true, "message" => $errorsJson, "data" => []]);
-                }
-                
                 $template = new template();
                 $template->name = $request->name;
-                $template->accepted_prc = $request->accepted_prc;
-                $template->ongoing_prc = $request->ongoing_prc;
                 $template->save();
                 
                 return response()->json(["error" => false, "message" => Lang::get('template.add', ["name" => $template->name]), "data" => $template]);

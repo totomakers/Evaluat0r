@@ -14,10 +14,19 @@ class Template extends Model
     // $primaryKey is the table primary key
     protected $connection = 'evaluat0r';
     protected $table = 'template';
-    //protected $primaryKey = 'id';
+    //protected $primaryKey = 'id'; 
+    
+    //Added virtual field
+    protected $appends = array('theme_count');
     
     public function themes()
     {
         return $this->belongsToMany('App\Models\Theme', 'template_theme', 'template_id', 'theme_id')->withPivot('question_count');
+    }
+    
+    //Virtual field
+    public function getThemeCountAttribute()
+    {
+       return $this->themes()->count();
     }
 }

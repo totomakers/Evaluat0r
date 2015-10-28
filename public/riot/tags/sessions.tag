@@ -19,6 +19,8 @@
                                 <th>Début</th>
                                 <th>Fin</th>
                                 <th>Durée</th>
+                                <th>Admis(%)</th>
+                                <th>En cours(%)</th>
                                 <th class="text-right">Questions</th>
                                 <th class="text-right">Candidats</th>
                                 <th class="text-right">Actions</th>
@@ -43,8 +45,20 @@
                                 </td>
                                 <td>
                                     <div class="input-group clockpicker">
-                                        <input type="text" class="form-control" value="00:00" id="sessions-add-duration">
+                                        <input type="text" class="form-control" value="00:00" id="sessions-add-duration"/>
                                         <span class="input-group-addon"><span class="fa fa-clock-o"></span></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='input-group'>
+                                        <input type='text' class="form-control" id="sessions-add-accepted-prc"/>
+                                        <span class="input-group-addon">%</span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class='input-group'>
+                                        <input type='text' class="form-control" id="sessions-add-ongoing-prc"/>
+                                        <span class="input-group-addon">%</span>
                                     </div>
                                 </td>
                                 <td></td>
@@ -56,6 +70,8 @@
                                 <td>{ dateFormatFr(start_date) }</td>
                                 <td>{ dateFormatFr(end_date)}</td>
                                 <td>{(duration == '00:00:00') ? 'Illimité' : duration }</td>
+                                <td class="text-right v-align"><span class="text-success">±{accepted_prc}%</span></td>
+                                <td class="text-right v-align"><span class="text-warning">±{ongoing_prc}%</span></td>
                                 <td class="text-right">{question_count}</td>
                                 <td class="text-right">{candidate_count}</td>
                                 <td class="text-right">
@@ -98,10 +114,11 @@
             var start_date = $('#sessions-add-start-date').val();
             var end_date = $('#sessions-add-end-date').val();
             var duration = $('#sessions-add-duration').val();
+            var accepted = $('#sessions-add-accepted-prc').val();
+            var ongoing = $('#sessions-add-ongoing-prc').val();
             
-            var params = { 'name' : name, 'start_date': start_date, 'end_date': end_date, 'duration': duration };
+            var params = { 'name' : name, 'start_date': start_date, 'end_date': end_date, 'duration': duration, 'accepted_prc':accepted, 'ongoing_prc':ongoing };
             opts.session.add(params);
-            
             enableForm(false, false);
         }
         
@@ -119,6 +136,8 @@
             var start_date = $('#sessions-add-start-date');
             var end_date = $('#sessions-add-end-date');
             var duration = $('#sessions-add-duration');
+            var accepted = $('#sessions-add-accepted-prc');
+            var ongoing = $('#sessions-add-ongoing-prc');
             
             var buttonAdd = $('#sessions-add-button');
             var buttonAddIcon = $('#sessions-add-button-ico');
@@ -129,6 +148,8 @@
                 start_date.removeAttr('disabled');
                 end_date.removeAttr('disabled');
                 duration.removeAttr('disabled');
+                accepted.removeAttr('disabled');
+                ongoing.removeAttr('disabled');
                 buttonAdd.removeAttr('disabled');
                 
                 buttonAddIcon.addClass('fa-plus');
@@ -142,6 +163,8 @@
                 start_date.attr('disabled', 'disabled');
                 end_date.attr('disabled', 'disabled');
                 duration.attr('disabled', 'disabled');
+                accepted.attr('disabled', 'disabled');
+                ongoing.attr('disabled', 'disabled');
                 buttonAdd.attr('disabled', 'disabled');
                 
                 buttonAddIcon.removeClass('fa-plus');
@@ -151,9 +174,9 @@
             if(clear == true)
             {
                 name.val('');
-                start_date.val('');
-                end_date.val('');
-                duration.val('');
+                duration.val('00:00');
+                accepted.val('');
+                ongoing.val('');
             }
         }
         

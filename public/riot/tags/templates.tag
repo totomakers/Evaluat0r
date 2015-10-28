@@ -16,18 +16,14 @@
                     <table class="table table-striped">
                         <thead>
                             <th>Nom</th>
-                            <th>Admis(%)</th>
-                            <th>En cours(%)</th>
-                            <th>Thèmes</th>
-                            <th>Actions</th>
+                            <th class="text-right">Thèmes</th>
+                            <th class="text-right">Actions</th>
                         </thead>
                         <tbody>
                             <tr>
                                 <td><input type="text" class="form-control" id="template-add-name" placeholder="Nom"></input></td>
-                                <td><input type="text" class="form-control" id="template-add-accepted-prc" placeholder="80"></input></td>
-                                <td><input type="text" class="form-control" id="template-add-ongoing-prc" placeholder="50"></input></td>
                                 <td></td>
-                                <td><button id="template-add-button" class="btn btn-success btn-lg" onclick={template_add}><i id="template-add-button-ico" class="fa fa-plus fa-lg"></i></button></td>
+                                <td class="text-right"><button id="template-add-button" class="btn btn-success btn-lg" onclick={template_add}><i id="template-add-button-ico" class="fa fa-plus fa-lg"></i></button></td>
                             </tr>
                             <tr each={ templates }>
                                 <td>
@@ -36,10 +32,8 @@
                                         <label for="template-radio-name-{id}">{name}</label>
                                     </span>
                                 </td>
-                                <td class="text-right v-align"><span class="text-success">±{accepted_prc}%</span></td>
-                                <td class="text-right v-align"><span class="text-warning">±{ongoing_prc}%</span></td>
-                                <td class="text-right v-align"></td>
-                                <td class="text-center v-align"><a href="" onclick={template_delete}><i data-toggle="tooltip" data-placement="top" title="Supprimer" class="fa fa-red fa-trash fa-lg"/></td>
+                                <td class="text-right v-align">{theme_count}</td>
+                                <td class="text-right v-align"><a href="" onclick={template_delete}><i data-toggle="tooltip" data-placement="top" title="Supprimer" class="fa fa-red fa-trash fa-lg"/></td>
                             </tr>
                         </tbody>
                     </table>

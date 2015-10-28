@@ -14,5 +14,6 @@ return [
     'candidateAdd' => 'Le candidat :name est inscrit',
     'candidateAlreadyMember' => 'Le candidat est déjà inscrit',
     'alreadyStart' => 'La session est démarrer, vous ne pouvez plus générer de questions.',
+    'onGoingPrcBadValue' => 'Le pourcentage pour obtenir admis doit être supérieur a celui pour être en cours d\'acquisition',
 ];
 
