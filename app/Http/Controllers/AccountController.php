@@ -6,10 +6,12 @@ use Validator;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
+use Carbon\Carbon;
 
 use Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Account;
+use App\Models\Evaluation;
 
 class AccountController extends Controller
 {
@@ -173,6 +175,52 @@ class AccountController extends Controller
                             ->orderBy('lastname')->get();
             
            return response()->json(["error" => false, "message" => '', "data" => $accounts]);
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
+        }
+    }
+    
+   /**
+    * @api {get} /accounts/evalutions Evaluations by status
+    * @apiName  evaluations Evalutions
+    * @apiGroup Accounts
+    *
+    * @apiSuccess {Boolean} error an error occur
+    * @apiSuccess {String} message description of action
+    * @apiSuccess {Array} data all evalutions
+    */
+    public function getEvaluations(Request $request)
+    {
+        try
+        {
+            $account = Auth::user();
+            
+            if(!$request->has('status'))
+                return response()->json(["error" => true, "message" => "", "data" => []]); //fail something is wrong
+                
+            $status = $request->status;
+            
+            switch($status)
+            {
+                case 'available':
+                    $evaluation = Evaluation::where('account_id', $account->id)->get()->pluck('session_id');
+                    $sessions = $account->sessions()
+                                ->whereNotIn('session_id', $evaluation)
+                                ->where('start_date', '<=', Carbon::today())
+                                ->get();
+
+                    return response()->json(["error" => false, "message" => "", "data" => $sessions]);
+                break;
+                
+                case 'in_progress':
+                     $sessions = $account->evalutions()->where('end_date', '<=',  Carbon::today())->get();
+                     return response()->json(["error" => false, "message" => "", "data" => $sessions]);
+                break;
+            }
+
+            return response()->json(["error" => true, "message" => "", "data" => []]); //fail something is wrong
         }
         catch(\Exception $e)
         {
