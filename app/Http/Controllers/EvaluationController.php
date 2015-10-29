@@ -93,17 +93,7 @@ class EvaluationController extends Controller
         {
             $account = Auth::user();
             $session = Session::find($session_id);
-            
-            //check if user is subscribe
-            $session = $session->candidates()->where('account_id', $account->id)->first();
-            if(!$session)
-                return response()->json(["error"=> true, "message" =>Lang::get('evaluation.notCandidate'), "data" => []]);
-            
-            //check if evaluation available
-            if($session->start_date >= Carbon::today())
-                return response()->json(["error"=> true, "message" =>Lang::get('evaluation.candidateEarlier'), "data" => []]);
-            
-            //check if already start
+
             $evaluation = Evaluation::with('session')->where('account_id', $account->id)->where('session_id', $session_id)->first();
             if($evaluation)
                 return response()->json(["error"=> true, "message" =>Lang::get('evaluation.alreadyStart'), "data" => []]);
@@ -116,6 +106,26 @@ class EvaluationController extends Controller
             $evaluation->validate = false;
             $evaluation->save();
            
+            return response()->json(["error"=> false, "message" => Lang::get('evaluation.start'), "data" => $evaluation]);
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
+        }
+    }
+    
+    public function getResult($evaluation_id)
+    {
+        try
+        {
+            $account = Auth::user();
+            $evaluation = Evaluations::find($evaluation_id);
+            
+            //check if user is subscribe
+            $evaluation = $evaluation->candidates()->where('session_id', $evaluation->id)->first();
+            if(!$session)
+                return response()->json(["error"=> true, "message" =>Lang::get('evaluation.notCandidate'), "data" => []]);
+
             return response()->json(["error"=> false, "message" => Lang::get('evaluation.start'), "data" => $evaluation]);
         }
         catch(\Exception $e)

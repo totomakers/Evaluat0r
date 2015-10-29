@@ -98,7 +98,6 @@ Route::group(['as' => 'api', 'prefix' => 'api'], function ()
     {
         Route::get('/', ['as' => '::getAll', 'middleware' => 'auth.rank:0', 'uses'=>'EvaluationController@getCurrentEvaluation']);
         Route::get('/start/{session_id}', ['as' => '::start', 'middleware' => 'auth.rank:0', 'uses'=>'EvaluationController@getStart']);
-    });
     
-
+    });
 });
