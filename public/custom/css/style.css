@@ -37,32 +37,6 @@
     vertical-align:middle!important;
 }
 
-.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
-    z-index: 2;
-    color: #FFF;
-    background-color: #158CBA;
-    border-color: #127BA3;
-    cursor: default;
-}
-
-.pagination > .valide > a, .pagination > .valide > span, .pagination > .valide > a:hover, .pagination > .valide > span:hover, .pagination > .valide > a:focus, .pagination > .valide > span:focus {
-    z-index: 2;
-    color: #FFF;
-    background-color: #28B62C;
-    border-color: #23A127;
-    cursor: default;
-}
-
-.pagination > .marqued > a, .pagination > .marqued > span, .pagination > .marqued > a:hover, .pagination > .marqued > span:hover, .pagination > .marqued > a:focus, .pagination > .marqued > span:focus {
-    z-index: 2;
-    color: #FFF;
-    background-color: #FF851B;
-    border-color: #FF7701;
-    cursor: default;
-}
-
-
-
 
 /*
 ------------------

@@ -54,6 +54,7 @@
 <script type="text/javascript" src="{!! URL::asset('bower/select2/dist/js/i18n/fr.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('bower/moment/min/moment-with-locales.min.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('bower/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'); !!}"></script>
+<script type="text/javascript" src="{!! URL::asset('bower/remarkable-bootstrap-notify/bootstrap-notify.min.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('custom/js/sidebar.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('custom/js/global.js'); !!}"></script>
 <script type="text/javascript" src="{!! URL::asset('riot/app/auth.js'); !!}"></script>
