@@ -25,9 +25,12 @@ class Session extends Model
     //Relationships
     public function questions()
     {
-        return $this->belongsToMany('App\Models\Question', 'session_question', 'session_id', 'question_id')->with('answers');
+        return $this->belongsToMany('App\Models\Question', 'session_question', 'session_id', 'question_id')
+                                    ->with(['answers' => function ($query) {
+                                        $query->select('question_id', 'id', 'wording'); //delete answer
+                                    }]);
     }
-    
+
     public function candidates()
     {
          return $this->belongsToMany('App\Models\Account', 'session_candidate', 'session_id', 'account_id')->withPivot('created_at');

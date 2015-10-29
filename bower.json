@@ -12,6 +12,7 @@
     "clockpicker": "~0.0.7",
     "select2": "~4.0.0",
     "eonasdan-bootstrap-datetimepicker": "~4.17.37",
-    "moment": "~2.10.6"
+    "moment": "~2.10.6",
+    "remarkable-bootstrap-notify": "~3.1.3"
   }
 }

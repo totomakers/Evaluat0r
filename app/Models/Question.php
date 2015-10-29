@@ -14,6 +14,9 @@ class Question extends Model
     // $primaryKey is the table primary key
     protected $connection = 'evaluat0r';
     protected $table = 'question';
+    
+    //Added virtual field
+    protected $appends = array('good_answer_count');
       
     public function theme()
     {
@@ -24,4 +27,17 @@ class Question extends Model
     {
         return $this->hasMany('App\Models\Answer');
     }
+    
+    private function goodAnswers()
+    {
+        return $this->hasMany('App\Models\Answer')->where('good', true);
+    }
+    
+    //Virtual field
+    public function getGoodAnswerCountAttribute()
+    {
+       return $this->goodAnswers()->count();
+    }
+    
+    
 }

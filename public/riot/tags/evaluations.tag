@@ -58,7 +58,6 @@
                                 <th>Démarrer le</th>
                                 <th>Durée</th>
                                 <th class="text-right">Question répondues</th>
-                                <th class="text-right">Question marquées</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -69,8 +68,7 @@
                                 <td class="v-align">{dateFormatFr(session.end_date)}</td>
                                 <td class="v-align">{dateTimeFormatFr(start)}</td>
                                 <td class="v-align">{(session.duration == '00:00:00') ? 'Illimité' : session.duration }</td>
-                                <td class="text-right v-align">?</td>
-                                <td class="text-right v-align">?</td>
+                                <td class="text-right v-align">{question_answer_count}</td>
                                 <td class="text-right">
                                     <a href="#evaluations/exam/{id}"><button id="template-add-button" class="btn btn-warning"><i id="template-add-button-ico" class="fa fa-pencil"></i> Reprendre</button></a>
                                 </td>

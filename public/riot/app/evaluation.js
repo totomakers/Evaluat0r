@@ -27,6 +27,29 @@ evaluation.start = function(session_id)
     $.ajax({ url: evaluation.apiBaseUrl+'/start/'+session_id, success: evaluation.onStart});
 }
 
+evaluation.getQuestions = function(id)
+{
+    $.ajax({ url : evaluation.apiBaseUrl+'/'+id+'/questions', success: evaluation.onGetQuestions});
+}
+
+evaluation.getAnswers = function(id)
+{
+    $.ajax({url : evaluation.apiBaseUrl+'/'+id+'/answers', success: evaluation.onGetAnswers});
+}
+
+evaluation.postAnswers = function(id, answers)
+{
+    $.ajax({type: "POST", url : evaluation.apiBaseUrl+'/'+id+'/answers', data: { 'answers': answers }, success: evaluation.onPostAnswers});
+}
+
+evaluation.getTimer = function(id)
+{
+    $.ajax({url : evaluation.apiBaseUrl+'/'+id+'/timer', success: evaluation.onGetTimer}); 
+}
+
+//--------------------------
+//--------------------------
+
 //*WARNING* return session *WARNING*
 evaluation.onGetAvailable = function(json)
 {
@@ -46,4 +69,24 @@ evaluation.onGetEnded = function(json)
 evaluation.onStart = function(json)
 {
     evaluation.trigger('evaluation_start', json);
+}
+
+evaluation.onGetQuestions = function(json)
+{
+    evaluation.trigger('evaluation_questions', json);
+}
+
+evaluation.onGetAnswers = function(json)
+{
+    evaluation.trigger('evaluation_get_answers', json);
+}
+
+evaluation.onPostAnswers = function(json)
+{
+    evaluation.trigger('evaluation_post_answers', json);
+}
+
+evaluation.onGetTimer = function(json)
+{
+    evaluation.trigger('evaluation_get_timer', json);
 }

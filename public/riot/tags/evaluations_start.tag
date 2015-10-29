@@ -59,7 +59,7 @@
             alert.show('#alert-box', (json.error == false) ? 'success' : 'danger', json.message);
             self.update();
             
-            if(json.error == false) riot.route('evaluation/exam/'+json.data.id);
+            if(json.error == false) riot.route('evaluations/exam/'+json.data.id);
         }); 
     </script>
 </evaluations_start>

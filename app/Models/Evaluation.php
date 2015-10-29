@@ -16,8 +16,33 @@ class Evaluation extends Model
     protected $table = 'evaluation';
     protected $primaryKey = 'id';
     
-    public function session()
+    protected $dates = ['start'];
+    
+     public function session()
     {
         return $this->hasOne('App\Models\Session', 'id', 'session_id');
     }
+    
+    public function questions()
+    { 
+        return $this->belongsToMany('App\Models\Question', 'evaluation_question', 'evaluation_id', 'question_id')->withPivot('mark');
+    }
+    
+    public function answers()
+    {
+        return $this->belongsToMany('App\Models\Answer', 'evaluation_answer', 'evaluation_id', 'answer_id');
+    }
+    
+    //Added virtual field
+    protected $appends = array('question_answer_count');
+    
+     //Virtual field
+    public function getQuestionAnswerCountAttribute()
+    {
+       return $this->questions()->count();
+    }
+    
+   
+    
+    
 }
