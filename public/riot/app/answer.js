@@ -5,4 +5,4 @@ var Answer = function(){
 };
 
 var answer = riot.observable();
-answer.apiBaseUrl = '/api/';
+answer.apiBaseUrl = global_baseUrl+'/api/';

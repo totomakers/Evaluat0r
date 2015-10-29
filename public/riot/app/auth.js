@@ -1,5 +1,5 @@
 var auth = riot.observable();
-auth.apiBaseUrl = '/api/accounts';
+auth.apiBaseUrl = global_baseUrl+'/api/accounts';
 
 //----------------
 //API ------------
@@ -34,5 +34,5 @@ auth.triggerProfile = function(json)
 
 auth.onLogout = function(json)
 {
-    document.location.href = '/';
+    document.location.href = global_baseUrl;
 }

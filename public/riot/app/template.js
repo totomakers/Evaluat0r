@@ -1,5 +1,5 @@
 var template = riot.observable();
-template.apiBaseUrl = '/api/templates';
+template.apiBaseUrl = global_baseUrl+'/api/templates';
 
 template.sortByName =  function(a, b) 
 {

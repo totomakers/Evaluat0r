@@ -1,5 +1,5 @@
 var evaluation = riot.observable();
-evaluation.apiBaseUrl = '/api/evaluations';
+evaluation.apiBaseUrl = global_baseUrl+'/api/evaluations';
 
 //----------------
 //API ------------

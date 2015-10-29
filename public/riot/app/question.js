@@ -1,5 +1,5 @@
 var question = riot.observable();
-question.apiBaseUrl = '/api/questions';
+question.apiBaseUrl = global_baseUrl+'/api/questions';
 
 //----------------
 //API ------------

@@ -43,7 +43,7 @@
             self.message = json.message;
             self.error = json.error;  
            
-            if(self.error == false) document.location.href = '/app'; //redirect when login ok
+            if(self.error == false) document.location.href = global_baseUrl+'app'; //redirect when login ok
             else self.update();
         });  
       

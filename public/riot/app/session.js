@@ -1,5 +1,5 @@
 var session = riot.observable();
-session.apiBaseUrl = '/api/sessions';
+session.apiBaseUrl = global_baseUrl+'/api/sessions';
 
 //----------------
 //API ------------

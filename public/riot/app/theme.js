@@ -1,5 +1,5 @@
 var theme = riot.observable();
-theme.apiBaseUrl = '/api/themes';
+theme.apiBaseUrl = global_baseUrl+'/api/themes';
 
 //----------------
 //API ------------
