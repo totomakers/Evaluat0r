@@ -28,6 +28,7 @@ class QuestionController extends Controller
     * @apiSuccess {Boolean} error an error occur
     * @apiSuccess {String} message description of action
     * @apiSuccess {Array} data Data of all questions
+    * @apiSampleRequest off
     */
     public function getAll()
     {
@@ -54,6 +55,7 @@ class QuestionController extends Controller
     * @apiSuccess {Boolean} error an error occur
     * @apiSuccess {String} message description of action
     * @apiSuccess {Array} data Data of the theme
+    * @apiSampleRequest off
     */
     public function postAdd(Request $request)
     {
@@ -214,6 +216,7 @@ class QuestionController extends Controller
      * @apiSuccess {Boolean} error an error occur
      * @apiSuccess {String} message description of action
      * @apiSuccess {Array} data current deleted question
+     * @apiSampleRequest off
      */
     public function deleteDelete($id)
     {

@@ -36,6 +36,7 @@ class AccountController extends Controller
     * @apiSuccess {Boolean} error an error occur
     * @apiSuccess {String} message description of action
     * @apiSuccess {Array} data all accounts
+    * @apiSampleRequest off
     */
     public function getAll()
     {
@@ -60,6 +61,7 @@ class AccountController extends Controller
     * @apiSuccess {Boolean} error an error occur
     * @apiSuccess {String} message description of action
     * @apiSuccess {Array} data current account information
+    * @apiSampleRequest off
     */
     public function getById($id)
     {
@@ -88,6 +90,7 @@ class AccountController extends Controller
     * @apiSuccess {Boolean} error an error occur
     * @apiSuccess {String} message description of action
     * @apiSuccess {Array} data Current account information
+    * @apiSampleRequest off
     */
     public function getProfil()
     {
@@ -113,6 +116,7 @@ class AccountController extends Controller
     * @apiSuccess {Boolean} error an error occur
     * @apiSuccess {String} message description of action
     * @apiSuccess {Array} data empty
+    * @apiSampleRequest off
     */
     public function postLogin(Request $request)
     {
@@ -141,6 +145,7 @@ class AccountController extends Controller
     * @apiSuccess {Boolean} error an error occur
     * @apiSuccess {String} message description of action
     * @apiSuccess {Array} data empty
+    * @apiSampleRequest off
     */
     public function getLogout()
     {
@@ -164,6 +169,7 @@ class AccountController extends Controller
     * @apiSuccess {Boolean} error an error occur
     * @apiSuccess {String} message description of action
     * @apiSuccess {Array} data all accounts
+    * @apiSampleRequest off
     */
     public function getSelect2Candidates(Request $request)
     {

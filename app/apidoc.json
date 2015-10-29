@@ -1,0 +1,16 @@
+{
+  "name": "apidoc-Evaluat0r",
+  "version": "0.0.1",
+  "description": "Documentation API Evaluat0r",
+  "title": "Evaluat0r",
+  "url" : "http://your-website-url.com/api",
+  "sampleUrl": "http://your-website-url.com/api",
+  "header": {
+    "title": "Début",
+    "filename": "header.md"
+  },
+  "template": {
+    "withCompare": false,
+    "withGenerator": false
+  }
+}

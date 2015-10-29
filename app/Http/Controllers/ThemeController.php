@@ -29,6 +29,7 @@ class ThemeController extends Controller
      * @apiSuccess {Boolean} error an error occur
      * @apiSuccess {String} message description of action
      * @apiSuccess {Array} data all themes
+     * @apiSampleRequest off
      */
     public function getAll(Request $request)
     {
@@ -69,6 +70,7 @@ class ThemeController extends Controller
      * @apiSuccess {Boolean} error an error occur
      * @apiSuccess {String} message description of action
      * @apiSuccess {Array} data Data of the theme
+     * @apiSampleRequest off
      */
     public function getbyId($id)
     {
@@ -100,6 +102,7 @@ class ThemeController extends Controller
      * @apiSuccess {Boolean} error an error occur
      * @apiSuccess {String} message description of action
      * @apiSuccess {Array} data current deleted theme
+     * @apiSampleRequest off
      */
     public function deleteDelete($id)
     {
@@ -132,6 +135,7 @@ class ThemeController extends Controller
      * @apiSuccess {Boolean} error an error occur
      * @apiSuccess {String} message description of action
      * @apiSuccess {Array} data current new theme
+     * @apiSampleRequest off
      */
     public function postAdd(Request $request)
     {
@@ -201,6 +205,7 @@ class ThemeController extends Controller
      * @apiSuccess {Boolean} error an error occur
      * @apiSuccess {String} message description of action
      * @apiSuccess {Array} data All questions of theme
+     * @apiSampleRequest off
      */
     public function getQuestionsByTheme($id)
     {
@@ -230,6 +235,7 @@ class ThemeController extends Controller
      * @apiSuccess {Boolean} error an error occur
      * @apiSuccess {String} message description of action
      * @apiSuccess {Array} data current select2 data
+     * @apiSampleRequest off
      */
     public function getSelect2(Request $request)
     {

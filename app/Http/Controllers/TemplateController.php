@@ -30,6 +30,7 @@ class TemplateController extends Controller
     * @apiSuccess {Boolean} error an error occur
     * @apiSuccess {String} message description of action
     * @apiSuccess {Array} data all templates
+    * @apiSampleRequest off
     */
     public function getAll(Request $request)
     {
@@ -69,6 +70,7 @@ class TemplateController extends Controller
     * @apiSuccess {Boolean} error an error occur
     * @apiSuccess {String} message description of action
     * @apiSuccess {Array} data new template data
+    * @apiSampleRequest off
     */
     public function postAdd(Request $request)
     {
@@ -126,6 +128,7 @@ class TemplateController extends Controller
     * @apiSuccess {Boolean} error an error occur
     * @apiSuccess {String} message description of action
     * @apiSuccess {Array} data all themes link to the themes
+    * @apiSampleRequest off
     */
     public function getThemesByTemplate($id)
     {
@@ -154,6 +157,7 @@ class TemplateController extends Controller
      * @apiSuccess {Boolean} error an error occur
      * @apiSuccess {String} message description of action
      * @apiSuccess {Array} data current deleted template
+     * @apiSampleRequest off
      */
     public function deleteDelete($id)
     {
@@ -185,6 +189,7 @@ class TemplateController extends Controller
      * @apiSuccess {Boolean} error an error occur
      * @apiSuccess {String} message description of action
      * @apiSuccess {Array} data 
+     * @apiSampleRequest off
      */
     public function postAddTheme($id, Request $request)
     {
@@ -258,6 +263,7 @@ class TemplateController extends Controller
      * @apiSuccess {Boolean} error an error occur
      * @apiSuccess {String} message description of action
      * @apiSuccess {Array} data 
+     * @apiSampleRequest off
      */
     public function deleteRemoveTheme($id, $theme_id)
     {
@@ -290,6 +296,7 @@ class TemplateController extends Controller
     * @apiSuccess {Boolean} error an error occur
     * @apiSuccess {String} message description of action
     * @apiSuccess {Array} data current select2 data
+    * @apiSampleRequest off
     */
     public function getSelect2(Request $request)
     {

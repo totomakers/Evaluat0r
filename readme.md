@@ -21,6 +21,11 @@
 
 + Lancer la commande `php artisan serv`
 
+##### Générer la docmentation
+
+Pour la document nous utilisons [apiDoc](https://github.com/apidoc/apidoc)
+
++ Pour générer la documentation executer `apidoc -i app/ -o apidoc/`
 
 #### Environnement de production :
 

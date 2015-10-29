@@ -13,6 +13,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Evaluation;
 use App\Models\Account;
 use App\Models\Session;
+use App\Models\Answer;
+use App\Models\Question;
 
 class EvaluationController extends Controller
 {
@@ -34,6 +36,7 @@ class EvaluationController extends Controller
     * @apiSuccess {Boolean} error an error occur
     * @apiSuccess {String} message description of action
     * @apiSuccess {Array} data all themes
+    * @apiSampleRequest off
     */
     public function getCurrentEvaluation(Request $request)
     {
@@ -119,14 +122,16 @@ class EvaluationController extends Controller
         try
         {
             $account = Auth::user();
-            $evaluation = Evaluations::find($evaluation_id);
             
-            //check if user is subscribe
-            $evaluation = $evaluation->candidates()->where('session_id', $evaluation->id)->first();
-            if(!$session)
-                return response()->json(["error"=> true, "message" =>Lang::get('evaluation.notCandidate'), "data" => []]);
+            $evaluation = Evaluation::find($evaluation_id)->where('account_id', $account->id);
 
-            return response()->json(["error"=> false, "message" => Lang::get('evaluation.start'), "data" => $evaluation]);
+            $session = Evaluation::with('session')->find($evaluation_id)->session;
+            
+            $questions = Session::with('questions')->find($session->id)->questions;
+
+            $answers = $question->answers->get();
+            
+            return response()->json(["error"=> false, "message" =>'efsfsdf', "data" => $answers]);
         }
         catch(\Exception $e)
         {

@@ -5,3 +5,5 @@ Homestead.json
 .env
 
 /public/bower/
+
+/apidoc/

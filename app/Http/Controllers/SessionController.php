@@ -30,6 +30,7 @@ class SessionController extends Controller
     * @apiSuccess {Boolean} error an error occur
     * @apiSuccess {String} message description of action
     * @apiSuccess {Array} data Data of all sessions
+    * @apiSampleRequest off
     */
     public function getAll(Request $request)
     {
@@ -70,6 +71,7 @@ class SessionController extends Controller
     * @apiSuccess {Boolean} error an error occur
     * @apiSuccess {String} message description of action
     * @apiSuccess {Array} data wanted session
+    * @apiSampleRequest off
     */
     public function getById($id)
     {
@@ -102,6 +104,7 @@ class SessionController extends Controller
      * @apiSuccess {Boolean} error an error occur
      * @apiSuccess {String} message description of action
      * @apiSuccess {Array} data wanted session
+     * @apiSampleRequest off
      */
     public function postAdd(Request $request)
     {
@@ -241,6 +244,7 @@ class SessionController extends Controller
      * @apiSuccess {Boolean} error an error occur
      * @apiSuccess {String} message description of action
      * @apiSuccess {Array} data Updated Session
+     * @apiSampleRequest off
      */
     public function putUpdate($id, Request $request)
     {
@@ -383,6 +387,7 @@ class SessionController extends Controller
     * @apiSuccess {Boolean} error an error occur
     * @apiSuccess {String} message description of action
     * @apiSuccess {Array} data Updated Session
+    * @apiSampleRequest off
     */
     public function deleteDelete($id)
     {
@@ -418,6 +423,7 @@ class SessionController extends Controller
     * @apiSuccess {Boolean} error an error occur
     * @apiSuccess {String} message description of action
     * @apiSuccess {Array} data Session candidates
+    * @apiSampleRequest off
     */
     public function getCandidates($id)
     {
@@ -446,6 +452,7 @@ class SessionController extends Controller
      * @apiSuccess {Boolean} error an error occur
      * @apiSuccess {String} message description of action
      * @apiSuccess {Array} data Added account
+     * @apiSampleRequest off
      */
     public function postAddCandidate($id, Request $request)
     {
@@ -511,6 +518,7 @@ class SessionController extends Controller
      * @apiSuccess {Boolean} error an error occur
      * @apiSuccess {String} message description of action
      * @apiSuccess {Array} data Remove account id, firstname and lastname
+     * @apiSampleRequest off
      */
     public function deleteRemoveCandidate($id, $account_id)
     {
@@ -547,11 +555,12 @@ class SessionController extends Controller
      * @apiName getQuestions();
      * @apiGroup Sessions
      *
-     * @apiParam {Number} $id Session unique id
+     * @apiParam {Number} id Session unique id
      *
      * @apiSuccess {Boolean} error an error occur
      * @apiSuccess {String} message description of action
      * @apiSuccess {Array} data All questions of the sessions
+     * @apiSampleRequest off
      */
      public function getQuestions($id)
      {
@@ -576,12 +585,13 @@ class SessionController extends Controller
      * @apiName putGenerateQuestion();
      * @apiGroup Sessions
      *
-     * @apiParam {Number} $id Session unique id
-     * @apiParam {Number} $theme_id Theme unique id
+     * @apiParam {Number} id Session unique id
+     * @apiParam {Number} theme_id Theme unique id
      *
      * @apiSuccess {Boolean} error an error occur
      * @apiSuccess {String} message description of action
      * @apiSuccess {Array} data New questions of the sessions
+     * @apiSampleRequest off
      */
     public function putGenerateQuestion($id, $template_id)
     {
