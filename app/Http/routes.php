@@ -98,6 +98,10 @@ Route::group(['as' => 'api', 'prefix' => 'api'], function ()
     {
         Route::get('/', ['as' => '::getAll', 'middleware' => 'auth.rank:0', 'uses'=>'EvaluationController@getCurrentEvaluation']);
         Route::get('/start/{session_id}', ['as' => '::start', 'middleware' => 'auth.rank:0', 'uses'=>'EvaluationController@getStart']);
+        Route::get('/{id}/questions', ['as' => '::questions', 'middleware' => 'auth.rank:0', 'uses'=>'EvaluationController@getQuestions']);
+        Route::post('/{id}/questions/{question_id}/answer', ['as' => '::answer', 'middleware' => 'auth.rank:0', 'uses'=>'EvaluationController@postAnswer']);
+        Route::get('/{id}/timer', ['as' => '::timer', 'middleware' => 'auth.rank:0', 'uses' => 'EvaluationController@getTimer']);
+        Route::get('/{id}/result', ['as' => '::result', 'middleware' => 'auth.rank:0', 'uses' => 'EvaluationController@getResult']);
     });
     
 
