@@ -19,11 +19,8 @@ DROP TABLE IF EXISTS `template`;
 CREATE TABLE `template` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Identifant du test',
   `name` text NOT NULL COMMENT 'Nom du test',
-  `duration` time NOT NULL COMMENT 'Durée du test',
-  `accepted_prc` int(10) unsigned NOT NULL COMMENT '% pour avoir admis',
-  `ongoing_prc` int(10) unsigned NOT NULL COMMENT '% pour avoir en cours d''acquisition',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

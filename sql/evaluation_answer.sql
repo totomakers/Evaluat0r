@@ -12,19 +12,15 @@ MySQL - 5.6.26 : Database - evaluat0r
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-/*Table structure for table `question` */
+/*Table structure for table `evaluation_answer` */
 
-DROP TABLE IF EXISTS `question`;
+DROP TABLE IF EXISTS `evaluation_answer`;
 
-CREATE TABLE `question` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Id de la question',
-  `wording` text NOT NULL COMMENT 'Libellé de la question',
-  `picture` text COMMENT 'Image liée à la question',
-  `theme_id` int(10) unsigned NOT NULL COMMENT 'Id du thème lié',
-  PRIMARY KEY (`id`),
-  KEY `FK_THEME_ID` (`theme_id`),
-  CONSTRAINT `FK_THEME_ID` FOREIGN KEY (`theme_id`) REFERENCES `theme` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=105 DEFAULT CHARSET=latin1;
+CREATE TABLE `evaluation_answer` (
+  `evaluation_id` int(10) unsigned NOT NULL,
+  `answer_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`evaluation_id`,`answer_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

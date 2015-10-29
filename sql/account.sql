@@ -25,7 +25,7 @@ CREATE TABLE `account` (
   `rank` int(11) NOT NULL DEFAULT '0' COMMENT 'Rang de l''utilisateur',
   `remember_token` text NOT NULL COMMENT 'Token du remember me',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
