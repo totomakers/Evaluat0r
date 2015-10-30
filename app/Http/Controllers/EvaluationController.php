@@ -29,13 +29,13 @@ class EvaluationController extends Controller
     /**
     * @api {get} /evaluations Request Current evaluation by status
     * @apiName getAll
-    * @apiGroup Themes
+    * @apiGroup Evaluations
     *
     * @apiParam {String} Status of evalution available, in_progress, ended
     *
     * @apiSuccess {Boolean} error an error occur
     * @apiSuccess {String} message description of action
-    * @apiSuccess {Array} data all themes
+    * @apiSuccess {Array} data evaluation
     * @apiSampleRequest off
     */
     public function getCurrentEvaluation(Request $request)
@@ -65,7 +65,7 @@ class EvaluationController extends Controller
                         $evaluations =  $evaluations->where('validate', '=', false)
                                                     ->whereHas('session', function ($query) 
                                                     {
-                                                        $query->where('end_date', '>', Carbon::today());
+                                                        $query->where('end_date', '<=', Carbon::today());
                                                     })->get();
                         
                         return response()->json(["error"=> false, "message" =>"", "data" => $evaluations]);
@@ -91,12 +91,25 @@ class EvaluationController extends Controller
         }
     }
     
+
     private function checkEvaluationUser()
     {
         $account = Auth::user();
         return NULL;
     }
     
+   /**
+    * @api {get} /evaluations/{session_id}/start Start the current session
+    * @apiName getStart
+    * @apiGroup Evaluations
+    *
+    * @apiParam {Number} Session unique id
+    *
+    * @apiSuccess {Boolean} error an error occur
+    * @apiSuccess {String} message description of action
+    * @apiSuccess {Array} data of the current evaluation
+    * @apiSampleRequest off
+    */
     public function getStart($session_id)
     {
         try
@@ -124,6 +137,18 @@ class EvaluationController extends Controller
         }
     }
     
+   /**
+    * @api {get} /evaluations/{id}/questions Get questions of the current evaluation
+    * @apiName getQuestions
+    * @apiGroup Evaluations
+    *
+    * @apiParam {Number} Session unique id
+    *
+    * @apiSuccess {Boolean} error an error occur
+    * @apiSuccess {String} message description of action
+    * @apiSuccess {Array} data of the current evaluation
+    * @apiSampleRequest off
+    */ 
     public function getQuestions($id)
     {
         try
@@ -170,6 +195,18 @@ class EvaluationController extends Controller
         }
     }
     
+   /**
+    * @api {get} /evaluations/{id}/answers get current answers 
+    * @apiName getAnswers
+    * @apiGroup Evaluations
+    *
+    * @apiParam {Number} Session unique id
+    *
+    * @apiSuccess {Boolean} error an error occur
+    * @apiSuccess {String} message description of action
+    * @apiSuccess {Array} data answers
+    * @apiSampleRequest off
+    */ 
     public function getAnswers($id)
     {
         try
@@ -191,6 +228,18 @@ class EvaluationController extends Controller
         }
     }
     
+   /**
+    * @api {post} /evaluations/{id}/answers Post the current answers
+    * @apiName getAnswers
+    * @apiGroup Evaluations
+    *
+    * @apiParam {Number} Session unique id
+    *
+    * @apiSuccess {Boolean} error an error occur
+    * @apiSuccess {String} message description of action
+    * @apiSuccess {Array} data 
+    * @apiSampleRequest off
+    */ 
     public function postAnswers($id, Request $request)
     {
         try
@@ -282,6 +331,18 @@ class EvaluationController extends Controller
         }
     }
     
+    /**
+    * @api {get} /evaluations/{id}/timer Get timer of the evaluation
+    * @apiName getTimer
+    * @apiGroup Evaluations
+    *
+    * @apiParam {Number} Session unique id
+    *
+    * @apiSuccess {Boolean} error an error occur
+    * @apiSuccess {String} message description of action
+    * @apiSuccess {Array} data 
+    * @apiSampleRequest off
+    */ 
     public function getTimer($id)
     {
         try
@@ -333,5 +394,60 @@ class EvaluationController extends Controller
         {
             return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
         }
+    }
+    
+    public function markQuestion($id, $question_id)
+    {
+        try
+        {
+            //check if already start
+            $evaluation = Evaluation::find($id)->first();
+                if(!$evaluation) 
+                    return response()->json(["error"=> true, "message" =>Lang::get('evaluation.notStart'), "data" => []]);
+                    
+            //check if not validate
+            if($evaluation->validate)
+                return response()->json(["error"=> true, "message" =>Lang::get('evaluation.alreadyValidate'), "data" => []]);
+                
+            //check if date available
+            $session = Session::find($evaluation->session_id);
+            if($session->end_date < Carbon::today())
+                return response()->json(["error"=> true, "message" =>Lang::get('evaluation.ended'), "data" => []]);
+                
+            //check if duration not elapse
+            if($session->duration != '00:00:00')
+            {
+                $duration =  Carbon::createFromFormat('H:i:s', $session->duration);
+                
+                $evaluationEndDateTime = $evaluation->start
+                                                    ->addHour($duration->hour)
+                                                    ->addMinute($duration->minute)
+                                                    ->addSecond($duration->second);
+                                                    
+                                              
+                $now = Carbon::now();                                    
+                                                    
+                if($evaluationEndDateTime <= $now)                            
+                    return response()->json(["error"=> true, "message" => Lang::get('evaluation.timeElapse'), "data" => $evaluationEndDateTime]);    
+            }
+            
+            //check question
+            $question = Question::find($question_id);
+            if(!$question)
+                return response()->json(["error"=> true, "message" => Lang::get('question.notFound'), "data" => []]);    
+                
+            $questionPivot = $evaluation->questions()->find($question_id);
+            $mark = true;
+            
+            if($questionPivot)
+                    $mark = !$questionPivot->pivot->mark;
+             
+            $evaluation->questions()->sync([$question_id => [ "mark" => $mark ]]);
+            return response()->json(["error"=> true, "message" => ($mark) ? Lang::get('question.mark') : Lang::get('question.unmark') , "data" => []]);        
+        }
+        catch(\Exception $e)
+        {
+            return response()->json(["error" => true, "message" => $e->getMessage(), "data" => []]); //fail something is wrong
+        } 
     }
 }

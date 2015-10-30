@@ -52,7 +52,7 @@
                         </div>
                         <div class="text-center">
                             <button class="btn btn-success" type="submit" id="btn-evaluation-save">Sauvegarder</button>
-                            <button class="btn btn-warning">Marquer</button>
+                            <button class="btn btn-warning" onclick={questionMark}>Marquer</button>
                             <button class="btn btn-danger">Terminer le test</button>
                         </div>
                     
@@ -132,6 +132,11 @@
                 self.hideQuestion(self.currentQuestionIndex);
                 self.showQuestion(index);
             }
+        }
+        
+        questionMark(e){
+            var question_id = self.session.questions[self.currentQuestionIndex].id;
+            evaluation.mark(opts.page.id, question_id);
         }
         
         //-------------
